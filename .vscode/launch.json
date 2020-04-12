@@ -1,0 +1,45 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "install.js",
+			"type": "node",
+			"runtimeArgs": [
+				"--nolazy"
+			],
+			"request": "launch",
+			"cwd": "${workspaceFolder}",
+			"args": [
+				"${workspaceFolder}/bin/install.js"
+			],
+			"protocol": "inspector",
+			"envFile": "${workspaceFolder}/.env",
+			"env": {
+				"NODE_ENV": "development",
+			},
+			"console": "internalConsole",
+			"outputCapture": "std",
+			"internalConsoleOptions": "openOnSessionStart"
+		},
+		{
+			"name": "rollback.js",
+			"type": "node",
+			"runtimeArgs": [
+				"--nolazy"
+			],
+			"request": "launch",
+			"cwd": "${workspaceFolder}",
+			"args": [
+				"${workspaceFolder}/bin/rollback.js"
+			],
+			"protocol": "inspector",
+			"envFile": "${workspaceFolder}/.env",
+			"env": {
+				"NODE_ENV": "development",
+			},
+			"console": "internalConsole",
+			"outputCapture": "std",
+			"internalConsoleOptions": "openOnSessionStart"
+		}
+	]
+}

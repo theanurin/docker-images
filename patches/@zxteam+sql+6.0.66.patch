@@ -1,0 +1,13 @@
+diff --git a/node_modules/@zxteam/sql/lib/MigrationManager.js b/node_modules/@zxteam/sql/lib/MigrationManager.js
+index 93e1413..82bd3d6 100644
+--- a/node_modules/@zxteam/sql/lib/MigrationManager.js
++++ b/node_modules/@zxteam/sql/lib/MigrationManager.js
+@@ -98,7 +98,7 @@ class MigrationManager {
+                     return;
+                 }
+                 const versionBundle = this._migrationSources.getVersionBundle(versionName);
+-                const rollbackScriptNames = [...versionBundle.rollbackScriptNames].sort();
++                const rollbackScriptNames = [...versionBundle.rollbackScriptNames].sort().reverse(); // from new 99xxx.sql to 00xxx.sql
+                 for (const scriptName of rollbackScriptNames) {
+                     const migrationLogger = this._log.getLogger(versionName);
+                     const script = versionBundle.getRollbackScript(scriptName);

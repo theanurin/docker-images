@@ -1,0 +1,27 @@
+{
+	"name": "@theanurin/sqlmigrationrunner-postgres",
+	"version": "0.1.0",
+	"description": "Plain SQL Database Migration",
+	"private": true,
+	"dependencies": {
+		"@zxteam/cancellation": "6.0.62",
+		"@zxteam/configuration": "6.0.64",
+		"@zxteam/contract": "6.0.62",
+		"@zxteam/errors": "6.0.62",
+		"@zxteam/logger": "6.0.63",
+		"@zxteam/sql": "6.0.66",
+		"@zxteam/sql-postgres": "6.0.66",
+		"lodash": "^4.17.15",
+		"patch-package": "^7.0.0"
+	},
+	"bin": {
+		"install": "./bin/install.js",
+		"rollback": "./bin/rollback.js"
+	},
+	"scripts": {
+		"postinstall": "patch-package"
+	},
+	"engines": {
+		"node": ">=16"
+	}
+}

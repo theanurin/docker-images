@@ -1,0 +1,17 @@
+{
+	"name": "@theanurin/sqlmigrationrunner",
+	"version": "0.10.13",
+	"description": "Plain SQL Database Migration",
+	"private": true,
+	"dependencies": {
+		"@freemework/common": "^0.10.13",
+		"@freemework/hosting": "^0.10.13",
+		"@freemework/sql.misc.migration": "^0.10.13",
+		"@freemework/sql.postgres": "^0.10.13",
+		"lodash": "^4.17.21"
+	},
+	"bin": {
+		"install": "./bin/install.js",
+		"rollback": "./bin/rollback.js"
+	}
+}

@@ -3,9 +3,9 @@
 
 set -ex
 
-PY_VER_STR=$(docker run --interactve --tty --rm --entrypoint /bin/bash "${IMAGE_NAME}" -c "python --version")
-MKDOCS_VER_STR=$(docker run --interactve --tty --rm --entrypoint /bin/bash "${IMAGE_NAME}" -c "mkdocs --version")
-PYMDOWN_VER_STR=$(docker run --interactve --tty --rm --entrypoint /bin/bash "${IMAGE_NAME}" -c "pip show pymdown_extensions | grep -e '^Version:'")
+PY_VER_STR=$(docker run --interactive --tty --rm --entrypoint /bin/bash "${IMAGE_NAME}" -c "python --version")
+MKDOCS_VER_STR=$(docker run --interactive --tty --rm --entrypoint /bin/bash "${IMAGE_NAME}" -c "mkdocs --version")
+PYMDOWN_VER_STR=$(docker run --interactive --tty --rm --entrypoint /bin/bash "${IMAGE_NAME}" -c "pip show pymdown_extensions | grep -e '^Version:'")
 
 echo "${PY_VER_STR}"
 echo "${MKDOCS_VER_STR}"

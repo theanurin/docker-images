@@ -45,4 +45,4 @@ The image embedding fixed version of MkDocs to prevent breaking changes in MkDoc
 # Support
 
 * Maintained by: [ZXTeam](https://zxteam.org)
-* Where to get help: [Telegram](https://t.me/zxteamorg)
+* Where to get help: [Telegram Channel](https://t.me/zxteamorg)

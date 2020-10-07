@@ -17,11 +17,14 @@
 
 ## Environment variables
 
-* `VERBOSE` = yes|no - Show executed shell commands. Default: no
+* `VERBOSE` = yes|no - Show executed shell commands. Default: **no**
+* `DATA_IN` - Define input directory (where .proto files are placed) for entry point generator script. Default: **/data/in**
+* `DATA_OUT` - Define output directory (where generated sources appears) for entry point generator script. Default: **/data/out**
 
 ## Volumes
 
-No any volumes
+* `/data/in` - Default location to .proto files
+* `/data/out` - Default location to generated artifacts
 
 # Inside
 
@@ -32,16 +35,73 @@ No any volumes
 
 # Launch
 
-## Generate C# bindings (--target=csharp)
+## Shell
 
-```bash
-docker run --interactive --tty --rm --volume /path/to/proto:/data/in --volume /path/to/src.gen:/data/out zxteamorg/devel.protobuf --target=csharp
+* C# bindings (--target=csharp)
+
+	```bash
+	docker run --interactive --tty --rm --volume /path/to/proto:/data/in --volume /path/to/src.gen:/data/out zxteamorg/devel.protobuf --target=csharp
+	```
+
+* TypeScript bindings (--target=typescript)
+
+	```bash
+	docker run --interactive --tty --rm --volume /path/to/proto:/data/in --volume /path/to/src.gen:/data/out zxteamorg/devel.protobuf --target=typescript
+	```
+
+## As VSCode tasks
+
+```json
+{
+	// See https://go.microsoft.com/fwlink/?LinkId=733558
+	// for the documentation about the tasks.json format
+	"version": "2.0.0",
+	...
+	"tasks": [
+		...
+		{
+			"label": "Generate C# Proto",
+			"group": "build",
+			"type": "shell",
+			"command": "docker run --interactive --tty --rm --mount type=bind,source=\"${workspaceFolder}/proto\",target=/data/in,readonly --volume \"${workspaceFolder}/gen.cs\":/data/out zxteamorg/devel.protobuf --target=csharp",
+			"problemMatcher": []
+		},
+		{
+			"label": "Generate TypeScript Proto",
+			"group": "build",
+			"type": "shell",
+			"command": "docker run --interactive --tty --rm --mount type=bind,source=\"${workspaceFolder}/proto\",target=/data/in,readonly --volume \"${workspaceFolder}/gen.ts\":/data/out zxteamorg/devel.protobuf --target=typescript",
+			"problemMatcher": []
+		}
+	],
+	...
+}
 ```
 
-## Generate TypeScript bindings (--target=typescript)
+## As GitLab Pipeline Job
 
-```bash
-docker run --interactive --tty --rm --volume /path/to/proto:/data/in --volume /path/to/src.gen:/data/out zxteamorg/devel.protobuf --target=typescript
+```yaml
+# .gitlab-ci.yaml
+# === Assume following ===
+# Input dir:             ./proto (take a look on DATA_IN)
+# Output C# dir:         ./gen.cs (take a look on DATA_OUT)
+# Output TypeScript dir: ./gen.ts (take a look on DATA_OUT)
+
+stages:
+  ...
+  - generate
+  ...
+
+proto:
+  stage: generate
+  image:
+    name: zxteamorg/devel.protobuf
+    entrypoint: ["/bin/sh", "-c"]
+  script:
+    - mkdir -p ./gen.cs ./gen.ts 
+    - DATA_IN=proto DATA_OUT=gen.cs /usr/local/bin/docker-entrypoint.sh --target=csharp
+    - DATA_IN=proto DATA_OUT=gen.ts /usr/local/bin/docker-entrypoint.sh --target=typescript
+  ...
 ```
 
 # Support

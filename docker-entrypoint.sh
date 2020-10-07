@@ -9,12 +9,12 @@ PROCOC_EXIT_CODE=255
 case "$1" in
 	--target=csharp)
 		echo "Generating C# bindings..."
-		protoc --csharp_out=/data/out --proto_path=/data/in /data/in/*.proto
+		protoc "--csharp_out=${DATA_OUT}" "--proto_path=${DATA_IN}" "${DATA_IN}"/*.proto
 		PROCOC_EXIT_CODE=$?
 		;;
 	--target=typescript)
 		echo "Generating TypeScript bindings..."
-		protoc --plugin=protoc-gen-ts=/usr/bin/protoc-gen-ts --js_out=import_style=commonjs,binary:/data/out --ts_out=/data/out --proto_path=/data/in /data/in/*.proto
+		protoc --plugin=protoc-gen-ts=/usr/bin/protoc-gen-ts "--js_out=import_style=commonjs,binary:${DATA_OUT}" "--ts_out=${DATA_OUT}" "--proto_path=${DATA_IN}" "${DATA_IN}"/*.proto
 		PROCOC_EXIT_CODE=$?
 		;;
 	*)

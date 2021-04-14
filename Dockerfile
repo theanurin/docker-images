@@ -37,7 +37,7 @@ RUN ./contrib/install_db4.sh `pwd`
 
 # Configure with low memory usage to be able to autobuild on Docker Hub (See https://docs.docker.com/docker-hub/builds/ and https://github.com/litecoin-project/litecoin/blob/81c4f2d80fbd33d127ff9b31bf588e4925599d79/doc/build-unix.md#memory-requirements)
 RUN ./configure \
-#  CXXFLAGS="--param ggc-min-expand=1 --param ggc-min-heapsize=32768" \
+  CXXFLAGS="--param ggc-min-expand=1 --param ggc-min-heapsize=32768" \
   BDB_LIBS="-L/build/litecoin-${LITECOIN_CORE_TAG_VERSION}/db4/lib -ldb_cxx-4.8" \
   BDB_CFLAGS="-I/build/litecoin-${LITECOIN_CORE_TAG_VERSION}/db4/include" \
   --without-gui
@@ -50,8 +50,8 @@ RUN make install
 
 # Stage binaries
 RUN mkdir -p /build/stage/usr/local/bin \
-&& cd /usr/local/bin \
-&& mv litecoin-cli litecoin-tx litecoin-wallet litecoind /build/stage/usr/local/bin
+  && cd /usr/local/bin \
+  && mv litecoin-cli litecoin-tx litecoin-wallet litecoind /build/stage/usr/local/bin
 
 # Create "data" user
 RUN useradd --create-home --user-group --home-dir /data data \
@@ -59,7 +59,7 @@ RUN useradd --create-home --user-group --home-dir /data data \
   && cp /etc/group /etc/passwd /etc/shadow /build/stage/etc/
 
 COPY docker-entrypoint.sh /build/stage/usr/local/bin/
-RUN chmod +x /build/stage/usr/local/bin/docker-entrypoint.sh
+RUN chmod +rx /build/stage/usr/local/bin/docker-entrypoint.sh
 
 
 # Final image

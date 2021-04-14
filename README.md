@@ -37,8 +37,12 @@ No any variables
 * [Litecoin v0.18.1](https://github.com/litecoin-project/litecoin/tree/v0.18.1)
 
 # Launch
-
 ## Mainnet
+1. Create directories (for mount)
+    ```bash
+    mkdir litecoin-mainnet-data
+    ```
+2. Start a container
     ```bash
     docker run \
         --interactive \
@@ -46,11 +50,16 @@ No any variables
         --rm \
         --publish 127.0.0.1:9332:9332 \
         --publish 0.0.0.0:9333:9333 \
-        --mount type=bind,source=$PWD/litecoin-data,target=/data \
+        --mount type=bind,source=$PWD/litecoin-mainnet-data,target=/data \
         zxteamorg/contrib.litecoin
     ```
 
 ## Testnet
+1. Create directories (for mount)
+    ```bash
+    mkdir litecoin-testnet-data
+    ```
+2. Start a container
     ```bash
     docker run \
         --interactive \
@@ -58,7 +67,7 @@ No any variables
         --rm \
         --publish 127.0.0.1:19332:19332 \
         --publish 0.0.0.0:19335:19335 \
-        --mount type=bind,source=$PWD/litecoin-data,target=/data \
+        --mount type=bind,source=$PWD/litecoin-testnet-data,target=/data \
         zxteamorg/contrib.litecoin \
             -testnet \
             -printtoconsole \

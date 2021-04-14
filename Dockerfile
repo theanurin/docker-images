@@ -2,11 +2,27 @@ ARG BUILD_IMAGE=debian:stretch-slim
 
 FROM ${BUILD_IMAGE} AS builder
 LABEL maintainer="ZXTeam <devel@zxteam.org>"
-ARG ZCLASSIC_TAG_VERSION="2.1.1-2"
+ARG ZCLASSIC_TAG_VERSION="2.1.1-3"
 WORKDIR /build
 
 # Build environment
-RUN apt-get update && apt-get install -y build-essential pkg-config libc6-dev m4 g++-multilib autoconf libtool ncurses-dev unzip git python python-zmq zlib1g-dev wget curl bsdmainutils automake pwgen && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y \
+  wget curl \
+  automake=1:1.15-6 \
+  build-essential=12.3 \
+  bsdmainutils=9.0.12+nmu1 \
+  pkg-config=0.29-4+b1 \
+  libc6-dev=2.24-11+deb9u4 \
+  libtool=2.4.6-2 \
+  m4=1.4.18-1 \
+  g++-multilib=4:6.3.0-4 \
+  autoconf=2.69-10 \
+  libncurses5-dev=6.0+20161126-1+deb9u2 \
+  unzip=6.0-21+deb9u2 \
+  git=1:2.11.0-3+deb9u7 \
+  python-zmq=16.0.2-2 \
+  zlib1g-dev=1:1.2.8.dfsg-5 \
+  pwgen=2.07-1.1+b1
 
 # Get sources
 RUN wget -qO- "https://github.com/ZclassicCommunity/zclassic/archive/v${ZCLASSIC_TAG_VERSION}.tar.gz" | tar -xz

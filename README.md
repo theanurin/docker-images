@@ -31,21 +31,28 @@ No any variables
 
 # Inside
 
-* [ZClassic v2.1.1-2](https://github.com/ZclassicCommunity/zclassic/tree/v2.1.1-2)
+* [ZClassic v2.1.1-3](https://github.com/ZclassicCommunity/zclassic/tree/v2.1.1-3)
 
 # Launch
+
+## Mainnet
+
+1. Create directories (for mount)
+    ```bash
+    mkdir zclassic zclassic-params
+    ```
 1. Start node daemon
-	```bash
-	docker run \
-		--interactive \
-		--tty \
-		--rm \
-		--publish 127.0.0.1:8023:8023 \
-		--publish 0.0.0.0:8033:8033 \
-		--mount type=bind,source=$PWD/zclassic-params,target=/data/.zcash-params \
-  		--mount type=bind,source=$PWD/zclassic,target=/data/.zclassic \
-		zxteamorg/zclassic
-	```
+    ```bash
+    docker run \
+        --interactive \
+        --tty \
+        --rm \
+        --publish 127.0.0.1:8023:8023 \
+        --publish 0.0.0.0:8033:8033 \
+        --mount type=bind,source=$PWD/zclassic-params,target=/data/.zcash-params \
+        --mount type=bind,source=$PWD/zclassic,target=/data/.zclassic \
+        zxteamorg/contrib.zclassic
+    ```
 
 # Support
 

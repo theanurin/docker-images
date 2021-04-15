@@ -66,7 +66,7 @@ RUN chmod +rx /build/stage/usr/local/bin/docker-entrypoint.sh
 FROM ${BUILD_IMAGE}
 LABEL maintainer="ZXTeam <devel@zxteam.org>"
 COPY --from=builder /build/stage/ /
-RUN apt-get update && apt-get install -y libboost-chrono1.62.0 libboost-thread1.62.0 libevent-2.0-5 libevent-pthreads-2.0-5 libssl1.0.2 openssl && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y libboost-chrono1.62.0 libboost-filesystem1.62.0 libboost-thread1.62.0 libevent-2.0-5 libevent-pthreads-2.0-5 libssl1.0.2 openssl && rm -rf /var/lib/apt/lists/*
 VOLUME /data
 EXPOSE 9332 9333 19332 19335 19443 19444
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]

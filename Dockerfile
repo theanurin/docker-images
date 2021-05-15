@@ -1,7 +1,9 @@
 ARG BUILD_IMAGE=alpine:3.13.5
 
+
 FROM ${BUILD_IMAGE} AS postgres_builder
-RUN apk add --no-cache postgresql postgresql-contrib
+ARG POSTGRES_PAKCAGE_VERSION=13.3-r0
+RUN apk add --no-cache postgresql=${POSTGRES_PAKCAGE_VERSION} postgresql-contrib=${POSTGRES_PAKCAGE_VERSION}
 RUN apk add --no-cache bash
 COPY docker-build.sql /build-toolkit/
 COPY docker-build.sh /build-toolkit/

@@ -29,12 +29,13 @@ No any variables
 
 # Inside
 
-* PostgreSQL 10.14 Server
+* Alpine Linux 3.13.5
+* PostgreSQL 13.3 Server
 * Database `devdb`
 * Flag table `"public"."emptytestflag"`
-* User `postgres` - superuser
-* User `devadmin` - owner of the database `devdb`
-* User `devuser` - regular user
+* User `postgres` - superuser (no password)
+* User `devadmin` - owner of the database `devdb` (no password)
+* User `devuser` - regular user (no password)
 
 # Launch
 1. Start development server

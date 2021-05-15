@@ -1,0 +1,4 @@
+*
+!docker-build.sh
+!docker-build.sql
+!docker-entrypoint.sh

@@ -1,0 +1,13 @@
+{
+	"appenders": {
+		"err": { "type": "stderr" }
+	},
+	"categories": {
+		"default": {
+			"appenders": [
+				"err"
+			],
+			"level": "ERROR"
+		}
+	}
+}

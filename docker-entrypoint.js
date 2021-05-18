@@ -28,13 +28,18 @@ async function runtime(cancellationToken, configuration) {
 }
 
 function createConfigurationProxy(finalConfig) {
-	function keyWalker(keys, sourceConfig, parent) {
+	function keyWalker(rootObj, keys, sourceConfig, parentObject, parentKeyName) {
 		const target = {};
+		if (rootObj === null) {
+			rootObj = target;
+		}
+		target["$root"] = rootObj;
 		const dottedKeys = new Map();
 		for (const key of keys) {
 			const dotIndex = key.indexOf(".");
 			if (dotIndex === -1) {
-				target[key] = sourceConfig.get(key);
+				const value = sourceConfig.get(key);
+				target[key] = value;
 			} else {
 				const parentKey = key.substring(0, dotIndex);
 				const subKey = key.substring(dotIndex + 1);
@@ -46,15 +51,29 @@ function createConfigurationProxy(finalConfig) {
 			}
 		}
 		for (const [parentKey, subKeys] of dottedKeys.entries()) {
-			const inner = keyWalker(subKeys, sourceConfig.getConfiguration(parentKey), parentKey);
+			const inner = keyWalker(rootObj, subKeys, sourceConfig.getConfiguration(parentKey), target, parentKey);
 			target[parentKey] = inner;
-			target[`${parentKey}s`] = Object.keys(inner).filter(key => !key.endsWith("s")).map(key => inner[key]);
+			target[`${parentKey}s`] = Object.keys(inner).filter(key => !key.endsWith("s") && key !== "$parent" && key !== "$root").map(key => {
+				const innerObj = inner[key];
+				const wrap = { ...innerObj };
+				Object.defineProperty(wrap, "$parent", {
+					get: function () {
+						return innerObj["$parent"]["$parent"];
+					}
+				});
+				return wrap;
+			});
 
 		}
+
+		if (parentObject !== null) {
+			target["$parent"] = parentObject;
+		}
+
 		return target;
 	}
 
-	const objectConfig = keyWalker(finalConfig.keys, finalConfig);
+	const objectConfig = keyWalker(null, finalConfig.keys, finalConfig, null, null);
 
 	function makeProxyAdapter(ns, obj) {
 		return new Proxy(obj, {

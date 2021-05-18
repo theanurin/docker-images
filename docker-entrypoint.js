@@ -12,7 +12,7 @@ const { launcher, registerShutdownHook } = require("@zxteam/launcher");
 const Mustache = require("mustache");
 const fs = require('fs');
 
-async function runtime(cancellationToken, configuration) {
+function runtime(cancellationToken, configuration) {
 	let templateContent;
 
 	try {
@@ -24,7 +24,16 @@ async function runtime(cancellationToken, configuration) {
 		}
 		throw e;
 	}
-	console.log(Mustache.render(templateContent, configuration));
+
+	return new Promise(function (resolve, reject) {
+		process.stdout.write(
+			Mustache.render(templateContent, configuration),
+			function (err) {
+				if (err) { return reject(err); }
+				return resolve();
+			}
+		);
+	});
 }
 
 function createConfigurationProxy(finalConfig) {

@@ -5,7 +5,7 @@ FROM alpine:${ALPINE_BUILD}
 
 ARG VER_OPENLDAP=2.4.57-r1
 ARG VER_LEGO=4.1.3-r0
-ARG VER_PYTHON=3.8.8-r0
+ARG VER_PYTHON=3.8.10-r0
 ARG VER_OPENSSL=1.1.1k-r0
 
 #
@@ -15,16 +15,16 @@ ARG BACKENDS="bdb hdb mdb"
 
 # Add OpenLDAP overlays (just names)
 # https://pkgs.alpinelinux.org/packages?name=openldap-overlay-*&branch=v3.11
-ARG OVERLAYS="memberof refint"
+ARG OVERLAYS="memberof refint syncprov"
 
 # Install packages
 RUN apk add --no-cache \
   openldap=${VER_OPENLDAP} \
   $(for OVERLAY in ${OVERLAYS}; do echo -n "openldap-overlay-${OVERLAY}=${VER_OPENLDAP} "; done) \
   $(for BACKEND in ${BACKENDS}; do echo -n "openldap-back-${BACKEND}=${VER_OPENLDAP} "; done) \
-  lego=4.1.3-r0 \
-  python3=3.8.8-r0 \
-  openssl=1.1.1k-r0 \
+  lego=${VER_LEGO} \
+  python3=${VER_PYTHON} \
+  openssl=${VER_OPENSSL} \
   py-pip && \
   pip3 install --upgrade pip && pip3 install requests
 

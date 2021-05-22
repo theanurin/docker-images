@@ -1,9 +1,9 @@
-[![Docker Build Status](https://img.shields.io/docker/cloud/build/zxteamorg/contrib.zclassic?label=Build%20Status)](https://hub.docker.com/r/zxteamorg/contrib.zclassic/builds)
-[![Docker Image Version](https://img.shields.io/docker/v/zxteamorg/contrib.zclassic?sort=date&label=Version)](https://hub.docker.com/r/zxteamorg/contrib.zclassic/tags)
-[![Docker Image Size](https://img.shields.io/docker/image-size/zxteamorg/contrib.zclassic?label=Image%20Size)](https://hub.docker.com/r/zxteamorg/contrib.zclassic/tags)
-[![Docker Pulls](https://img.shields.io/docker/pulls/zxteamorg/contrib.zclassic?label=Pulls)](https://hub.docker.com/r/zxteamorg/contrib.zclassic)
-[![Docker Pulls](https://img.shields.io/docker/stars/zxteamorg/contrib.zclassic?label=Docker%20Stars)](https://hub.docker.com/r/zxteamorg/contrib.zclassic)
-[![Docker Automation](https://img.shields.io/docker/cloud/automated/zxteamorg/contrib.zclassic?label=Docker%20Automation)](https://hub.docker.com/r/zxteamorg/contrib.zclassic/builds)
+[![Docker Build Status](https://img.shields.io/docker/cloud/build/zxteamorg/zclassic?label=Build%20Status)](https://hub.docker.com/r/zxteamorg/zclassic/builds)
+[![Docker Image Version](https://img.shields.io/docker/v/zxteamorg/zclassic?sort=date&label=Version)](https://hub.docker.com/r/zxteamorg/zclassic/tags)
+[![Docker Image Size](https://img.shields.io/docker/image-size/zxteamorg/zclassic?label=Image%20Size)](https://hub.docker.com/r/zxteamorg/zclassic/tags)
+[![Docker Pulls](https://img.shields.io/docker/pulls/zxteamorg/zclassic?label=Pulls)](https://hub.docker.com/r/zxteamorg/zclassic)
+[![Docker Pulls](https://img.shields.io/docker/stars/zxteamorg/zclassic?label=Docker%20Stars)](https://hub.docker.com/r/zxteamorg/zclassic)
+[![Docker Automation](https://img.shields.io/docker/cloud/automated/zxteamorg/zclassic?label=Docker%20Automation)](https://hub.docker.com/r/zxteamorg/zclassic/builds)
 
 # ZClassic Full Node
 
@@ -51,7 +51,7 @@ No any variables
         --publish 0.0.0.0:8033:8033 \
         --mount type=bind,source=$PWD/zclassic-params,target=/data/.zcash-params \
         --mount type=bind,source=$PWD/zclassic,target=/data/.zclassic \
-        zxteamorg/contrib.zclassic
+        zxteamorg/zclassic
     ```
 
 # Support

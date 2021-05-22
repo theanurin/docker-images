@@ -1,0 +1,2 @@
+include:
+  - http://dev.zxteam.net/pub/pipelines/-/raw/20210522/docker-build-branch-snapshot.yml

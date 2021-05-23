@@ -1,0 +1,5 @@
+include:
+  - http://dev.zxteam.net/pub/pipelines/-/raw/20210523/docker-build-branch-snapshot.yml
+
+variables:
+  DOCKER_FILE_PATH: Dockerfile

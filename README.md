@@ -29,10 +29,10 @@ The image embedding fixed version of MkDocs to prevent breaking changes in MkDoc
 
 # Inside
 
-* mkdocs==1.1.2
-* mkdocs-material==7.1.4
+* mkdocs==1.2.2
+* mkdocs-material==7.2.6
 * mkdocs-markdownextradata-plugin==0.2.4
-* mkdocs-pdf-export-plugin==0.5.8
+* mkdocs-pdf-export-plugin==0.5.9
 * fontawesome_markdown==0.2.6
 
 # Launch

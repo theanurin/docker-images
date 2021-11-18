@@ -6,7 +6,7 @@ FROM alpine:${ALPINE_BUILD}
 ARG VER_OPENLDAP=2.4.57-r1
 ARG VER_LEGO=4.1.3-r0
 ARG VER_PYTHON=3.8.10-r0
-ARG VER_OPENSSL=1.1.1k-r0
+ARG VER_OPENSSL=1.1.1l-r0
 
 #
 # Add OpenLDAP backends (just names)

@@ -152,7 +152,7 @@ def present(dns_key, dns_value):
 
 	acmeChallenge = dns_key[:-len(rootDomain) - 2]
 
-	apiPost('/action/dns/records_add/', {'domain_id': domainId, 'type': 'TXT', 'record': acmeChallenge, 'data': dns_value }); 
+	apiPost('/action/dns/record_add/', {'domain_id': domainId, 'type': 'TXT', 'record': acmeChallenge, 'data': dns_value }); 
 
 	
 

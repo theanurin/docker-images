@@ -1,0 +1,82 @@
+name: Build docker image
+
+on:
+  push:
+    branches:
+      - '*'
+
+jobs:
+  configure:
+    runs-on: ubuntu-latest
+    outputs:
+      build_version: ${{ steps.parse-gentoo-sources-packages.outputs.build_version }}
+      manifest_version: ${{ steps.parse-gentoo-sources-packages.outputs.manifest_version }}
+      manifest_latest: ${{ steps.parse-gentoo-sources-packages.outputs.manifest_latest }}
+    steps:
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.x' # Version range or exact version of a Python version to use, using SemVer's version range syntax
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - id: parse-gentoo-sources-packages
+        run: |
+          pip3 install requests beautifulsoup4
+          ./tools/gentoo-sources-package-parser.py
+
+  build-images:
+    needs: configure
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        build_version: ${{fromJson(needs.configure.outputs.build_version)}}
+    steps:
+      # See https://github.com/docker/setup-qemu-action
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Build Image
+
+        #   docker build
+        #     --build-arg KERNEL_VERSION=5.10.76-r1 
+        #     --label org.opencontainers.image.title=docker.gentoo-source-bundle
+        #     --label org.opencontainers.image.description=
+        #     --label org.opencontainers.image.url=https://github.com/zxteamorg/docker.gentoo-source-bundle
+        #     --label org.opencontainers.image.source=https://github.com/zxteamorg/docker.gentoo-source-bundle
+        #     --label org.opencontainers.image.version=5.10.76-r1
+        #     --label org.opencontainers.image.created=2021-12-19T18:53:53.190Z
+        #     --label org.opencontainers.image.revision=94bbda75e161325d93f99be51a50a1bd5382d877
+        #     --label org.opencontainers.image.licenses=GPL-2.0
+        #     --tag zxteamorg/gentoo-sources-bundle:5.10.76-r1
+        #     --tag zxteamorg/gentoo-sources-bundle:202112192053-5.10.76-r1
+        #     --tag zxteamorg/gentoo-sources-bundle:latest
+        #     --tag docker.registry.zxteam.net/pub/docker/gentoo-source-bundle/amd64:5.10.76-r1
+        #     --tag docker.registry.zxteam.net/pub/docker/gentoo-source-bundle/amd64:202112192053-5.10.76-r1
+        #     --tag docker.registry.zxteam.net/pub/docker/gentoo-source-bundle/amd64:latest
+        #     --platform linux/arm64
+        #     --iidfile /tmp/docker-build-push-Cvopvj/iidfile
+        #     --metadata-file /tmp/docker-build-push-Cvopvj/metadata-file
+        #     --file docker/amd64/Dockerfile
+        #     --push
+        #     .
+        run: |
+          KERNEL_VERSION=$(echo ${{ matrix.build_version }} | cut -d: -f1)
+          KERNEL_STABILITY=$(echo ${{ matrix.build_version }} | cut -d: -f2)
+          KERNEL_LATESTLY=$(echo ${{ matrix.build_version }} | cut -d: -f3)
+          DOCKER_TAG=$(echo ${{ matrix.build_version }} | cut -d: -f4)
+          DOCKER_PLATFORM=$(echo ${{ matrix.build_version }} | cut -d: -f5)
+          DOCKER_BUILDKIT=1 docker build \
+            --progress plain \
+            --platform "${DOCKER_PLATFORM}" \
+            --tag "image-${GITHUB_JOB}" \
+            --build-arg "KERNEL_VERSION=${KERNEL_VERSION}" \
+            --build-arg "KERNEL_STABILITY=${KERNEL_STABILITY}" \
+            --file "docker/${DOCKER_PLATFORM}/Dockerfile" \
+            .

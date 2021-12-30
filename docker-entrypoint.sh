@@ -15,20 +15,22 @@ Usage:
 
 Commands:
 
-    mount   - Mount an image file
-        mount [--readonly] [--fstype=] <img file name>
-            --readonly - make mountpoint readonly
-
     addpass - Add passphrase into LUKS image
-	    Not implemented yet
-
-    rempass - Remove passphrase into LUKS image
-	    Not implemented yet
+        Not implemented yet
 
     init    - Initialize a new image file (LUKS format)
         init [--sizemb=] [--fstype=] <img file name>
             --sizemb - default value is '128'
             --fstype - default value is 'ext4'. Supported: ext2, ext3, ext4, vfat
+
+    ls      - Show list of images (content of /data directory)
+
+    mount   - Mount an image file
+        mount [--readonly] [--fstype=] <img file name>
+            --readonly - make mountpoint readonly
+
+    rempass - Remove passphrase into LUKS image
+        Not implemented yet
 
 EOF
 }
@@ -184,6 +186,13 @@ runtime_init()
 	exit 0
 }
 
+runtime_ls()
+{
+	cd /data
+	ls -1 | while read F; do printf "%-18s" $(stat -c %s "$F"); echo "$F "; done
+	exit $?
+}
+
 runtime_mount()
 {
 	ISREADONLY="no"
@@ -322,16 +331,20 @@ runtime_mount()
 
 
 if [ $# -eq 0 ]; then
-	print_usage
-	exit 0
+	echo "ERROR: Wrong arguments. Try '--help'." >&2
+	exit 1
 fi
 
 COMMAND="${1}"
 shift
 
 case "${COMMAND}" in
-	init|mount)
+	init|ls|mount)
 		runtime_${COMMAND} $@
+		;;
+	-h|--help)
+		print_usage
+		exit 0
 		;;
 	*)
 		echo "ERROR: Unknown command '${COMMAND}'" >&2

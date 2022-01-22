@@ -25,8 +25,7 @@ RUN \
   fi; \
   eselect news read all; \
   [ "${KERNEL_STABILITY}" == "testing" ] && echo 'ACCEPT_KEYWORDS="~arm"' >> /etc/portage/make.conf; \
-  echo 'sys-kernel/gentoo-sources linux-firmware' >> /etc/portage/package.license; \
-  FEATURES="-ipc-sandbox -network-sandbox -pid-sandbox -sandbox -usersandbox" emerge --quiet =sys-kernel/gentoo-sources-${KERNEL_VERSION} | tee /support/emerge.log; \
+  FEATURES="-ipc-sandbox -network-sandbox -pid-sandbox -sandbox -usersandbox" ACCEPT_LICENSE="linux-firmware" emerge --quiet =sys-kernel/gentoo-sources-${KERNEL_VERSION} | tee /support/emerge.log; \
   eselect kernel set 1; \
   echo "${KERNEL_VERSION}" > /KERNEL_VERSION; \
   echo "linux/arm/v7" > /DOCKER_ARCH; \

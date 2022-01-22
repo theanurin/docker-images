@@ -7,7 +7,7 @@ ARG KERNEL_VERSION=
 RUN test -n "${KERNEL_VERSION}" || { echo "KERNEL_VERSION is not set" >&2; exit 1; }
 RUN test -n "${GENTOO_STAGE3_IMAGE_DATE_TAG}" || { echo "GENTOO_STAGE3_IMAGE_DATE_TAG is not set" >&2; exit 1; }
 COPY BANNER /build/BANNER
-COPY docker/docker-entrypoint.sh /build/usr/local/bin/docker-entrypoint.sh
+COPY docker/docker-entrypoint-gentoo-sources-bundle.sh /build/usr/local/bin/docker-entrypoint-gentoo-sources-bundle.sh
 
 # Target container with Gentoo Linux + necessary tools to build kernel and initramfs
 FROM --platform=linux/arm/v5 gentoo/stage3:${GENTOO_STAGE3_IMAGE_DATE_TAG}
@@ -37,4 +37,4 @@ RUN \
   rm -rf /var/log/*; \
   rm -rf /var/tmp/*
 COPY --from=builder /build /
-ENTRYPOINT [ "/usr/local/bin/docker-entrypoint.sh" ]
+ENTRYPOINT [ "/usr/local/bin/docker-entrypoint-gentoo-sources-bundle.sh" ]

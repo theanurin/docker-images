@@ -31,29 +31,29 @@ exit
 
 ## Image name convension
 
-| Image Tag Name                                           | Build Source                                     |
-|----------------------------------------------------------|--------------------------------------------------|
-| zxteamorg/gentoo-sources-bundle                          | latest build for latest kernel (multi-arch)      |
-| zxteamorg/gentoo-sources-bundle-X.Y.Z                    | latest build for specific kernel (multi-arch)    |
-| zxteamorg/gentoo-sources-bundle:YYYYMMDD-X.Y.Z           | specific build for specific kernel (multi-arch)  |
-| zxteamorg/gentoo-sources-bundle:amd64                    | latest build for latest kernel (amd64)           |
-| zxteamorg/gentoo-sources-bundle:arm32_v5                 | latest build for latest kernel (arm/v5)          |
-| zxteamorg/gentoo-sources-bundle:arm32_v6                 | latest build for latest kernel (arm/v6)          |
-| zxteamorg/gentoo-sources-bundle:arm32_v7                 | latest build for latest kernel (arm/v7)          |
-| zxteamorg/gentoo-sources-bundle:arm64_v8                 | latest build for latest kernel (arm64/v8)        |
-| zxteamorg/gentoo-sources-bundle:x86                      | latest build for latest kernel (x86)             |
-| zxteamorg/gentoo-sources-bundle:amd64-X.Y.Z              | latest build for specific kernel (amd64)         |
-| zxteamorg/gentoo-sources-bundle:arm32_v5-X.Y.Z           | latest build for specific kernel (arm/v5)        |
-| zxteamorg/gentoo-sources-bundle:arm32_v6-X.Y.Z           | latest build for specific kernel (arm/v6)        |
-| zxteamorg/gentoo-sources-bundle:arm32_v7-X.Y.Z           | latest build for specific kernel (arm/v7)        |
-| zxteamorg/gentoo-sources-bundle:arm64_v8-X.Y.Z           | latest build for specific kernel (arm64/v8)      |
-| zxteamorg/gentoo-sources-bundle:x86-X.Y.Z                | latest build for specific kernel (x86)           |
-| zxteamorg/gentoo-sources-bundle:YYYYMMDD-amd64-X.Y.Z     | specific build for specific kernel (amd64)       |
-| zxteamorg/gentoo-sources-bundle:YYYYMMDD-arm32_v5-X.Y.Z  | specific build for specific kernel (arm/v5)      |
-| zxteamorg/gentoo-sources-bundle:YYYYMMDD-arm32_v6-X.Y.Z  | specific build for specific kernel (arm/v6)      |
-| zxteamorg/gentoo-sources-bundle:YYYYMMDD-arm32_v7-X.Y.Z  | specific build for specific kernel (arm/v7)      |
-| zxteamorg/gentoo-sources-bundle:YYYYMMDD-arm64_v8-X.Y.Z  | specific build for specific kernel (arm64/v8)    |
-| zxteamorg/gentoo-sources-bundle:YYYYMMDD-x86-X.Y.Z       | specific build for specific kernel (x86)         |
+| Image Tag Name                                          | Build Source                                     |
+|---------------------------------------------------------|--------------------------------------------------|
+| zxteamorg/gentoo-sources-bundle                         | latest build for latest kernel (multi-arch)      |
+| zxteamorg/gentoo-sources-bundle-X.Y.Z                   | latest build for specific kernel (multi-arch)    |
+| zxteamorg/gentoo-sources-bundle:YYYYMMDD-X.Y.Z          | specific build for specific kernel (multi-arch)  |
+| zxteamorg/gentoo-sources-bundle:amd64                   | latest build for latest kernel (amd64)           |
+| zxteamorg/gentoo-sources-bundle:arm32v5                 | latest build for latest kernel (arm/v5)          |
+| zxteamorg/gentoo-sources-bundle:arm32v6                 | latest build for latest kernel (arm/v6)          |
+| zxteamorg/gentoo-sources-bundle:arm32v7                 | latest build for latest kernel (arm/v7)          |
+| zxteamorg/gentoo-sources-bundle:arm64v8                 | latest build for latest kernel (arm64/v8)        |
+| zxteamorg/gentoo-sources-bundle:x86                     | latest build for latest kernel (x86)             |
+| zxteamorg/gentoo-sources-bundle:amd64-X.Y.Z             | latest build for specific kernel (amd64)         |
+| zxteamorg/gentoo-sources-bundle:arm32v5-X.Y.Z           | latest build for specific kernel (arm/v5)        |
+| zxteamorg/gentoo-sources-bundle:arm32v6-X.Y.Z           | latest build for specific kernel (arm/v6)        |
+| zxteamorg/gentoo-sources-bundle:arm32v7-X.Y.Z           | latest build for specific kernel (arm/v7)        |
+| zxteamorg/gentoo-sources-bundle:arm64v8-X.Y.Z           | latest build for specific kernel (arm64/v8)      |
+| zxteamorg/gentoo-sources-bundle:x86-X.Y.Z               | latest build for specific kernel (x86)           |
+| zxteamorg/gentoo-sources-bundle:YYYYMMDD-amd64-X.Y.Z    | specific build for specific kernel (amd64)       |
+| zxteamorg/gentoo-sources-bundle:YYYYMMDD-arm32v5-X.Y.Z  | specific build for specific kernel (arm/v5)      |
+| zxteamorg/gentoo-sources-bundle:YYYYMMDD-arm32v6-X.Y.Z  | specific build for specific kernel (arm/v6)      |
+| zxteamorg/gentoo-sources-bundle:YYYYMMDD-arm32v7-X.Y.Z  | specific build for specific kernel (arm/v7)      |
+| zxteamorg/gentoo-sources-bundle:YYYYMMDD-arm64v8-X.Y.Z  | specific build for specific kernel (arm64/v8)    |
+| zxteamorg/gentoo-sources-bundle:YYYYMMDD-x86-X.Y.Z      | specific build for specific kernel (x86)         |
 
 ## What the image includes
 

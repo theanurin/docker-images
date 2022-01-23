@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 from bs4 import BeautifulSoup
@@ -97,29 +97,29 @@ for htmlTable in htmlTables:
 
 		if not isTestingArm32:
 			if isFirstStableArm32:
-				build_items.append(format_build_item(kernelVersion, "stable", "latest", "arm32_v5", "linux/arm/v5"))
-				build_items.append(format_build_item(kernelVersion, "stable", "latest", "arm32_v6", "linux/arm/v6"))
-				build_items.append(format_build_item(kernelVersion, "stable", "latest", "arm32_v7", "linux/arm/v7"))
-				manifest_latest.append("%s:arm32_v5" % (kernelVersion))
-				manifest_latest.append("%s:arm32_v6" % (kernelVersion))
-				manifest_latest.append("%s:arm32_v7" % (kernelVersion))
+				build_items.append(format_build_item(kernelVersion, "stable", "latest", "arm32v5", "linux/arm/v5"))
+				build_items.append(format_build_item(kernelVersion, "stable", "latest", "arm32v6", "linux/arm/v6"))
+				build_items.append(format_build_item(kernelVersion, "stable", "latest", "arm32v7", "linux/arm/v7"))
+				manifest_latest.append("%s:arm32v5" % (kernelVersion))
+				manifest_latest.append("%s:arm32v6" % (kernelVersion))
+				manifest_latest.append("%s:arm32v7" % (kernelVersion))
 				isFirstStableArm32 = False
 			else:
-				build_items.append(format_build_item(kernelVersion, "stable", "non-latest", "arm32_v5", "linux/arm/v5"))
-				build_items.append(format_build_item(kernelVersion, "stable", "non-latest", "arm32_v6", "linux/arm/v6"))
-				build_items.append(format_build_item(kernelVersion, "stable", "non-latest", "arm32_v7", "linux/arm/v7"))
-			build_item_manifest_tags.append("arm32_v5")
-			build_item_manifest_tags.append("arm32_v6")
-			build_item_manifest_tags.append("arm32_v7")
+				build_items.append(format_build_item(kernelVersion, "stable", "non-latest", "arm32v5", "linux/arm/v5"))
+				build_items.append(format_build_item(kernelVersion, "stable", "non-latest", "arm32v6", "linux/arm/v6"))
+				build_items.append(format_build_item(kernelVersion, "stable", "non-latest", "arm32v7", "linux/arm/v7"))
+			build_item_manifest_tags.append("arm32v5")
+			build_item_manifest_tags.append("arm32v6")
+			build_item_manifest_tags.append("arm32v7")
 
 		if not isTestingArm64:
 			if isFirstStableArm64:
-				build_items.append(format_build_item(kernelVersion, "stable", "latest", "arm64_v8", "linux/arm64/v8"))
-				manifest_latest.append("%s:arm64_v8" % (kernelVersion))
+				build_items.append(format_build_item(kernelVersion, "stable", "latest", "arm64v8", "linux/arm64/v8"))
+				manifest_latest.append("%s:arm64v8" % (kernelVersion))
 				isFirstStableArm64 = False
 			else:
-				build_items.append(format_build_item(kernelVersion, "stable", "non-latest", "arm64_v8", "linux/arm64/v8"))
-			build_item_manifest_tags.append("arm64_v8")
+				build_items.append(format_build_item(kernelVersion, "stable", "non-latest", "arm64v8", "linux/arm64/v8"))
+			build_item_manifest_tags.append("arm64v8")
 		
 		if len(build_item_manifest_tags) > 0:
 			manifest = "%s:%s" % (kernelVersion, ",".join(build_item_manifest_tags))

@@ -2,46 +2,44 @@
 [![Docker Image Version](https://img.shields.io/docker/v/zxteamorg/infra.openldap?sort=date&label=Version)](https://hub.docker.com/r/zxteamorg/infra.openldap/tags)
 [![Docker Image Size](https://img.shields.io/docker/image-size/zxteamorg/infra.openldap?label=Image%20Size)](https://hub.docker.com/r/zxteamorg/infra.openldap/tags)
 [![Docker Pulls](https://img.shields.io/docker/pulls/zxteamorg/infra.openldap?label=Pulls)](https://hub.docker.com/r/zxteamorg/infra.openldap)
-[![Docker Pulls](https://img.shields.io/docker/stars/zxteamorg/infra.openldap?label=Docker%20Stars)](https://hub.docker.com/r/zxteamorg/infra.openldap)
-[![Docker Automation](https://img.shields.io/docker/cloud/automated/zxteamorg/infra.openldap?label=Docker%20Automation)](https://hub.docker.com/r/zxteamorg/infra.openldap/builds)
 
 
 # OpenLDAP (+ Let's Encrypt)
 
 [OpenLDAP](https://www.openldap.org/) is an open source implementation of the **L**ightweight **D**irectory **A**ccess **P**rotocol.
 
-# Image reason
+## Image reason
 
 * Secured endpoint with Let's Encrypt SSL certificate generation (at startup)
 * Easy to update production enviroment (just re-create container)
 * Easy to bring-up mirror
 
 
-# Spec
+## Spec
 
-## Environment variables
+### Environment variables
 
-No any variables
+TBD
 
-## Expose ports
+### Expose ports
 
 * `tcp/80` - insecured HTTP endpoint for ACME challenge (use http://)
 * `tcp/389` - insecured LDAP endpoint (use ldap://)
 * `tcp/443` - secured HTTP endpoint for ACME challenge (use https://)
 * `tcp/636` - secured LDAP endpoint (use ldaps://)
  
-## Volumes
+### Volumes
 
 * `/data/etc` - Configuration stuff.
 * `/data/etc/slapd-init.d` - Place here LDIF files that will deployed (one time) into new instance.
 * `/data/db`  - LDAP databases.
 
-## Defaults
+### Defaults
 
 * RootDN: `cn=config`
 * RootPW: `openldap`
 
-# Inside
+## Inside
 
 * [slapd](https://www.openldap.org/software/man.cgi?query=slapd) - stand-alone LDAP daemon (server)
 * [libraries](https://www.openldap.org/software/man.cgi?query=ldap) - implementing the LDAP protocol
@@ -50,9 +48,9 @@ No any variables
 * custom dns-01-solvers scripts to solve DNS-01 challange:
 	1. `tools.adm.py` for [Hosting Ukraine](https://www.ukraine.com.ua/)
 
-# Launch
+## Launch
 
-## With ACME challange HTTP_01
+### With ACME challange HTTP_01
 
 NOTE: The container's port 80 should be public available on your domain defined in CONFIG_LEGO_DOMAIN variable.
 
@@ -76,7 +74,7 @@ docker run --rm --interactive --tty \
   zxteamorg/infra.openldap
 ```
 
-## With ACME challange TLS_ALPN_01
+### With ACME challange TLS_ALPN_01
 
 NOTE: The container's port 443 should be public available on your domain defined in CONFIG_LEGO_DOMAIN variable.
 
@@ -100,7 +98,7 @@ docker run --rm --interactive --tty \
   zxteamorg/infra.openldap
 ```
 
-## With ACME challange DNS_01 (with custom solver `tools.adm.py`)
+### With ACME challange DNS_01 (with custom solver `tools.adm.py`)
 
 NOTE: DNS_01 is perfect when you are not able to expose ACME web server ports. But you have to write own solver script if you use no-name DNS provider. See LEGO's ready to use [DNS Providers](https://go-acme.github.io/lego/dns/).
 
@@ -132,7 +130,7 @@ docker run --rm --interactive --tty \
 ```
 
 
-# Support
+## Support
 
 * Maintained by: [ZXTeam](https://zxteam.org)
 * Where to get help: [Telegram Channel](https://t.me/zxteamorg)

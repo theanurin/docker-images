@@ -80,4 +80,7 @@ ENV EXEC_POLLING_INTERVAL=30
 # See EXEC_PROPAGATION_TIMEOUT https://go-acme.github.io/lego/dns/exec/#additional-configuration
 ENV EXEC_PROPAGATION_TIMEOUT=3600
 
+# See for "debug-level" in man page for SLAPD https://linux.die.net/man/8/slapd
+ENV SLAPD_DEBUG_LEVEL=
+
 ENTRYPOINT [ "/entrypoint.sh" ]

@@ -187,7 +187,7 @@ if [ $# -eq 0 ]; then
 		# Run OpenLDAP
 		echo
 		echo "Starting slapd..."
-		OPENLDAP_CMD="slapd -d 1 -u ldap -g ldap -F /data/etc/slapd.d -h \"${OPENLDAP_ENDPOINTS}\""
+		OPENLDAP_CMD="slapd -d \"${SLAPD_DEBUG_LEVEL}\" -u ldap -g ldap -F /data/etc/slapd.d -h \"${OPENLDAP_ENDPOINTS}\""
 		echo
 		echo "	${OPENLDAP_CMD}"
 		echo

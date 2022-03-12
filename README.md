@@ -13,17 +13,17 @@
 
 TDB
 
-# Spec
+## Spec
 
-## Environment variables
+### Environment variables
 
 **No any variables**
 
-## Volumes
+### Volumes
 
 * `/data` - Configuration files root
 
-## Cmd Args
+### Cmd Args
 
 Command arguments apply a configuration source:
 
@@ -31,7 +31,7 @@ Command arguments apply a configuration source:
 * `--config-toml-file=common.toml` - source properties from TOML configuration file. May used multiple times.
 * `--config-env` - source properties from environment variables
 
-# Inside
+## Inside
 
 
 * Alpine Linux
@@ -41,10 +41,10 @@ Command arguments apply a configuration source:
 	* TBD
 * Entrypoint JS Script
 
-# Launch
+## Launch
 
 ```shell
-echo "<h1>Hello, {{NAME}}</h1>" | docker run \
+echo "<h1>Hello, {{NAME}} {{?SURNAME}}</h1>" | docker run \
     --interactive --rm \
     --env NAME="World" \
     zxteamorg/devel.configuration-templates \
@@ -54,7 +54,7 @@ echo "<h1>Hello, {{NAME}}</h1>" | docker run \
 
 
 ```shell
-echo "<h1>Hello, {{NAME}}</h1>" | \
+echo "<h1>Hello, {{NAME}} {{?SURNAME}}</h1>" | \
   docker run \
     --interactive --rm \
     --volume /path/to/configs:/data \
@@ -67,7 +67,11 @@ echo "<h1>Hello, {{NAME}}</h1>" | \
       --config-env
 ```
 
-# Support
+## Magic symbols
+
+* Symbol "?" - treat the property as optional(by default properites are mandatory).
+
+## Support
 
 * Maintained by: [ZXTeam](https://zxteam.org)
 * Where to get help: [Telegram Channel](https://t.me/zxteamorg)

@@ -88,16 +88,21 @@ function createConfigurationProxy(finalConfig) {
 		return new Proxy(obj, {
 			get(_, propery) {
 				if (typeof propery === "string") {
-					if (propery in obj) {
-						const value = obj[propery];
+					const isOptionalPropery = propery.startsWith("?");
+					const friendlyProperty = isOptionalPropery ? propery.substring(1) : propery;
+					if (friendlyProperty in obj) {
+						const value = obj[friendlyProperty];
 						if (typeof value === "string" || typeof value === "number" || typeof value === "boolean") {
 							return value;
 						} else {
-							return makeProxyAdapter([...ns, propery], value);
+							return makeProxyAdapter([...ns, friendlyProperty], value);
 						}
 					}
-					const fullProperty = [...ns, propery].join(".");
-					throw new InvalidOperationError(`Non-existing property request '${fullProperty}'.`);
+
+					if (!isOptionalPropery) {
+						const fullProperty = [...ns, friendlyProperty].join(".");
+						throw new InvalidOperationError(`Non-existing property request '${fullProperty}'.`);
+					}
 				}
 			}
 		});

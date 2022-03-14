@@ -84,18 +84,23 @@ function createConfigurationProxy(finalConfig) {
 
 	const objectConfig = keyWalker(null, finalConfig.keys, finalConfig, null, null);
 
-	function makeProxyAdapter(ns, obj) {
+	function makeProxyAdapter(ns, obj, isOptionalPropery = false) {
 		return new Proxy(obj, {
 			get(_, propery) {
 				if (typeof propery === "string") {
-					const isOptionalPropery = propery.startsWith("?");
-					const friendlyProperty = isOptionalPropery ? propery.substring(1) : propery;
+					let friendlyProperty = propery;
+					if (!isOptionalPropery) {
+						isOptionalPropery = propery.startsWith("?");
+						if(isOptionalPropery) {
+							friendlyProperty = isOptionalPropery ? propery.substring(1) : propery;
+						}
+					}
 					if (friendlyProperty in obj) {
 						const value = obj[friendlyProperty];
 						if (typeof value === "string" || typeof value === "number" || typeof value === "boolean") {
 							return value;
 						} else {
-							return makeProxyAdapter([...ns, friendlyProperty], value);
+							return makeProxyAdapter([...ns, friendlyProperty], value, isOptionalPropery);
 						}
 					}
 
@@ -108,7 +113,7 @@ function createConfigurationProxy(finalConfig) {
 		});
 	}
 
-	const proxyConfig = makeProxyAdapter([], objectConfig);
+	const proxyConfig = makeProxyAdapter([], objectConfig, false);
 
 	return proxyConfig;
 }

@@ -89,11 +89,9 @@ function createConfigurationProxy(finalConfig) {
 			get(_, propery) {
 				if (typeof propery === "string") {
 					let friendlyProperty = propery;
-					if (!isOptionalPropery) {
-						isOptionalPropery = propery.startsWith("?");
-						if(isOptionalPropery) {
-							friendlyProperty = isOptionalPropery ? propery.substring(1) : propery;
-						}
+					if (propery.startsWith("?")) {
+						friendlyProperty =  propery.substring(1);
+						isOptionalPropery = true;
 					}
 					if (friendlyProperty in obj) {
 						const value = obj[friendlyProperty];
@@ -109,6 +107,7 @@ function createConfigurationProxy(finalConfig) {
 						throw new InvalidOperationError(`Non-existing property request '${fullProperty}'.`);
 					}
 				}
+				// console.log(`Missing value for property: ${propery}`);
 			}
 		});
 	}

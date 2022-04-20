@@ -27,7 +27,7 @@ function runtime(cancellationToken, configuration) {
 
 	return new Promise(function (resolve, reject) {
 		process.stdout.write(
-			Mustache.render(templateContent, configuration),
+			Mustache.render(templateContent, configuration, null, { escape: function (text) { return text; } }),
 			function (err) {
 				if (err) { return reject(err); }
 				return resolve();
@@ -90,7 +90,7 @@ function createConfigurationProxy(finalConfig) {
 				if (typeof propery === "string") {
 					let friendlyProperty = propery;
 					if (propery.startsWith("?")) {
-						friendlyProperty =  propery.substring(1);
+						friendlyProperty = propery.substring(1);
 						isOptionalPropery = true;
 					}
 					if (friendlyProperty in obj) {

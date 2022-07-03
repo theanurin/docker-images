@@ -1,9 +1,8 @@
-[![Docker Build Status](https://img.shields.io/docker/cloud/build/zxteamorg/devel.postgres-13?label=Build%20Status)](https://hub.docker.com/r/zxteamorg/devel.postgres-13/builds)
+[![Build Status](https://github.com/zxteamorg/docker.devel.mdbook/actions/workflows/build.yml/badge.svg)](https://github.com/zxteamorg/docker.devel.mdbook/actions/workflows/build.yml)
 [![Docker Image Version](https://img.shields.io/docker/v/zxteamorg/devel.postgres-13?sort=date&label=Version)](https://hub.docker.com/r/zxteamorg/devel.postgres-13/tags)
 [![Docker Image Size](https://img.shields.io/docker/image-size/zxteamorg/devel.postgres-13?label=Image%20Size)](https://hub.docker.com/r/zxteamorg/devel.postgres-13/tags)
-[![Docker Pulls](https://img.shields.io/docker/pulls/zxteamorg/devel.postgres-13?label=Pulls)](https://hub.docker.com/r/zxteamorg/devel.postgres-13)
-[![Docker Pulls](https://img.shields.io/docker/stars/zxteamorg/devel.postgres-13?label=Docker%20Stars)](https://hub.docker.com/r/zxteamorg/devel.postgres-13)
-[![Docker Automation](https://img.shields.io/docker/cloud/automated/zxteamorg/devel.postgres-13?label=Docker%20Automation)](https://hub.docker.com/r/zxteamorg/devel.postgres-13/builds)
+[![Docker Pulls](https://img.shields.io/docker/pulls/zxteamorg/devel.postgres-13?label=Image%20Pulls)](https://hub.docker.com/r/zxteamorg/devel.postgres-13)
+[![Docker Stars](https://img.shields.io/docker/stars/zxteamorg/devel.postgres-13?label=Image%20Stars)](https://hub.docker.com/r/zxteamorg/devel.postgres-13)
 
 # Postgres 13
 
@@ -29,8 +28,8 @@ No any variables
 
 # Inside
 
-* Alpine Linux 3.13.5
-* PostgreSQL 13.3 Server
+* Alpine Linux 3.16.0
+* PostgreSQL 13.7 Server
 * Database `devdb`
 * Flag table `"public"."emptytestflag"`
 * User `postgres` - superuser (no password)

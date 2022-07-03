@@ -1,6 +1,9 @@
 #!/bin/sh
 
 if [ "$(id -u)" = '0' ]; then
+	if [ ! -d /data ]; then
+		mkdir /data
+	fi
 	chown -R postgres /data
 	chmod 700 /data
 

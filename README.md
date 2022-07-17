@@ -33,8 +33,9 @@
 
 # Inside
 
-* [Bundler](https://rubygems.org/gems/bundler) v2.3.18
 * [Jekyll](https://jekyllrb.com/) v4.2.2
+* [Bundler gem](https://rubygems.org/gems/bundler) v2.3.18
+* [json gem](https://rubygems.org/gems/json) v2.6.2
 
 
 # Launch
@@ -53,13 +54,7 @@
 
 
 # Development
-
-## Build
+## Build and debug
 ```shell
-docker build --tag zxteamorg/jekyll --file Dockerfile .
-```
-
-## Build and launch
-```shell
-docker build --tag zxteamorg/jekyll --file Dockerfile . && docker run --interactive --rm --volume ${PWD}:/data --publish 4000:4000 zxteamorg/jekyll
+docker build --tag zxteamorg/jekyll --file Dockerfile . && docker run --interactive --tty --rm --entrypoint /bin/sh zxteamorg/jekyll
 ```

@@ -15,9 +15,6 @@ Usage:
 
 Commands:
 
-    addpass - Add passphrase into LUKS image
-        Not implemented yet
-
     init    - Initialize a new image file (LUKS format)
         init [--sizemb=] [--fstype=] <img file name>
             --sizemb - default value is '128'
@@ -29,8 +26,12 @@ Commands:
         mount [--readonly] [--fstype=] <img file name>
             --readonly - make mountpoint readonly
 
-    rempass - Remove passphrase into LUKS image
-        Not implemented yet
+    passphrase-add - Add new passphrase into LUKS image
+        passphrase-add <img file name>
+
+    passphrase-remove - Remove passphrase into LUKS image
+        passphrase-remove <img file name>
+
 
 EOF
 }
@@ -328,6 +329,125 @@ runtime_mount()
 	exit ${BASH_EXITCODE}
 }
 
+runtime_passphrase_add()
+{
+	IMGFILE="${1}"
+	if [ -z "${IMGFILE}" ]; then
+		echo "ERROR: Image file name was not passed." >&2
+		exit 1
+	fi
+
+	FULLIMGFILE="/data/${IMGFILE}"
+
+	if [ ! -f "${FULLIMGFILE}" ]; then
+		echo "ERROR: A file '${FULLIMGFILE}' not exist. Nothing to mount." >&2
+		exit 1
+	fi
+
+	echo -n "Checking for free loop device..."
+	LOOP_DEV=$(losetup -f 2>/dev/null)
+	LODETECT_EXITCODE=$?
+	if [ ${LODETECT_EXITCODE} -ne 0 ]; then
+		echo " FAILURE. The 'losetup' application is finished with exit code '${LODETECT_EXITCODE}'." >&2
+		exit 1
+	fi
+	unset LODETECT_EXITCODE
+	echo " Done."
+	echo
+
+	echo -n "Attaching the file '${FULLIMGFILE}' to ${LOOP_DEV}..."
+	losetup "${LOOP_DEV}" "${FULLIMGFILE}" 2>/dev/null
+	LOSETUP_EXITCODE=$?
+	if [ ${LOSETUP_EXITCODE} -ne 0 ]; then
+		echo " FAILURE. The 'losetup' application is finished with exit code '${LOSETUP_EXITCODE}'." >&2
+		exit 1
+	fi
+	unset LOSETUP_EXITCODE
+	echo " Done."
+	echo
+
+	release_loopback_device()
+	{
+		echo -n "Releasing ${LOOP_DEV}..."
+		losetup -d "${LOOP_DEV}"
+		echo " Done."
+	}
+	trap release_loopback_device EXIT
+
+	echo "LUKS Adding new passphrase (that will use for generate new key)..."
+	echo
+	cryptsetup luksAddKey "${LOOP_DEV}"
+	LUKSADDKEY_EXITCODE=$?
+	if [ ${LUKSADDKEY_EXITCODE} -ne 0 ]; then
+		echo " FAILURE. The 'cryptsetup' application is finished with exit code '${LUKSADDKEY_EXITCODE}'." >&2
+		exit 1
+	fi
+	unset LUKSADDKEY_EXITCODE
+	echo
+	echo "LUKS Adding passphrase done."
+	echo
+	exit 0
+}
+
+runtime_passphrase_remove()
+{
+	IMGFILE="${1}"
+	if [ -z "${IMGFILE}" ]; then
+		echo "ERROR: Image file name was not passed." >&2
+		exit 1
+	fi
+
+	FULLIMGFILE="/data/${IMGFILE}"
+
+	if [ ! -f "${FULLIMGFILE}" ]; then
+		echo "ERROR: A file '${FULLIMGFILE}' not exist. Nothing to mount." >&2
+		exit 1
+	fi
+
+	echo -n "Checking for free loop device..."
+	LOOP_DEV=$(losetup -f 2>/dev/null)
+	LODETECT_EXITCODE=$?
+	if [ ${LODETECT_EXITCODE} -ne 0 ]; then
+		echo " FAILURE. The 'losetup' application is finished with exit code '${LODETECT_EXITCODE}'." >&2
+		exit 1
+	fi
+	unset LODETECT_EXITCODE
+	echo " Done."
+	echo
+
+	echo -n "Attaching the file '${FULLIMGFILE}' to ${LOOP_DEV}..."
+	losetup "${LOOP_DEV}" "${FULLIMGFILE}" 2>/dev/null
+	LOSETUP_EXITCODE=$?
+	if [ ${LOSETUP_EXITCODE} -ne 0 ]; then
+		echo " FAILURE. The 'losetup' application is finished with exit code '${LOSETUP_EXITCODE}'." >&2
+		exit 1
+	fi
+	unset LOSETUP_EXITCODE
+	echo " Done."
+	echo
+
+	release_loopback_device()
+	{
+		echo -n "Releasing ${LOOP_DEV}..."
+		losetup -d "${LOOP_DEV}"
+		echo " Done."
+	}
+	trap release_loopback_device EXIT
+
+	echo "LUKS Removing passphrase..."
+	echo
+	cryptsetup luksRemoveKey "${LOOP_DEV}"
+	LUKSREMOVEKEY_EXITCODE=$?
+	if [ ${LUKSREMOVEKEY_EXITCODE} -ne 0 ]; then
+		echo " FAILURE. The 'cryptsetup' application is finished with exit code '${LUKSREMOVEKEY_EXITCODE}'." >&2
+		exit 1
+	fi
+	unset LUKSREMOVEKEY_EXITCODE
+	echo
+	echo "LUKS Removing passphrase done."
+	echo
+	exit 0
+}
 
 
 if [ $# -eq 0 ]; then
@@ -341,6 +461,12 @@ shift
 case "${COMMAND}" in
 	init|ls|mount)
 		runtime_${COMMAND} $@
+		;;
+	passphrase-add)
+		runtime_passphrase_add $@
+		;;
+	passphrase-remove)
+		runtime_passphrase_remove $@
 		;;
 	-h|--help)
 		print_usage

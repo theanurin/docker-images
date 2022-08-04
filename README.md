@@ -10,11 +10,12 @@
 Right now, the tool is able:
 * Create a LUKS-encrypted partition images
 * Mount a LUKS-encrypted partition image inside container
+* Add/Remove additinal passphrase to a LUKS-encrypted partition image
 
 ## Image reason
 
 * quick review LUKS-encrypted partition backups
-* holds sensetive data as LUKS-encrypted partition
+* holds sensitive data as LUKS-encrypted partition
 
 ## Spec
 
@@ -51,15 +52,15 @@ alias luksoid='docker run --privileged=true --rm --interactive --tty --mount "ty
 ### Mount image
 
 ```shell
-luksoid mount my-sensetive-luks.img
+luksoid mount my-sensitive-luks.img
 ```
 ```
 Checking for free loop device... Done.
 
-Attaching the file '/data/my-sensetive-luks.img' to /dev/loop0... Done.
+Attaching the file '/data/my-sensitive-luks.img' to /dev/loop0... Done.
 
 LUKS Opening. Now, you will be ask for a passphrase.
-Enter passphrase for /data/my-sensetive-luks.img: 
+Enter passphrase for /data/my-sensitive-luks.img: 
 LUKS Opening done.
 
 Mounting a file system '' on LUKS-encrypted partition...
@@ -71,7 +72,7 @@ Find your LUKS-encrypted partition in /mnt directory.
 
 Feel free to read/write files in /mnt
 
-[!] Do not forget exit gracefully by 'exit' command to prevent corruption of your image file 'my-sensetive-luks.img'.
+[!] Do not forget exit gracefully by 'exit' command to prevent corruption of your image file 'my-sensitive-luks.img'.
 
 bash-5.1# echo "My BTC wallet private key: xxxxxxxxxxxxxxxx" >> my-btc-wallet-keys.txt
 bash-5.1# exit
@@ -85,21 +86,21 @@ Releasing /dev/loop0... Done.
 ### Init An Image
 
 ```shell
-luksoid init --sizemb=256 --fstype=vfat my-sensetive-luks.img
+luksoid init --sizemb=256 --fstype=vfat my-sensitive-luks.img
 ```
 ```
-Initializing a zero-based file '/data/my-sensetive-luks.img' for 256 MBytes... Done.
+Initializing a zero-based file '/data/my-sensitive-luks.img' for 256 MBytes... Done.
 
 Checking for free loop device... Done.
 
-Attaching the file '/data/my-sensetive-luks.img' to /dev/loop1... Done.
+Attaching the file '/data/my-sensitive-luks.img' to /dev/loop1... Done.
 
-LUKS Formatting. Now, you will be ask for a passphrase. ALL DATA IN THE FILE '/data/my-sensetive-luks.img' WILL BE DISCARDED!!!
-Enter passphrase for /data/my-sensetive-luks.img: 
+LUKS Formatting. Now, you will be ask for a passphrase. ALL DATA IN THE FILE '/data/my-sensitive-luks.img' WILL BE DISCARDED!!!
+Enter passphrase for /data/my-sensitive-luks.img:
 LUKS Formatting done.
 
 LUKS Opening. Now, you will be ask for the passphrase again. We have to open your LUKS image to double-check the passphrase and make filesystem 'vfat' on it.
-Enter passphrase for /data/my-sensetive-luks.img: 
+Enter passphrase for /data/my-sensitive-luks.img:
 LUKS Opening done.
 
 Writing zeros to the LUKS-encrypted partition. This ensures that outside world will see this as random data i.e. it protect against disclosure of usage patterns... Done.
@@ -115,4 +116,50 @@ File system was created.
 
 LUKS Closing... Done.
 Releasing /dev/loop1... Done.
+```
+
+### Additional passphrases
+
+Sometimes you have to share sensitive data between several persons...
+
+LUKS provide up to 8 slots to setup passphrase. From an user prospective there are ability to decrypt your image with 8 different and indepentent passphrases. So your do not need to have shared passphrase. It is enough to remove/replace disclosured/compromissed passphrase to stay safe.
+
+#### Add a new passphrase
+
+```shell
+luksoid passphrase-add my-sensitive-luks.img
+```
+```
+Checking for free loop device... Done.
+
+Attaching the file '/data/my-sensitive-luks.img' to /dev/loop0... Done.
+
+LUKS Adding new passphrase (that will use for generate new key)...
+
+Enter any existing passphrase:
+Enter new passphrase for key slot:
+Verify passphrase:
+
+LUKS Adding passphrase done.
+
+Releasing /dev/loop0... Done.
+```
+
+#### Remove a passphrase
+
+```shell
+luksoid passphrase-remove my-sensitive-luks.img
+```
+```
+Checking for free loop device... Done.
+
+Attaching the file '/data/my-sensitive-luks.img' to /dev/loop0... Done.
+
+LUKS Removing passphrase...
+
+Enter passphrase to be deleted:
+
+LUKS Removing passphrase done.
+
+Releasing /dev/loop0... Done.
 ```

@@ -1,0 +1,21 @@
+{
+	"folders": [
+		{
+			"path": "luksoid"
+		},
+		{
+			"path": "sqlmigration"
+		},
+		{
+			"path": "sqlrunner"
+		},
+		{
+			"name": "workspace",
+			"path": "."
+		},
+	],
+	"settings": {
+		"files.autoSave": "afterDelay",
+		"files.autoSaveDelay": 3000
+	}
+}

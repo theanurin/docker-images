@@ -1,0 +1,14 @@
+{
+	"name": "@theanurin/sqlrunner",
+	"version": "0.0.1",
+	"description": "Provide ability to run series of SQL scripts against variours databases like MSSQL, MySQL, PostgreSQL, SQLite, etc.",
+	"private": true,
+	"dependencies": {
+		"@freemework/common": "^0.5.0",
+		"@freemework/sql.postgres": "^0.5.0",
+		"lodash": "^4.17.15"
+	},
+	"bin": {
+		"install": "./bin/sqlrunner.js"
+	}
+}

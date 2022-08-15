@@ -1,0 +1,22 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "sqlrunner.js",
+			"type": "node",
+			"runtimeArgs": [
+				"--nolazy"
+			],
+			"request": "launch",
+			"cwd": "${workspaceFolder}",
+			"args": [
+				"${workspaceFolder}/bin/sqlrunner.js"
+			],
+			"env": {
+				"DATABASE_URL": "postgres://devadmin@127.0.0.1:5432/devdb",
+				"DATA_DIRECTORY": "${workspaceFolder}/.local.sqlscripts"
+			},
+			"console": "internalConsole"
+		}
+	]
+}

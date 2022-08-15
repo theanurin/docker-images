@@ -1,0 +1,7 @@
+./*
+
+!./bin/sqlrunner.js
+!./docker/docker-entrypoint.sh
+!./package-lock.json
+!./package.json
+!./README.md

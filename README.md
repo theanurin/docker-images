@@ -35,7 +35,10 @@
 
 * [Jekyll](https://jekyllrb.com/) v4.2.2
 * [Bundler gem](https://rubygems.org/gems/bundler) v2.3.18
-* [json gem](https://rubygems.org/gems/json) v2.6.2
+* Additional Gems:
+	* [json](https://rubygems.org/gems/json)
+	* [nokogiri](https://rubygems.org/gems/nokogiri)
+	* [racc](https://rubygems.org/gems/racc)
 
 
 # Launch

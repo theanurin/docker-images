@@ -1,14 +1,17 @@
 ARG BUILD_IMAGE=ruby:2.7.6-alpine3.16
+#ARG BUILD_IMAGE=ruby:3.0-alpine
 
 FROM ${BUILD_IMAGE} AS builder
 ARG JEKYLL_GEM_VERSION=4.2.2
-ARG BUNDLER_GEM_VERSION=2.3.18
-ARG JSON_GEM_VERSION=2.6.2
 RUN \
- apk add --no-cache --virtual .build-deps gcc g++ make && \
+ apk add --no-cache gcompat libxml2 libxslt && \
+ apk add --no-cache --virtual .build-deps build-base libxml2-dev libxslt-dev && \
+ gem install bundler && \
  gem install jekyll -v "${JEKYLL_GEM_VERSION}" && \
- gem install bundler -v "${BUNDLER_GEM_VERSION}" && \
- gem install json -v "${JSON_GEM_VERSION}" && \
+ gem install json && \
+ gem install nokogiri --platform=ruby -- --use-system-libraries && \
+ gem install racc && \
+ rm -rf $GEM_HOME/cache && \
  apk del .build-deps
 COPY docker-entrypoint.sh /usr/local/bin/zxteamorg-jekyll-docker-entrypoint.sh
 VOLUME /data

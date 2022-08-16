@@ -26,7 +26,7 @@ jobs:
           # list of Docker images to use as base name for tags
           images: |
             ${{ secrets.DOCKERHUB_USERNAME }}/luksoid
-            ghcr.io/${{ github.repository }}
+            ghcr.io/${{ github.repository }}/luksoid
           # generate Docker tags based on the following events/attributes
           tags: |
             type=match,pattern=luksoid-(.*),group=1

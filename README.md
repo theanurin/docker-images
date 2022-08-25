@@ -5,7 +5,7 @@
 
 # SQL Runner
 
-*SQL Runner* - provides ability to run series of SQL scripts against variours databases like MSSQL, MySQL, PostgreSQL, SQLite, etc.
+*SQL Runner* - provides ability to run series of SQL scripts against various databases like MSSQL, MySQL, PostgreSQL, SQLite, etc.
 
 ## Status
 
@@ -31,7 +31,7 @@
 	* postgres://user:password@host-or-ip:port/dbname
 	* postgres+ssl://user:password@host-or-ip:port/dbname
 	* sqlite:///path/to/my.db
-* `DATA_DIRECTORY` - Default `/data`. Path to SQL scripts.
+* `DATA_DIRECTORY` - Default `/data`. Override path to SQL scripts.
 
 ### Volumes
 

@@ -186,7 +186,6 @@ def main():
 	except Exception as err:
 		print("Failed", err, file=sys.stderr)
 
-		print("API Login: '" + dnsApiLogin + "'", file=sys.stderr)
 		print("API Token: '" + dnsApiToken + "'", file=sys.stderr)
 
 		sys.exit(1)

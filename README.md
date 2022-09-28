@@ -1,4 +1,4 @@
-[![Build Status](https://github.com/zxteamorg/docker.devel.mdbook/actions/workflows/build.yml/badge.svg)](https://github.com/zxteamorg/docker.devel.mdbook/actions/workflows/build.yml)
+[![Build Status](https://github.com/zxteamorg/docker.devel.postgres-13/actions/workflows/build.yml/badge.svg)](https://github.com/zxteamorg/docker.devel.postgres-13/actions/workflows/build.yml)
 [![Docker Image Version](https://img.shields.io/docker/v/zxteamorg/devel.postgres-13?sort=date&label=Version)](https://hub.docker.com/r/zxteamorg/devel.postgres-13/tags)
 [![Docker Image Size](https://img.shields.io/docker/image-size/zxteamorg/devel.postgres-13?label=Image%20Size)](https://hub.docker.com/r/zxteamorg/devel.postgres-13/tags)
 [![Docker Pulls](https://img.shields.io/docker/pulls/zxteamorg/devel.postgres-13?label=Image%20Pulls)](https://hub.docker.com/r/zxteamorg/devel.postgres-13)

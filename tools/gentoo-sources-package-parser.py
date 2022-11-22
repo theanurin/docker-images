@@ -94,65 +94,65 @@ for htmlTable in htmlTables:
 			if "amd64-%s" % (kernelVersion) not in deployed_tags:
 				build_item_manifest_tags.append("amd64")
 
-		# if not isTestingX86:
-		# 	if isFirstStableX86:
-		# 		if "x86-%s" % (kernelVersion) not in deployed_tags:
-		# 			build_items.append(format_build_item(kernelVersion, "stable", "latest", "x86", "linux/386"))
-		# 			manifest_latest.append("%s:x86" % (kernelVersion))
-		# 		isFirstStableX86 = False
-		# 	else:
-		# 		if "x86-%s" % (kernelVersion) not in deployed_tags:
-		# 			build_items.append(format_build_item(kernelVersion, "stable", "non-latest", "x86", "linux/386"))
+		if not isTestingX86:
+			if isFirstStableX86:
+				if "x86-%s" % (kernelVersion) not in deployed_tags:
+					build_items.append(format_build_item(kernelVersion, "stable", "latest", "x86", "linux/386"))
+					manifest_latest.append("%s:x86" % (kernelVersion))
+				isFirstStableX86 = False
+			else:
+				if "x86-%s" % (kernelVersion) not in deployed_tags:
+					build_items.append(format_build_item(kernelVersion, "stable", "non-latest", "x86", "linux/386"))
 
-		# 	if "x86-%s" % (kernelVersion) not in deployed_tags:
-		# 		build_item_manifest_tags.append("x86")
+			if "x86-%s" % (kernelVersion) not in deployed_tags:
+				build_item_manifest_tags.append("x86")
 
-		# if not isTestingArm32:
-		# 	if isFirstStableArm32:
-		# 		if "arm32v5-%s" % (kernelVersion) not in deployed_tags:
-		# 			build_items.append(format_build_item(kernelVersion, "stable", "latest", "arm32v5", "linux/arm/v5"))
-		# 			manifest_latest.append("%s:arm32v5" % (kernelVersion))
+		if not isTestingArm32:
+			if isFirstStableArm32:
+				if "arm32v5-%s" % (kernelVersion) not in deployed_tags:
+					build_items.append(format_build_item(kernelVersion, "stable", "latest", "arm32v5", "linux/arm/v5"))
+					manifest_latest.append("%s:arm32v5" % (kernelVersion))
 
-		# 		if "arm32v6-%s" % (kernelVersion) not in deployed_tags:
-		# 			build_items.append(format_build_item(kernelVersion, "stable", "latest", "arm32v6", "linux/arm/v6"))
-		# 			manifest_latest.append("%s:arm32v6" % (kernelVersion))
+				if "arm32v6-%s" % (kernelVersion) not in deployed_tags:
+					build_items.append(format_build_item(kernelVersion, "stable", "latest", "arm32v6", "linux/arm/v6"))
+					manifest_latest.append("%s:arm32v6" % (kernelVersion))
 
-		# 		if "arm32v7-%s" % (kernelVersion) not in deployed_tags:
-		# 			build_items.append(format_build_item(kernelVersion, "stable", "latest", "arm32v7", "linux/arm/v7"))
-		# 			manifest_latest.append("%s:arm32v7" % (kernelVersion))
+				if "arm32v7-%s" % (kernelVersion) not in deployed_tags:
+					build_items.append(format_build_item(kernelVersion, "stable", "latest", "arm32v7", "linux/arm/v7"))
+					manifest_latest.append("%s:arm32v7" % (kernelVersion))
 
-		# 		isFirstStableArm32 = False
-		# 	else:
-		# 		if "arm32v5-%s" % (kernelVersion) not in deployed_tags:
-		# 			build_items.append(format_build_item(kernelVersion, "stable", "non-latest", "arm32v5", "linux/arm/v5"))
+				isFirstStableArm32 = False
+			else:
+				if "arm32v5-%s" % (kernelVersion) not in deployed_tags:
+					build_items.append(format_build_item(kernelVersion, "stable", "non-latest", "arm32v5", "linux/arm/v5"))
 
-		# 		if "arm32v6-%s" % (kernelVersion) not in deployed_tags:
-		# 			build_items.append(format_build_item(kernelVersion, "stable", "non-latest", "arm32v6", "linux/arm/v6"))
+				if "arm32v6-%s" % (kernelVersion) not in deployed_tags:
+					build_items.append(format_build_item(kernelVersion, "stable", "non-latest", "arm32v6", "linux/arm/v6"))
 
-		# 		if "arm32v7-%s" % (kernelVersion) not in deployed_tags:
-		# 			build_items.append(format_build_item(kernelVersion, "stable", "non-latest", "arm32v7", "linux/arm/v7"))
+				if "arm32v7-%s" % (kernelVersion) not in deployed_tags:
+					build_items.append(format_build_item(kernelVersion, "stable", "non-latest", "arm32v7", "linux/arm/v7"))
 
-		# 	if "arm32v5-%s" % (kernelVersion) not in deployed_tags:
-		# 		build_item_manifest_tags.append("arm32v5")
+			if "arm32v5-%s" % (kernelVersion) not in deployed_tags:
+				build_item_manifest_tags.append("arm32v5")
 
-		# 	if "arm32v6-%s" % (kernelVersion) not in deployed_tags:
-		# 		build_item_manifest_tags.append("arm32v6")
+			if "arm32v6-%s" % (kernelVersion) not in deployed_tags:
+				build_item_manifest_tags.append("arm32v6")
 
-		# 	if "arm32v7-%s" % (kernelVersion) not in deployed_tags:
-		# 		build_item_manifest_tags.append("arm32v7")
+			if "arm32v7-%s" % (kernelVersion) not in deployed_tags:
+				build_item_manifest_tags.append("arm32v7")
 
-		# if not isTestingArm64:
-		# 	if isFirstStableArm64:
-		# 		if "arm64v8-%s" % (kernelVersion) not in deployed_tags:
-		# 			build_items.append(format_build_item(kernelVersion, "stable", "latest", "arm64v8", "linux/arm64/v8"))
-		# 			manifest_latest.append("%s:arm64v8" % (kernelVersion))
-		# 		isFirstStableArm64 = False
-		# 	else:
-		# 		if "arm64v8-%s" % (kernelVersion) not in deployed_tags:
-		# 			build_items.append(format_build_item(kernelVersion, "stable", "non-latest", "arm64v8", "linux/arm64/v8"))
+		if not isTestingArm64:
+			if isFirstStableArm64:
+				if "arm64v8-%s" % (kernelVersion) not in deployed_tags:
+					build_items.append(format_build_item(kernelVersion, "stable", "latest", "arm64v8", "linux/arm64/v8"))
+					manifest_latest.append("%s:arm64v8" % (kernelVersion))
+				isFirstStableArm64 = False
+			else:
+				if "arm64v8-%s" % (kernelVersion) not in deployed_tags:
+					build_items.append(format_build_item(kernelVersion, "stable", "non-latest", "arm64v8", "linux/arm64/v8"))
 
-		# 	if "arm64v8-%s" % (kernelVersion) not in deployed_tags:
-		# 		build_item_manifest_tags.append("arm64v8")
+			if "arm64v8-%s" % (kernelVersion) not in deployed_tags:
+				build_item_manifest_tags.append("arm64v8")
 
 		if len(build_item_manifest_tags) > 0:
 			manifest = "%s:%s" % (kernelVersion, ",".join(build_item_manifest_tags))

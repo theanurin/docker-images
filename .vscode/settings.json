@@ -19,5 +19,8 @@
 	"files.encoding": "utf8",
 	"files.eol": "\n",
 	"git.enabled": true,
-	"git.rebaseWhenSync": true
+	"git.rebaseWhenSync": true,
+	"cSpell.words": [
+		"zxteamorg"
+	]
 }

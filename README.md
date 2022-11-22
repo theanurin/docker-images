@@ -2,7 +2,7 @@
 
 # Gentoo Sources Bundle
 
-This image based on Gentoo stage3 with additionally emerged packages to make abillity to compile Gentoo Sources Kernel in few commands on a Docker Host.
+This image based on Gentoo stage3 with additionally emerged packages to make ability to compile Gentoo Sources Kernel in few commands on a Docker Host.
 
 ## Author's Notes
 
@@ -29,7 +29,7 @@ make -j$(nproc)
 exit
 ```
 
-## Image name convension
+## Image name convention
 
 | Image Tag Name                                          | Build Source                                     |
 |---------------------------------------------------------|--------------------------------------------------|
@@ -58,3 +58,12 @@ exit
 ## What the image includes
 
 * [sys-kernel/gentoo-sources](https://packages.gentoo.org/packages/sys-kernel/gentoo-sources) package with dependencies
+
+## Developer Notes
+
+```shell
+python3 -m venv .venv
+source .venv/bin/activate
+pip3 install requests beautifulsoup4
+./tools/gentoo-sources-package-parser.py
+```

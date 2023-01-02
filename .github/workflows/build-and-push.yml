@@ -100,6 +100,8 @@ jobs:
       - name: Make cross arch docker image via manifest
         run: |
           KERNEL_VERSION=$(echo ${{ matrix.manifest_version }} | cut -d: -f1)
+          KERNEL_MAJOR=$(echo -n "${KERNEL_VERSION}" | cut -d. -f1)
+          KERNEL_MAJOR_MINOR=$(echo -n "${KERNEL_VERSION}" | cut -d. -f1-2)
           DOCKER_TAGS=$(echo ${{ matrix.manifest_version }} | cut -d: -f2 | sed 's/,/ /g')
           AMEND_OPTS=""
           for DOCKER_TAG in ${DOCKER_TAGS}; do
@@ -109,6 +111,10 @@ jobs:
           docker manifest push "zxteamorg/gentoo-sources-bundle:${GITHUB_REF_NAME}-${KERNEL_VERSION}"
           eval "docker manifest create \"zxteamorg/gentoo-sources-bundle:${KERNEL_VERSION}\" ${AMEND_OPTS}"
           docker manifest push "zxteamorg/gentoo-sources-bundle:${KERNEL_VERSION}"
+          eval "docker manifest create \"zxteamorg/gentoo-sources-bundle:${KERNEL_MAJOR}\" ${AMEND_OPTS}"
+          docker manifest push "zxteamorg/gentoo-sources-bundle:${KERNEL_MAJOR}"
+          eval "docker manifest create \"zxteamorg/gentoo-sources-bundle:${KERNEL_MAJOR_MINOR}\" ${AMEND_OPTS}"
+          docker manifest push "zxteamorg/gentoo-sources-bundle:${KERNEL_MAJOR_MINOR}"
 
   build-manifest-latest:
     needs: [configure,build-images]

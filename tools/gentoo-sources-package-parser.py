@@ -79,9 +79,14 @@ for htmlTable in htmlTables:
 		isTestingArm32 = "kk-keyword-testing" in htmlTableBodyColumnArm32["class"]
 		isTestingArm64 = "kk-keyword-testing" in htmlTableBodyColumnArm64["class"]
 
+		isStableAmd64 = "kk-keyword-stable" in htmlTableBodyColumnAmd64["class"]
+		isStableX86 = "kk-keyword-stable" in htmlTableBodyColumnX86["class"]
+		isStableArm32 = "kk-keyword-stable" in htmlTableBodyColumnArm32["class"]
+		isStableArm64 = "kk-keyword-stable" in htmlTableBodyColumnArm64["class"]
+
 		build_item_manifest_tags = []
 		# Use stable ONLY
-		if not isTestingAmd64:
+		if isStableAmd64:
 			if isFirstStableAmd64:
 				if "amd64-%s" % (kernelVersion) not in deployed_tags:
 					build_items.append(format_build_item(kernelVersion, "stable", "latest", "amd64", "linux/amd64"))
@@ -94,7 +99,7 @@ for htmlTable in htmlTables:
 			if "amd64-%s" % (kernelVersion) not in deployed_tags:
 				build_item_manifest_tags.append("amd64")
 
-		if not isTestingX86:
+		if isStableX86:
 			if isFirstStableX86:
 				if "x86-%s" % (kernelVersion) not in deployed_tags:
 					build_items.append(format_build_item(kernelVersion, "stable", "latest", "x86", "linux/386"))
@@ -107,7 +112,7 @@ for htmlTable in htmlTables:
 			if "x86-%s" % (kernelVersion) not in deployed_tags:
 				build_item_manifest_tags.append("x86")
 
-		if not isTestingArm32:
+		if isStableArm32:
 			if isFirstStableArm32:
 				if "arm32v5-%s" % (kernelVersion) not in deployed_tags:
 					build_items.append(format_build_item(kernelVersion, "stable", "latest", "arm32v5", "linux/arm/v5"))
@@ -141,7 +146,7 @@ for htmlTable in htmlTables:
 			if "arm32v7-%s" % (kernelVersion) not in deployed_tags:
 				build_item_manifest_tags.append("arm32v7")
 
-		if not isTestingArm64:
+		if isStableArm64:
 			if isFirstStableArm64:
 				if "arm64v8-%s" % (kernelVersion) not in deployed_tags:
 					build_items.append(format_build_item(kernelVersion, "stable", "latest", "arm64v8", "linux/arm64/v8"))

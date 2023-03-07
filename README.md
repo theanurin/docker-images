@@ -29,6 +29,23 @@ make -j$(nproc)
 exit
 ```
 
+
+## Quick Start with configuration
+
+```bash
+docker run --rm --interactive --tty \
+  --mount type=bind,source="$(pwd)",target=/data \ 
+  zxteamorg/gentoo-sources-bundle
+
+# Inside container
+ln -s /data/kernel.config .config
+make menuconfig
+make -j$(nproc)
+exit
+```
+
+
+
 ## Image name convention
 
 | Image Tag Name                                          | Build Source                                          |

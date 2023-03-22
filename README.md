@@ -45,7 +45,7 @@ TBD
 * [libraries](https://www.openldap.org/software/man.cgi?query=ldap) - implementing the LDAP protocol
 * utilities, tools, and sample clients
 * [LEGO](https://go-acme.github.io/lego/) - Let’s Encrypt client and ACME library written in Go.
-* custom dns-01-solvers scripts to solve DNS-01 challange:
+* custom dns-01-solvers scripts to solve DNS-01 challenge:
 	1. `tools.adm.py` for [Hosting Ukraine](https://www.ukraine.com.ua/)
 
 ## Launch

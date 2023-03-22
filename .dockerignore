@@ -1,4 +1,5 @@
 ./*
 
 !./docker/docker-entrypoint.sh
+!./dns-01-solvers/tools.adm.py
 !./README.md

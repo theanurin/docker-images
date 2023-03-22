@@ -5,8 +5,8 @@ FROM alpine:${ALPINE_BUILD}
 
 ARG VER_OPENLDAP=2.4.57-r1
 ARG VER_LEGO=4.1.3-r0
-ARG VER_PYTHON=3.8.10-r0
-ARG VER_OPENSSL=1.1.1l-r0
+ARG VER_PYTHON=3.8.15-r0
+ARG VER_OPENSSL=1.1.1s-r0
 
 #
 # Add OpenLDAP backends (just names)
@@ -29,7 +29,7 @@ RUN apk add --no-cache \
   pip3 install --upgrade pip && pip3 install requests
 
 # Copy entrypoint script to root /
-COPY --chown=root:root docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+COPY --chown=root:root docker/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 COPY --chown=root:root dns-01-solvers/ /opt/dns-01-solvers/
 
 # Expose port 389 (unsecured) and 636 (secured). Port 80 and 443 used by CONFIG_LEGO_CHALLENGE_HTTP_01 and CONFIG_LEGO_CHALLENGE_TLS_ALPN_01

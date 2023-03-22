@@ -71,4 +71,4 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
           repository: ${{ secrets.DOCKERHUB_USERNAME }}/subversion
-          short-description: "Runner SQL - is a Docker-based command line batch tool to run series of SQL scripts against variours databases like MSSQL, MySQL, PostgreSQL, SQLite, etc."
+          short-description: "Apache Subversion is a software versioning and revision control system distributed as open source under the Apache License."

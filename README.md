@@ -1,9 +1,7 @@
-[![Docker Build Status](https://img.shields.io/docker/cloud/build/zxteamorg/infra.subversion?label=Build%20Status)](https://hub.docker.com/r/zxteamorg/infra.subversion/builds)
-[![Docker Image Version](https://img.shields.io/docker/v/zxteamorg/infra.subversion?sort=date&label=Version)](https://hub.docker.com/r/zxteamorg/infra.subversion/tags)
-[![Docker Image Size](https://img.shields.io/docker/image-size/zxteamorg/infra.subversion?label=Image%20Size)](https://hub.docker.com/r/zxteamorg/infra.subversion/tags)
-[![Docker Pulls](https://img.shields.io/docker/pulls/zxteamorg/infra.subversion?label=Pulls)](https://hub.docker.com/r/zxteamorg/infra.subversion)
-[![Docker Pulls](https://img.shields.io/docker/stars/zxteamorg/infra.subversion?label=Docker%20Stars)](https://hub.docker.com/r/zxteamorg/infra.subversion)
-[![Docker Automation](https://img.shields.io/docker/cloud/automated/zxteamorg/infra.subversion?label=Docker%20Automation)](https://hub.docker.com/r/zxteamorg/infra.subversion/builds)
+[![Docker Image Version](https://img.shields.io/docker/v/theanurin/subversion?sort=date&label=Version)](https://hub.docker.com/r/theanurin/subversion/tags)
+[![Docker Image Size](https://img.shields.io/docker/image-size/theanurin/subversion?label=Image%20Size)](https://hub.docker.com/r/theanurin/subversion/tags)
+[![Docker Pulls](https://img.shields.io/docker/pulls/theanurin/subversion?label=Pulls)](https://hub.docker.com/r/theanurin/subversion)
+[![Docker Stars](https://img.shields.io/docker/stars/theanurin/subversion?label=Docker%20Stars)](https://hub.docker.com/r/theanurin/subversion)
 
 # Subversion
 
@@ -35,10 +33,10 @@ No any variables
 # Launch
 
 ```bash
-docker run --interactive --tty --rm --publish 3690:3690 zxteamorg/infra.subversion
+docker run --interactive --tty --rm --publish 3690:3690 theanurin/subversion
 ```
 
 # Support
 
-* Maintained by: [ZXTeam](https://zxteam.org)
-* Where to get help: [Telegram Channel](https://t.me/zxteamorg)
+* Maintained by: [Max Anurin](https://anurin.name/)
+* Where to get help: [Telegram](https://t.me/theanurin)

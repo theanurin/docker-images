@@ -1,8 +1,7 @@
-[![Build Status](https://github.com/zxteamorg/docker.devel.postgres-13/actions/workflows/build.yml/badge.svg)](https://github.com/zxteamorg/docker.devel.postgres-13/actions/workflows/build.yml)
-[![Docker Image Version](https://img.shields.io/docker/v/zxteamorg/devel.postgres-13?sort=date&label=Version)](https://hub.docker.com/r/zxteamorg/devel.postgres-13/tags)
-[![Docker Image Size](https://img.shields.io/docker/image-size/zxteamorg/devel.postgres-13?label=Image%20Size)](https://hub.docker.com/r/zxteamorg/devel.postgres-13/tags)
-[![Docker Pulls](https://img.shields.io/docker/pulls/zxteamorg/devel.postgres-13?label=Image%20Pulls)](https://hub.docker.com/r/zxteamorg/devel.postgres-13)
-[![Docker Stars](https://img.shields.io/docker/stars/zxteamorg/devel.postgres-13?label=Image%20Stars)](https://hub.docker.com/r/zxteamorg/devel.postgres-13)
+[![Docker Image Version](https://img.shields.io/docker/v/theanurin/devel.postgres-13?sort=date&label=Version)](https://hub.docker.com/r/theanurin/devel.postgres-13/tags)
+[![Docker Image Size](https://img.shields.io/docker/image-size/theanurin/devel.postgres-13?label=Image%20Size)](https://hub.docker.com/r/theanurin/devel.postgres-13/tags)
+[![Docker Pulls](https://img.shields.io/docker/pulls/theanurin/devel.postgres-13?label=Pulls)](https://hub.docker.com/r/theanurin/devel.postgres-13)
+[![Docker Stars](https://img.shields.io/docker/stars/theanurin/devel.postgres-13?label=Docker%20Stars)](https://hub.docker.com/r/theanurin/devel.postgres-13)
 
 # Postgres 13
 
@@ -28,8 +27,8 @@ No any variables
 
 # Inside
 
-* Alpine Linux 3.16.0
-* PostgreSQL 13.7 Server
+* Alpine Linux 3.16.4
+* PostgreSQL 13.10 Server
 * Database `devdb`
 * Flag table `"public"."emptytestflag"`
 * User `postgres` - superuser (no password)
@@ -48,5 +47,5 @@ No any variables
 
 # Support
 
-* Maintained by: [ZXTeam](https://zxteam.org)
-* Where to get help: [Telegram Channel](https://t.me/zxteamorg)
+* Maintained by: [Max Anurin](https://anurin.name/)
+* Where to get help: [Telegram](https://t.me/theanurin)

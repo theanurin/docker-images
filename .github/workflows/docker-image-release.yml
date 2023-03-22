@@ -6,7 +6,7 @@ on:
       - '*'
 
 jobs:
-  docker:
+  docker-image:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -23,11 +23,13 @@ jobs:
         id: meta
         uses: docker/metadata-action@v3
         with:
+          # list of Docker images to use as base name for tags
           images: |
-            zxteamorg/devel.postgres-13
-            ghcr.io/${{ github.repository }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/devel.postgres-13
+            ghcr.io/${{ github.repository }}/devel.postgres-13
+          # generate Docker tags based on the following events/attributes
           tags: |
-            type=ref,event=tag
+            type=match,pattern=devel.postgres-13-(.*),group=1
 
       # See https://github.com/docker/login-action
       - name: Log In To The DockerHub
@@ -51,13 +53,13 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          platforms: linux/amd64,linux/arm64
-          file: Dockerfile
+          platforms: linux/arm64,linux/amd64,linux/ppc64le,linux/s390x,linux/386,linux/arm/v7,linux/arm/v6
+          file: docker/Dockerfile
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
   readme:
-    needs: [docker]
+    needs: [docker-image]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -67,6 +69,6 @@ jobs:
         uses: peter-evans/dockerhub-description@v2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_PASSWORD }}
-          repository: zxteamorg/devel.postgres-13
-          short-description: ${{ github.event.repository.description }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          repository: ${{ secrets.DOCKERHUB_USERNAME }}/devel.postgres-13
+          short-description: "PostgreSQL is a powerful, open source object-relational database system with over 30 years of active development that has earned it a strong reputation for reliability, feature robustness, and performance."

@@ -1,4 +1,6 @@
-*
-!docker-build.sh
-!docker-build.sql
-!docker-entrypoint.sh
+./*
+
+!docker/docker-build.sh
+!docker/docker-build.sql
+!docker/docker-entrypoint.sh
+!./README.md

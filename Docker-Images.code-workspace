@@ -1,7 +1,13 @@
 {
 	"folders": [
 		{
+			"path": "devel.postgres-13"
+		},
+		{
 			"path": "luksoid"
+		},
+		{
+			"path": "openldap"
 		},
 		{
 			"path": "sqlmigration"
@@ -10,12 +16,25 @@
 			"path": "sqlrunner"
 		},
 		{
+			"path": "subversion"
+		},
+		{
 			"name": "workspace",
 			"path": "."
 		},
 	],
 	"settings": {
 		"files.autoSave": "afterDelay",
-		"files.autoSaveDelay": 3000
+		"files.autoSaveDelay": 3000,
+		"cSpell.words": [
+			"devel",
+			"LUKS",
+			"luksoid",
+			"mybranch",
+			"sqlmigration",
+			"sqlrunner",
+			"theanurin",
+			"worktree"
+		]
 	}
 }

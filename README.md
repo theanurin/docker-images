@@ -1,8 +1,7 @@
-[![Docker Build Status](https://img.shields.io/docker/cloud/build/theanurin/openldap?label=Build%20Status)](https://hub.docker.com/r/theanurin/openldap/builds)
 [![Docker Image Version](https://img.shields.io/docker/v/theanurin/openldap?sort=date&label=Version)](https://hub.docker.com/r/theanurin/openldap/tags)
 [![Docker Image Size](https://img.shields.io/docker/image-size/theanurin/openldap?label=Image%20Size)](https://hub.docker.com/r/theanurin/openldap/tags)
 [![Docker Pulls](https://img.shields.io/docker/pulls/theanurin/openldap?label=Pulls)](https://hub.docker.com/r/theanurin/openldap)
-
+[![Docker Stars](https://img.shields.io/docker/stars/theanurin/openldap?label=Docker%20Stars)](https://hub.docker.com/r/theanurin/openldap)
 
 # OpenLDAP (+ Let's Encrypt)
 

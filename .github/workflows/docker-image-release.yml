@@ -71,4 +71,4 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
           repository: ${{ secrets.DOCKERHUB_USERNAME }}/openldap
-          short-description: "Runner SQL - is a Docker-based command line batch tool to run series of SQL scripts against variours databases like MSSQL, MySQL, PostgreSQL, SQLite, etc."
+          short-description: "OpenLDAP is an open source implementation of the Lightweight Directory Access Protocol."

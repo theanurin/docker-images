@@ -29,7 +29,7 @@ RUN apk add --no-cache \
   pip3 install --upgrade pip && pip3 install requests
 
 # Copy entrypoint script to root /
-COPY --chown=root:root entrypoint.sh /
+COPY --chown=root:root docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 COPY --chown=root:root dns-01-solvers/ /opt/dns-01-solvers/
 
 # Expose port 389 (unsecured) and 636 (secured). Port 80 and 443 used by CONFIG_LEGO_CHALLENGE_HTTP_01 and CONFIG_LEGO_CHALLENGE_TLS_ALPN_01
@@ -83,4 +83,4 @@ ENV EXEC_PROPAGATION_TIMEOUT=3600
 # See for "debug-level" in man page for SLAPD https://linux.die.net/man/8/slapd
 ENV SLAPD_DEBUG_LEVEL=
 
-ENTRYPOINT [ "/entrypoint.sh" ]
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]

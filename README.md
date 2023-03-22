@@ -1,7 +1,7 @@
-[![Docker Build Status](https://img.shields.io/docker/cloud/build/zxteamorg/infra.openldap?label=Build%20Status)](https://hub.docker.com/r/zxteamorg/infra.openldap/builds)
-[![Docker Image Version](https://img.shields.io/docker/v/zxteamorg/infra.openldap?sort=date&label=Version)](https://hub.docker.com/r/zxteamorg/infra.openldap/tags)
-[![Docker Image Size](https://img.shields.io/docker/image-size/zxteamorg/infra.openldap?label=Image%20Size)](https://hub.docker.com/r/zxteamorg/infra.openldap/tags)
-[![Docker Pulls](https://img.shields.io/docker/pulls/zxteamorg/infra.openldap?label=Pulls)](https://hub.docker.com/r/zxteamorg/infra.openldap)
+[![Docker Build Status](https://img.shields.io/docker/cloud/build/theanurin/openldap?label=Build%20Status)](https://hub.docker.com/r/theanurin/openldap/builds)
+[![Docker Image Version](https://img.shields.io/docker/v/theanurin/openldap?sort=date&label=Version)](https://hub.docker.com/r/theanurin/openldap/tags)
+[![Docker Image Size](https://img.shields.io/docker/image-size/theanurin/openldap?label=Image%20Size)](https://hub.docker.com/r/theanurin/openldap/tags)
+[![Docker Pulls](https://img.shields.io/docker/pulls/theanurin/openldap?label=Pulls)](https://hub.docker.com/r/theanurin/openldap)
 
 
 # OpenLDAP (+ Let's Encrypt)
@@ -11,7 +11,7 @@
 ## Image reason
 
 * Secured endpoint with Let's Encrypt SSL certificate generation (at startup)
-* Easy to update production enviroment (just re-create container)
+* Easy to update production environment (just re-create container)
 * Easy to bring-up mirror
 
 
@@ -23,16 +23,16 @@ TBD
 
 ### Expose ports
 
-* `tcp/80` - insecured HTTP endpoint for ACME challenge (use http://)
-* `tcp/389` - insecured LDAP endpoint (use ldap://)
+* `tcp/80` - insecure HTTP endpoint for ACME challenge (use http://)
+* `tcp/389` - insecure LDAP endpoint (use ldap://)
 * `tcp/443` - secured HTTP endpoint for ACME challenge (use https://)
 * `tcp/636` - secured LDAP endpoint (use ldaps://)
  
 ### Volumes
 
-* `/data/etc` - Configuration stuff.
-* `/data/etc/slapd-init.d` - Place here LDIF files that will deployed (one time) into new instance.
-* `/data/db`  - LDAP databases.
+* `/data/etc` - Configuration stuff
+* `/data/etc/slapd-init.d` - Place here LDIF files that will deployed (one time) into new instance
+* `/data/db` - LDAP databases
 
 ### Defaults
 
@@ -50,7 +50,7 @@ TBD
 
 ## Launch
 
-### With ACME challange HTTP_01
+### With ACME challenge HTTP_01
 
 NOTE: The container's port 80 should be public available on your domain defined in CONFIG_LEGO_DOMAIN variable.
 
@@ -71,10 +71,10 @@ docker run --rm --interactive --tty \
   --publish 0.0.0.0:80:80 \
   --publish 127.0.0.1:389:389 \
   --publish 0.0.0.0:636:636 \
-  zxteamorg/infra.openldap
+  theanurin/openldap
 ```
 
-### With ACME challange TLS_ALPN_01
+### With ACME challenge TLS_ALPN_01
 
 NOTE: The container's port 443 should be public available on your domain defined in CONFIG_LEGO_DOMAIN variable.
 
@@ -95,10 +95,10 @@ docker run --rm --interactive --tty \
   --publish 127.0.0.1:389:389 \
   --publish 0.0.0.0:443:443 \
   --publish 0.0.0.0:636:636 \
-  zxteamorg/infra.openldap
+  theanurin/openldap
 ```
 
-### With ACME challange DNS_01 (with custom solver `tools.adm.py`)
+### With ACME challenge DNS_01 (with custom solver `tools.adm.py`)
 
 NOTE: DNS_01 is perfect when you are not able to expose ACME web server ports. But you have to write own solver script if you use no-name DNS provider. See LEGO's ready to use [DNS Providers](https://go-acme.github.io/lego/dns/).
 
@@ -126,11 +126,11 @@ docker run --rm --interactive --tty \
   --mount "type=bind,source=/path/to/admtools_token,target=/run/secrets/admtools_token" \
   --publish 127.0.0.1:389:389 \
   --publish 0.0.0.0:636:636 \
-  zxteamorg/infra.openldap
+  theanurin/openldap
 ```
 
 
-## Support
+# Support
 
-* Maintained by: [ZXTeam](https://zxteam.org)
-* Where to get help: [Telegram Channel](https://t.me/zxteamorg)
+* Maintained by: [Max Anurin](https://anurin.name/)
+* Where to get help: [Telegram](https://t.me/theanurin)

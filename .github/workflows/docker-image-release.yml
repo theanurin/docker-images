@@ -69,6 +69,6 @@ jobs:
         uses: peter-evans/dockerhub-description@v2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
           repository: ${{ secrets.DOCKERHUB_USERNAME }}/sqlrunner
           short-description: "Runner SQL - is a Docker-based command line batch tool to run series of SQL scripts against variours databases like MSSQL, MySQL, PostgreSQL, SQLite, etc."

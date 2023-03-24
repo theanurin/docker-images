@@ -1,6 +1,9 @@
 {
 	"folders": [
 		{
+			"path": "configuration-templates"
+		},
+		{
 			"path": "devel.postgres-13"
 		},
 		{

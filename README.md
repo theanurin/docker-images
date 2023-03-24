@@ -1,13 +1,11 @@
-[![Docker Build Status](https://img.shields.io/docker/cloud/build/zxteamorg/devel.configuration-templates?label=Build%20Status)](https://hub.docker.com/r/zxteamorg/devel.configuration-templates/builds)
-[![Docker Image Version](https://img.shields.io/docker/v/zxteamorg/devel.configuration-templates?sort=date&label=Version)](https://hub.docker.com/r/zxteamorg/devel.configuration-templates/tags)
-[![Docker Image Size](https://img.shields.io/docker/image-size/zxteamorg/devel.configuration-templates?label=Image%20Size)](https://hub.docker.com/r/zxteamorg/devel.configuration-templates/tags)
-[![Docker Pulls](https://img.shields.io/docker/pulls/zxteamorg/devel.configuration-templates?label=Pulls)](https://hub.docker.com/r/zxteamorg/devel.configuration-templates)
-[![Docker Pulls](https://img.shields.io/docker/stars/zxteamorg/devel.configuration-templates?label=Docker%20Stars)](https://hub.docker.com/r/zxteamorg/devel.configuration-templates)
-[![Docker Automation](https://img.shields.io/docker/cloud/automated/zxteamorg/devel.configuration-templates?label=Docker%20Automation)](https://hub.docker.com/r/zxteamorg/devel.configuration-templates/builds)
+[![Docker Image Version](https://img.shields.io/docker/v/theanurin/configuration-templates?sort=date&label=Version)](https://hub.docker.com/r/theanurin/configuration-templates/tags)
+[![Docker Image Size](https://img.shields.io/docker/image-size/theanurin/configuration-templates?label=Image%20Size)](https://hub.docker.com/r/theanurin/configuration-templates/tags)
+[![Docker Pulls](https://img.shields.io/docker/pulls/theanurin/configuration-templates?label=Pulls)](https://hub.docker.com/r/theanurin/configuration-templates)
+[![Docker Stars](https://img.shields.io/docker/stars/theanurin/configuration-templates?label=Docker%20Stars)](https://hub.docker.com/r/theanurin/configuration-templates)
 
 # Configuration Templates
 
-*Configuration Templates* - is a set of template processors thar run against configuration properties.
+*Configuration Templates* - is a set of template processors that run against configuration properties.
 
 # Image reason
 

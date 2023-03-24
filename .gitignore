@@ -1,1 +1,4 @@
 *.local*
+
+# Mac specific
+.DS_Store

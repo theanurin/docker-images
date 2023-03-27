@@ -1,9 +1,7 @@
-[![Docker Build Status](https://img.shields.io/docker/cloud/build/zxteamorg/devel.mkdocs?label=Build%20Status)](https://hub.docker.com/r/zxteamorg/devel.mkdocs/builds)
-[![Docker Image Version](https://img.shields.io/docker/v/zxteamorg/devel.mkdocs?sort=date&label=Version)](https://hub.docker.com/r/zxteamorg/devel.mkdocs/tags)
-[![Docker Image Size](https://img.shields.io/docker/image-size/zxteamorg/devel.mkdocs?label=Image%20Size)](https://hub.docker.com/r/zxteamorg/devel.mkdocs/tags)
-[![Docker Pulls](https://img.shields.io/docker/pulls/zxteamorg/devel.mkdocs?label=Pulls)](https://hub.docker.com/r/zxteamorg/devel.mkdocs)
-[![Docker Pulls](https://img.shields.io/docker/stars/zxteamorg/devel.mkdocs?label=Docker%20Stars)](https://hub.docker.com/r/zxteamorg/devel.mkdocs)
-[![Docker Automation](https://img.shields.io/docker/cloud/automated/zxteamorg/devel.mkdocs?label=Docker%20Automation)](https://hub.docker.com/r/zxteamorg/devel.mkdocs/builds)
+[![Docker Image Version](https://img.shields.io/docker/v/theanurin/mkdocs?sort=date&label=Version)](https://hub.docker.com/r/theanurin/mkdocs/tags)
+[![Docker Image Size](https://img.shields.io/docker/image-size/theanurin/mkdocs?label=Image%20Size)](https://hub.docker.com/r/theanurin/mkdocs/tags)
+[![Docker Pulls](https://img.shields.io/docker/pulls/theanurin/mkdocs?label=Pulls)](https://hub.docker.com/r/theanurin/mkdocs)
+[![Docker Stars](https://img.shields.io/docker/stars/theanurin/mkdocs?label=Docker%20Stars)](https://hub.docker.com/r/theanurin/mkdocs)
 
 # MkDocs
 
@@ -25,14 +23,14 @@ The image embedding fixed version of MkDocs to prevent breaking changes in MkDoc
 
 ## Volumes
 
-* `/data` - Sources root (bind/mount here your work direcory)
+* `/data` - Sources root (bind/mount here your work directory)
 
 # Inside
 
-* mkdocs==1.2.2
-* mkdocs-material==7.2.6
-* mkdocs-markdownextradata-plugin==0.2.4
-* mkdocs-pdf-export-plugin==0.5.9
+* mkdocs==1.4.2
+* mkdocs-material==9.1.4
+* mkdocs-markdownextradata-plugin==0.2.5
+* mkdocs-pdf-export-plugin==0.5.10
 * fontawesome_markdown==0.2.6
 
 # Launch
@@ -45,5 +43,5 @@ The image embedding fixed version of MkDocs to prevent breaking changes in MkDoc
 
 # Support
 
-* Maintained by: [ZXTeam](https://zxteam.org)
-* Where to get help: [Telegram Channel](https://t.me/zxteamorg)
+* Maintained by: [Max Anurin](https://anurin.name/)
+* Where to get help: [Telegram](https://t.me/theanurin)

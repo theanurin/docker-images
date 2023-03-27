@@ -10,6 +10,9 @@
 			"path": "luksoid"
 		},
 		{
+			"path": "mkdocs"
+		},
+		{
 			"path": "openldap"
 		},
 		{
@@ -33,6 +36,7 @@
 			"devel",
 			"LUKS",
 			"luksoid",
+			"mkdocs",
 			"mybranch",
 			"sqlmigration",
 			"sqlrunner",

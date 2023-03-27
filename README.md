@@ -7,6 +7,7 @@ This is workspace branch of Docker Images multi project repository based on [orp
 | [configuration-templates](../../tree/configuration-templates)  | Set of template processors that run against configuration properties                                                 |
 | [devel.postgres-13](../../tree/devel.postgres-13)              | PostgreSQL for development and testing purposes                                                                      |
 | [luksoid](../../tree/luksoid)                                  | A command line tool to help users to use LUKS-encrypted partition image without Linux host                           |
+| [mkdocs](../../tree/mkdocs)                                    | Fast, simple and downright gorgeous static site generator that's geared towards building project documentation.      |
 | [openldap](../../tree/openldap)                                | OpenLDAP is an open source implementation of the Lightweight Directory Access Protocol                               |
 | [sqlmigration](../../tree/sqlmigration)                        | Database Migration Manager based on plain SQL scripts                                                                |
 | [sqlrunner](../../tree/sqlrunner)                              | Provide ability to run series of SQL scripts against various databases like MSSQL, MySQL, PostgreSQL, SQLite, etc    |

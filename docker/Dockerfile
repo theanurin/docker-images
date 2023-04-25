@@ -13,7 +13,7 @@ RUN \
  gem install racc && \
  rm -rf $GEM_HOME/cache && \
  apk del .build-deps
-COPY docker-entrypoint.sh /usr/local/bin/zxteamorg-jekyll-docker-entrypoint.sh
+COPY docker/docker-entrypoint.sh /usr/local/bin/docker-entrypoint-jekyll.sh
 VOLUME /data
 EXPOSE 4000
-ENTRYPOINT [ "/usr/local/bin/zxteamorg-jekyll-docker-entrypoint.sh" ]
+ENTRYPOINT [ "/usr/local/bin/docker-entrypoint-jekyll.sh" ]

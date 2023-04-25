@@ -1,3 +1,4 @@
-*
+./*
 
-!./docker-entrypoint.sh
+!./docker/docker-entrypoint.sh
+!./README.md

@@ -1,8 +1,7 @@
-[![Build Status](https://github.com/zxteamorg/docker.jekyll/actions/workflows/build.yml/badge.svg)](https://github.com/zxteamorg/docker.jekyll/actions/workflows/build.yml)
-[![Docker Image Version](https://img.shields.io/docker/v/zxteamorg/jekyll?sort=date&label=Version)](https://hub.docker.com/r/zxteamorg/jekyll/tags)
-[![Docker Image Size](https://img.shields.io/docker/image-size/zxteamorg/jekyll?label=Image%20Size)](https://hub.docker.com/r/zxteamorg/jekyll/tags)
-[![Docker Pulls](https://img.shields.io/docker/pulls/zxteamorg/jekyll?label=Image%20Pulls)](https://hub.docker.com/r/zxteamorg/jekyll)
-[![Docker Stars](https://img.shields.io/docker/stars/zxteamorg/jekyll?label=Image%20Stars)](https://hub.docker.com/r/zxteamorg/jekyll)
+[![Docker Image Version](https://img.shields.io/docker/v/theanurin/jekyll?sort=date&label=Version)](https://hub.docker.com/r/theanurin/jekyll/tags)
+[![Docker Image Size](https://img.shields.io/docker/image-size/theanurin/jekyll?label=Image%20Size)](https://hub.docker.com/r/theanurin/jekyll/tags)
+[![Docker Pulls](https://img.shields.io/docker/pulls/theanurin/jekyll?label=Pulls)](https://hub.docker.com/r/theanurin/jekyll)
+[![Docker Stars](https://img.shields.io/docker/stars/theanurin/jekyll?label=Docker%20Stars)](https://hub.docker.com/r/theanurin/jekyll)
 
 # Jekyll
 
@@ -44,7 +43,7 @@
 # Launch
 1. Start development server in site root directory (where `jekyll's _config.yml` located)
 	```bash
-	docker run --interactive --rm --volume ${PWD}:/data --publish 4000:4000 zxteamorg/jekyll
+	docker run --interactive --rm --volume ${PWD}:/data --publish 4000:4000 theanurin/jekyll
 	```
 1. Open browser http://127.0.0.1:4000/
 1. Edit content and look for hot-reloaded changes in the browser
@@ -52,12 +51,12 @@
 
 # Support
 
-* Maintained by: [ZXTeam](https://zxteam.org)
-* Where to get help: [Telegram Channel](https://t.me/zxteamorg)
+* Maintained by: [Max Anurin](https://anurin.name/)
+* Where to get help: [Telegram](https://t.me/theanurin)
 
 
 # Development
 ## Build and debug
 ```shell
-docker build --tag zxteamorg/jekyll --file Dockerfile . && docker run --interactive --tty --rm --entrypoint /bin/sh zxteamorg/jekyll
+docker build --tag theanurin/jekyll --file docker/Dockerfile . && docker run --interactive --tty --rm --entrypoint /bin/sh theanurin/jekyll
 ```

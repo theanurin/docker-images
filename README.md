@@ -1,6 +1,9 @@
-[![Docker Pulls](https://img.shields.io/docker/pulls/zxteamorg/gentoo-sources-bundle?label=Pulls)](https://hub.docker.com/r/zxteamorg/gentoo-sources-bundle)
+[![Docker Pulls](https://img.shields.io/docker/pulls/theanurin/gentoo-sources-bundle?label=Pulls)](https://hub.docker.com/r/theanurin/gentoo-sources-bundle)
 
 # Gentoo Sources Bundle
+
+!!! WARNING: Moving into https://github.com/theanurin/docker-images
+
 
 This image based on Gentoo stage3 with additionally emerged packages to make ability to compile Gentoo Sources Kernel in few commands on a Docker Host.
 
@@ -21,7 +24,7 @@ All of you need, just manage your kernel configuration files.
 ## Quick Start
 
 ```bash
-docker run --rm --interactive --tty zxteamorg/gentoo-sources-bundle
+docker run --rm --interactive --tty theanurin/gentoo-sources-bundle
 
 # Inside container
 make menuconfig
@@ -35,7 +38,7 @@ exit
 ```bash
 docker run --rm --interactive --tty \
   --mount type=bind,source="$(pwd)",target=/data \ 
-  zxteamorg/gentoo-sources-bundle
+  theanurin/gentoo-sources-bundle
 
 # Inside container
 ln -s /data/kernel.config .config
@@ -50,14 +53,14 @@ exit
 
 | Image Tag Name                                          | Build Source                                          |
 |---------------------------------------------------------|-------------------------------------------------------|
-| zxteamorg/gentoo-sources-bundle                         | latest build for latest kernel (multi-arch)           |
-| zxteamorg/gentoo-sources-bundle:X                       | latest build for specific kernel (multi-arch)         |
-| zxteamorg/gentoo-sources-bundle:X.Y                     | latest build for specific kernel (multi-arch)         |
-| zxteamorg/gentoo-sources-bundle:X.Y.Z                   | latest build for specific kernel (multi-arch)         |
-| zxteamorg/gentoo-sources-bundle:YYYYMMDD-X.Y.Z          | specific build for specific kernel (multi-arch)       |
-| zxteamorg/gentoo-sources-bundle:ARCH                    | latest build for latest kernel for specific ARCH      |
-| zxteamorg/gentoo-sources-bundle:ARCH-X.Y.Z              | latest build for specific kernel for specific ARCH    |
-| zxteamorg/gentoo-sources-bundle:YYYYMMDD-ARCH-X.Y.Z     | specific build for specific kernel for specific ARCH  |
+| theanurin/gentoo-sources-bundle                         | latest build for latest kernel (multi-arch)           |
+| theanurin/gentoo-sources-bundle:X                       | latest build for specific kernel (multi-arch)         |
+| theanurin/gentoo-sources-bundle:X.Y                     | latest build for specific kernel (multi-arch)         |
+| theanurin/gentoo-sources-bundle:X.Y.Z                   | latest build for specific kernel (multi-arch)         |
+| theanurin/gentoo-sources-bundle:YYYYMMDD-X.Y.Z          | specific build for specific kernel (multi-arch)       |
+| theanurin/gentoo-sources-bundle:ARCH                    | latest build for latest kernel for specific ARCH      |
+| theanurin/gentoo-sources-bundle:ARCH-X.Y.Z              | latest build for specific kernel for specific ARCH    |
+| theanurin/gentoo-sources-bundle:YYYYMMDD-ARCH-X.Y.Z     | specific build for specific kernel for specific ARCH  |
 
 ## What the image includes
 

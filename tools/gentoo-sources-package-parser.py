@@ -11,7 +11,7 @@ def format_build_item(kernel_version, stability, latestly, docker_tag, docker_pl
 	'''
 	return ":".join([kernel_version, stability, latestly, docker_tag, docker_platform])
 
-deployed_tags_data = requests.get("https://registry.hub.docker.com/v2/repositories/zxteamorg/gentoo-sources-bundle/tags").json()
+deployed_tags_data = requests.get("https://registry.hub.docker.com/v2/repositories/theanurin/gentoo-sources-bundle/tags").json()
 deployed_tags = list(map(lambda s: s['name'], deployed_tags_data['results']))
 
 build_items = []

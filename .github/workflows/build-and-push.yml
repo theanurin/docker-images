@@ -69,18 +69,18 @@ jobs:
             --progress plain \
             --platform "${DOCKER_PLATFORM}" \
             --tag "image-${GITHUB_JOB}" \
-            --tag "zxteamorg/gentoo-sources-bundle:${DOCKER_TAG}-${KERNEL_VERSION}" \
+            --tag "theanurin/gentoo-sources-bundle:${DOCKER_TAG}-${KERNEL_VERSION}" \
             --build-arg "KERNEL_VERSION=${KERNEL_VERSION}" \
             --build-arg "KERNEL_STABILITY=${KERNEL_STABILITY}" \
             --file "docker/${DOCKER_PLATFORM}/Dockerfile" \
             .
-          docker tag "image-${GITHUB_JOB}" "zxteamorg/gentoo-sources-bundle:${DOCKER_TAG}-${GITHUB_REF_NAME}-${KERNEL_VERSION}"
-          docker tag "image-${GITHUB_JOB}" "zxteamorg/gentoo-sources-bundle:${DOCKER_TAG}-${KERNEL_VERSION}"
-          docker push "zxteamorg/gentoo-sources-bundle:${DOCKER_TAG}-${GITHUB_REF_NAME}-${KERNEL_VERSION}"
-          docker push "zxteamorg/gentoo-sources-bundle:${DOCKER_TAG}-${KERNEL_VERSION}"
+          docker tag "image-${GITHUB_JOB}" "theanurin/gentoo-sources-bundle:${DOCKER_TAG}-${GITHUB_REF_NAME}-${KERNEL_VERSION}"
+          docker tag "image-${GITHUB_JOB}" "theanurin/gentoo-sources-bundle:${DOCKER_TAG}-${KERNEL_VERSION}"
+          docker push "theanurin/gentoo-sources-bundle:${DOCKER_TAG}-${GITHUB_REF_NAME}-${KERNEL_VERSION}"
+          docker push "theanurin/gentoo-sources-bundle:${DOCKER_TAG}-${KERNEL_VERSION}"
           if [ "${KERNEL_LATESTLY}" == "latest" ]; then
-            docker tag "image-${GITHUB_JOB}" "zxteamorg/gentoo-sources-bundle:${DOCKER_TAG}"
-            docker push "zxteamorg/gentoo-sources-bundle:${DOCKER_TAG}"
+            docker tag "image-${GITHUB_JOB}" "theanurin/gentoo-sources-bundle:${DOCKER_TAG}"
+            docker push "theanurin/gentoo-sources-bundle:${DOCKER_TAG}"
           fi
 
   build-manifest-version:
@@ -105,16 +105,16 @@ jobs:
           DOCKER_TAGS=$(echo ${{ matrix.manifest_version }} | cut -d: -f2 | sed 's/,/ /g')
           AMEND_OPTS=""
           for DOCKER_TAG in ${DOCKER_TAGS}; do
-            AMEND_OPTS="${AMEND_OPTS} --amend \"zxteamorg/gentoo-sources-bundle:${DOCKER_TAG}-${GITHUB_REF_NAME}-${KERNEL_VERSION}\""
+            AMEND_OPTS="${AMEND_OPTS} --amend \"theanurin/gentoo-sources-bundle:${DOCKER_TAG}-${GITHUB_REF_NAME}-${KERNEL_VERSION}\""
           done
-          eval "docker manifest create \"zxteamorg/gentoo-sources-bundle:${GITHUB_REF_NAME}-${KERNEL_VERSION}\" ${AMEND_OPTS}"
-          docker manifest push "zxteamorg/gentoo-sources-bundle:${GITHUB_REF_NAME}-${KERNEL_VERSION}"
-          eval "docker manifest create \"zxteamorg/gentoo-sources-bundle:${KERNEL_VERSION}\" ${AMEND_OPTS}"
-          docker manifest push "zxteamorg/gentoo-sources-bundle:${KERNEL_VERSION}"
-          eval "docker manifest create \"zxteamorg/gentoo-sources-bundle:${KERNEL_MAJOR}\" ${AMEND_OPTS}"
-          docker manifest push "zxteamorg/gentoo-sources-bundle:${KERNEL_MAJOR}"
-          eval "docker manifest create \"zxteamorg/gentoo-sources-bundle:${KERNEL_MAJOR_MINOR}\" ${AMEND_OPTS}"
-          docker manifest push "zxteamorg/gentoo-sources-bundle:${KERNEL_MAJOR_MINOR}"
+          eval "docker manifest create \"theanurin/gentoo-sources-bundle:${GITHUB_REF_NAME}-${KERNEL_VERSION}\" ${AMEND_OPTS}"
+          docker manifest push "theanurin/gentoo-sources-bundle:${GITHUB_REF_NAME}-${KERNEL_VERSION}"
+          eval "docker manifest create \"theanurin/gentoo-sources-bundle:${KERNEL_VERSION}\" ${AMEND_OPTS}"
+          docker manifest push "theanurin/gentoo-sources-bundle:${KERNEL_VERSION}"
+          eval "docker manifest create \"theanurin/gentoo-sources-bundle:${KERNEL_MAJOR}\" ${AMEND_OPTS}"
+          docker manifest push "theanurin/gentoo-sources-bundle:${KERNEL_MAJOR}"
+          eval "docker manifest create \"theanurin/gentoo-sources-bundle:${KERNEL_MAJOR_MINOR}\" ${AMEND_OPTS}"
+          docker manifest push "theanurin/gentoo-sources-bundle:${KERNEL_MAJOR_MINOR}"
 
   build-manifest-latest:
     needs: [configure,build-images]
@@ -137,10 +137,10 @@ jobs:
           for MANIFEST_ITEM in ${MANIFEST_ITEMS}; do
             KERNEL_VERSION=$(echo ${MANIFEST_ITEM} | cut -d: -f1)
             DOCKER_TAG=$(echo ${MANIFEST_ITEM} | cut -d: -f2)
-            AMEND_OPTS="${AMEND_OPTS} --amend \"zxteamorg/gentoo-sources-bundle:${DOCKER_TAG}-${GITHUB_REF_NAME}-${KERNEL_VERSION}\""
+            AMEND_OPTS="${AMEND_OPTS} --amend \"theanurin/gentoo-sources-bundle:${DOCKER_TAG}-${GITHUB_REF_NAME}-${KERNEL_VERSION}\""
           done
-          eval "docker manifest create \"zxteamorg/gentoo-sources-bundle:latest\" ${AMEND_OPTS}"
-          docker manifest push "zxteamorg/gentoo-sources-bundle:latest"
+          eval "docker manifest create \"theanurin/gentoo-sources-bundle:latest\" ${AMEND_OPTS}"
+          docker manifest push "theanurin/gentoo-sources-bundle:latest"
 
   docs:
     needs: [configure,build-images,build-manifest-version,build-manifest-latest]
@@ -154,5 +154,5 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
-          repository: zxteamorg/gentoo-sources-bundle
+          repository: theanurin/gentoo-sources-bundle
           short-description: ${{ github.event.repository.description }}

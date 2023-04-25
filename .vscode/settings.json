@@ -21,6 +21,10 @@
 	"git.enabled": true,
 	"git.rebaseWhenSync": true,
 	"cSpell.words": [
+		"beautifulsoup",
+		"BUILDKIT",
+		"LATESTLY",
+		"theanurin",
 		"zxteamorg"
 	]
 }

@@ -29,9 +29,9 @@ RUN \
   eselect kernel set 1; \
   echo "${KERNEL_VERSION}" > /KERNEL_VERSION; \
   echo "linux/amd64" > /DOCKER_ARCH; \
-  echo "DOCKER_ARCH=${DOCKER_ARCH}" >> /etc/env.d/99kernel; \
-  echo "KERNEL_VERSION=${KERNEL_VERSION}" >> /etc/env.d/99kernel; \
-  echo "KCONFIG_OVERWRITECONFIG=y" >> /etc/env.d/99kernel; \
+  echo "DOCKER_ARCH=\"${DOCKER_ARCH}\"" >> /etc/env.d/99kernel; \
+  echo "KERNEL_VERSION=\"${KERNEL_VERSION}\"" >> /etc/env.d/99kernel; \
+  echo "KCONFIG_OVERWRITECONFIG=\"y\"" >> /etc/env.d/99kernel; \
   env-update; \
   rm -rf /run/*; \
   rm -rf /tmp/*; \

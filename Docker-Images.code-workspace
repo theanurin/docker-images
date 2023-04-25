@@ -7,6 +7,12 @@
 			"path": "devel.postgres-13"
 		},
 		{
+			"path": "gentoo-sources-bundle"
+		},
+		{
+			"path": "fluentd"
+		},
+		{
 			"path": "luksoid"
 		},
 		{
@@ -31,17 +37,6 @@
 	],
 	"settings": {
 		"files.autoSave": "afterDelay",
-		"files.autoSaveDelay": 3000,
-		"cSpell.words": [
-			"devel",
-			"LUKS",
-			"luksoid",
-			"mkdocs",
-			"mybranch",
-			"sqlmigration",
-			"sqlrunner",
-			"theanurin",
-			"worktree"
-		]
+		"files.autoSaveDelay": 3000
 	}
 }

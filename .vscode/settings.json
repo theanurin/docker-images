@@ -21,5 +21,17 @@
 		"**/luksoid": true,
 		"**/sqlmigration": true,
 		"**/sqlrunner": true,
-	}
+	},
+	"cSpell.words": [
+		"devel",
+		"fluentd",
+		"LUKS",
+		"luksoid",
+		"mkdocs",
+		"mybranch",
+		"sqlmigration",
+		"sqlrunner",
+		"theanurin",
+		"worktree"
+	]
 }

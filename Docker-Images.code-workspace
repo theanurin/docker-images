@@ -13,6 +13,9 @@
 			"path": "fluentd"
 		},
 		{
+			"path": "jekyll"
+		},
+		{
 			"path": "luksoid"
 		},
 		{

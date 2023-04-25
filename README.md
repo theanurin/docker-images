@@ -4,15 +4,16 @@ This is workspace branch of Docker Images multi project repository based on [orp
 
 | Branch                                                         | Description                                                                                                          |
 |----------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------|
-| [configuration-templates](../../tree/configuration-templates)  | Set of template processors that run against configuration properties                                                 |
-| [devel.postgres-13](../../tree/devel.postgres-13)              | PostgreSQL for development and testing purposes                                                                      |
+| [configuration-templates](../../tree/configuration-templates)  | Set of template processors that run against configuration properties.                                                |
+| [devel.postgres-13](../../tree/devel.postgres-13)              | PostgreSQL for development and testing purposes.                                                                     |
 | [gentoo-sources-bundle](../../tree/gentoo-sources-bundle)      | Gentoo stage3 based image with set of packages to make ability to compile kernel in few commands via Docker.         |
-| [luksoid](../../tree/luksoid)                                  | A command line tool to help users to use LUKS-encrypted partition image without Linux host                           |
+| [jekyll](../../tree/jekyll)                                    | Jekyll - Transform your plain text into static websites and blogs.                                                   |
+| [luksoid](../../tree/luksoid)                                  | A command line tool to help users to use LUKS-encrypted partition image without Linux host.                          |
 | [mkdocs](../../tree/mkdocs)                                    | Fast, simple and downright gorgeous static site generator that's geared towards building project documentation.      |
 | [openldap](../../tree/openldap)                                | OpenLDAP is an open source implementation of the Lightweight Directory Access Protocol                               |
-| [sqlmigration](../../tree/sqlmigration)                        | Database Migration Manager based on plain SQL scripts                                                                |
-| [sqlrunner](../../tree/sqlrunner)                              | Provide ability to run series of SQL scripts against various databases like MSSQL, MySQL, PostgreSQL, SQLite, etc    |
-| [subversion](../../tree/subversion)                            | Contrib. Apache Subversion is a software versioning and revision control system                                      |
+| [sqlmigration](../../tree/sqlmigration)                        | Database Migration Manager based on plain SQL scripts.                                                               |
+| [sqlrunner](../../tree/sqlrunner)                              | Provide ability to run series of SQL scripts against various databases like MSSQL, MySQL, PostgreSQL, SQLite, etc.   |
+| [subversion](../../tree/subversion)                            | Apache Subversion is a software versioning and revision control system.                                              |
 
 ## Get Started
 

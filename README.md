@@ -9,7 +9,7 @@
 
 # Image reason
 
-For development and testing purposes we need pre-setup Postgres server to automate development and auto-testing actvity. The container has pre-defined empty database (with flag table to ensure non-production case) and two users.
+For development and testing purposes we need pre-setup Postgres server to automate development and auto-testing activity. The container has pre-defined empty database (with flag table to ensure non-production case) and two users.
 
 # Spec
 
@@ -38,7 +38,7 @@ No any variables
 # Launch
 1. Start development server
 	```bash
-	docker run --interactive --tty --rm --publish 5432:5432 zxteamorg/devel.postgres-13
+	docker run --interactive --tty --rm --publish 5432:5432 theanurin/devel.postgres-13
 	```
 1. Use connection strings (no password):
 	* `postgres://postgres@127.0.0.1:5432/postgres` - to login as superuser

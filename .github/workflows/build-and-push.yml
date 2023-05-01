@@ -153,6 +153,6 @@ jobs:
         uses: peter-evans/dockerhub-description@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
           repository: theanurin/gentoo-sources-bundle
-          short-description: ${{ github.event.repository.description }}
+          short-description: "Gentoo stage3 based image with set of packages to make ability to compile kernel in few commands via Docker."

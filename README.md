@@ -5,7 +5,7 @@
 !!! WARNING: Moving into https://github.com/theanurin/docker-images
 
 
-This image based on Gentoo stage3 with additionally emerged packages to make ability to compile Gentoo Sources Kernel in few commands on a Docker Host.
+Gentoo stage3 based image with set of packages to make ability to compile kernel in few commands via Docker.
 
 ## Author's Notes
 

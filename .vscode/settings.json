@@ -37,9 +37,11 @@
 		"luksoid",
 		"mkdocs",
 		"mybranch",
+		"skopeo",
 		"sqlmigration",
 		"sqlrunner",
 		"theanurin",
-		"worktree"
+		"worktree",
+		"zxteamorg"
 	]
 }

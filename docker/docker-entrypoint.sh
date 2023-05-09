@@ -1,6 +1,14 @@
 #!/bin/sh
 #
 
+THE_PID=$$
+if [ $THE_PID -eq 1 ]; then
+	# Docker does not allow kill process 1, so restart as child process
+	/usr/local/bin/docker-entrypoint-subversion.sh "$@"
+	exit $?
+fi
+
+# Runtime
 if [ $# -eq 0 ]; then
 	echo
 	echo "Starting Subversion container..."

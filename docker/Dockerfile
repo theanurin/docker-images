@@ -1,8 +1,8 @@
-ARG BUILD_IMAGE=ruby:2.7.6-alpine3.16
-#ARG BUILD_IMAGE=ruby:3.0-alpine
+# ARG BUILD_IMAGE=ruby:2.7.8-alpine3.16
+ARG BUILD_IMAGE=ruby:3.2.2-alpine3.17
 
 FROM ${BUILD_IMAGE} AS builder
-ARG JEKYLL_GEM_VERSION=4.2.2
+ARG JEKYLL_GEM_VERSION=4.3.2
 RUN \
  apk add --no-cache gcompat libxml2 libxslt && \
  apk add --no-cache --virtual .build-deps build-base libxml2-dev libxslt-dev && \

@@ -19,5 +19,8 @@
 	"files.eol": "\n",
 	"git.enabled": true,
 	"git.rebaseWhenSync": true,
-	"editor.guides.indentation": true
+	"editor.guides.indentation": true,
+	"cSpell.words": [
+		"luksoid"
+	]
 }

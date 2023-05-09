@@ -9,7 +9,7 @@
 
 ## Status
 
-| Server        | Rediness            |
+| Server        | Readiness           |
 |---------------|---------------------|
 | MSSQL         | :x:                 |
 | MySQL         | :x:                 |
@@ -27,9 +27,9 @@
 ### Environment variables
 
 * `DATABASE_URL` - URL representation of connection string
-	* mysql://user:password@host-or-ip:port/dbname
-	* postgres://user:password@host-or-ip:port/dbname
-	* postgres+ssl://user:password@host-or-ip:port/dbname
+	* mysql://user:password@host-or-ip:port/db
+	* postgres://user:password@host-or-ip:port/db
+	* postgres+ssl://user:password@host-or-ip:port/db
 	* sqlite:///path/to/my.db
 * `DATA_DIRECTORY` - Default `/data`. Override path to SQL scripts.
 
@@ -47,7 +47,7 @@
 
 ```shell
 SQL_SCRIPTS_PATH=/path/to/sql-scripts
-DATABASE_URL=postgres://user:password@host-or-ip:port/dbname
+DATABASE_URL=postgres://user:password@host-or-ip:port/db
 
 docker run --rm --interactive --mount "type=bind,source=${SQL_SCRIPTS_PATH},target=/data" --env DATABASE_URL theanurin/sqlrunner
 ```

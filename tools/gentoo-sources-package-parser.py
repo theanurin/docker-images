@@ -71,7 +71,7 @@ for htmlTable in htmlTables:
 
 		kernelVersion = htmlTableBodyColumnVersion.strong.a.contents[0]
 
-		if not kernelVersion.startswith("5.15"):
+		if not (kernelVersion.startswith("6.1.28")):
 			continue;
 
 		isTestingAmd64 = "kk-keyword-testing" in htmlTableBodyColumnAmd64["class"]

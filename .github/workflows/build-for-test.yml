@@ -26,7 +26,7 @@ jobs:
           pip3 install requests beautifulsoup4
           ./tools/gentoo-sources-package-parser.py
 
-  build-images:
+  image:
     needs: configure
     runs-on: ubuntu-latest
     strategy:

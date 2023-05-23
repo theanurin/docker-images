@@ -25,7 +25,7 @@ jobs:
           pip3 install requests beautifulsoup4
           ./tools/gentoo-sources-package-parser.py
 
-  build-images:
+  image:
     needs: configure
     runs-on: ubuntu-latest
     strategy:
@@ -84,7 +84,7 @@ jobs:
           fi
 
   build-manifest-version:
-    needs: [configure,build-images]
+    needs: [configure,image]
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -117,7 +117,7 @@ jobs:
           docker manifest push "theanurin/gentoo-sources-bundle:${KERNEL_MAJOR_MINOR}"
 
   build-manifest-latest:
-    needs: [configure,build-images]
+    needs: [configure,image]
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -143,7 +143,7 @@ jobs:
           docker manifest push "theanurin/gentoo-sources-bundle:latest"
 
   docs:
-    needs: [configure,build-images,build-manifest-version,build-manifest-latest]
+    needs: [configure,image,build-manifest-version,build-manifest-latest]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

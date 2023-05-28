@@ -71,4 +71,4 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
           repository: ${{ secrets.DOCKERHUB_USERNAME }}/devel.postgres-13
-          short-description: "PostgreSQL is a powerful, open source object-relational database system with over 30 years of active development that has earned it a strong reputation for reliability, feature robustness, and performance."
+          short-description: "PostgreSQL is a powerful, open source object-relational database system with strong reputation for reliability, feature robustness, and performance."

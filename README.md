@@ -1,13 +1,13 @@
-[![Docker Build Status](https://img.shields.io/docker/cloud/build/zxteamorg/devel.migration-builder?label=Build%20Status)](https://hub.docker.com/r/zxteamorg/devel.migration-builder/builds)
-[![Docker Image Version](https://img.shields.io/docker/v/zxteamorg/devel.migration-builder?sort=date&label=Version)](https://hub.docker.com/r/zxteamorg/devel.migration-builder/tags)
-[![Docker Image Size](https://img.shields.io/docker/image-size/zxteamorg/devel.migration-builder?label=Image%20Size)](https://hub.docker.com/r/zxteamorg/devel.migration-builder/tags)
-[![Docker Pulls](https://img.shields.io/docker/pulls/zxteamorg/devel.migration-builder?label=Pulls)](https://hub.docker.com/r/zxteamorg/devel.migration-builder)
-[![Docker Pulls](https://img.shields.io/docker/stars/zxteamorg/devel.migration-builder?label=Docker%20Stars)](https://hub.docker.com/r/zxteamorg/devel.migration-builder)
-[![Docker Automation](https://img.shields.io/docker/cloud/automated/zxteamorg/devel.migration-builder?label=Docker%20Automation)](https://hub.docker.com/r/zxteamorg/devel.migration-builder/builds)
+[![Docker Build Status](https://img.shields.io/docker/cloud/build/theanurin/sqlmigrationbuilder?label=Build%20Status)](https://hub.docker.com/r/theanurin/sqlmigrationbuilder/builds)
+[![Docker Image Version](https://img.shields.io/docker/v/theanurin/sqlmigrationbuilder?sort=date&label=Version)](https://hub.docker.com/r/theanurin/sqlmigrationbuilder/tags)
+[![Docker Image Size](https://img.shields.io/docker/image-size/theanurin/sqlmigrationbuilder?label=Image%20Size)](https://hub.docker.com/r/theanurin/sqlmigrationbuilder/tags)
+[![Docker Pulls](https://img.shields.io/docker/pulls/theanurin/sqlmigrationbuilder?label=Pulls)](https://hub.docker.com/r/theanurin/sqlmigrationbuilder)
+[![Docker Pulls](https://img.shields.io/docker/stars/theanurin/sqlmigrationbuilder?label=Docker%20Stars)](https://hub.docker.com/r/theanurin/sqlmigrationbuilder)
+[![Docker Automation](https://img.shields.io/docker/cloud/automated/theanurin/sqlmigrationbuilder?label=Docker%20Automation)](https://hub.docker.com/r/theanurin/sqlmigrationbuilder/builds)
 
-# Migration Builder
+# SQL Migration Builder
 
-*Migration Builder* - is a processor of [Mustache](https://mustache.github.io/) based SQL script templates.
+*SQL Migration Builder* - is a processor of [Mustache](https://mustache.github.io/) based SQL script templates.
 
 # Image reason
 
@@ -64,7 +64,7 @@ CREATE TYPE "public"."SERVICE_KIND" AS ENUM (
 # Launch
 
 ```bash
-docker run --interactive --tty --rm --volume /path/to/database/workdir:/data zxteamorg/devel.migration-builder
+docker run --interactive --tty --rm --volume /path/to/database/workdir:/data theanurin/sqlmigrationbuilder
 ```
 
 # Support

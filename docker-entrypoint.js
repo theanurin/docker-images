@@ -175,17 +175,17 @@ function createConfigurationProxy(finalConfig) {
 
 	function makeProxyAdapter(ns, obj) {
 		return new Proxy(obj, {
-			get(_, propery) {
-				if (typeof propery === "string") {
-					if (propery in obj) {
-						const value = obj[propery];
+			get(_, property) {
+				if (typeof property === "string") {
+					if (property in obj) {
+						const value = obj[property];
 						if (typeof value === "string" || typeof value === "number" || typeof value === "boolean") {
 							return value;
 						} else {
-							return makeProxyAdapter([...ns, propery], value);
+							return makeProxyAdapter([...ns, property], value);
 						}
 					}
-					const fullProperty = [...ns, propery].join(".");
+					const fullProperty = [...ns, property].join(".");
 					throw new InvalidOperationError(`Non-existing property request '${fullProperty}'.`);
 				}
 			}

@@ -1,2 +1,2 @@
 *
-!docker-entrypoint.js
+!docker/docker-entrypoint.js

@@ -3,7 +3,8 @@ name: Docker Image (Snapshot/Branch)
 on:
   push:
     branches:
-      - '*'
+      - 'devel.postgres-13'
+      - 'devel.postgres-13-*'
 
 jobs:
   docker:

@@ -2,7 +2,6 @@
 	"editor.detectIndentation": false,
 	"editor.insertSpaces": false,
 	"editor.lineNumbers": "on",
-	"editor.renderIndentGuides": true,
 	"editor.renderWhitespace": "all",
 	"editor.rulers": [
 		80,
@@ -27,5 +26,6 @@
 		"sqlmigrationbuilder",
 		"sqlmigrationrunner",
 		"theanurin"
-	]
+	],
+	"editor.guides.indentation": true
 }

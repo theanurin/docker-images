@@ -3,7 +3,8 @@ name: Docker Image (Snapshot/Branch)
 on:
   push:
     branches:
-      - '*'
+      - 'luksoid'
+      - 'luksoid-*'
 
 jobs:
   docker:

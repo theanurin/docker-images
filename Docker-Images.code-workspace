@@ -25,7 +25,19 @@
 			"path": "openldap"
 		},
 		{
-			"path": "sqlmigration"
+			"path": "pgadmin4"
+		},
+		{
+			"path": "redis-commander"
+		},
+		{
+			"path": "sqlmigrationbuilder"
+		},
+		{
+			"path": "sqlmigrationrunner"
+		},
+		{
+			"path": "sqlmigrationrunner-postgres"
 		},
 		{
 			"path": "sqlrunner"

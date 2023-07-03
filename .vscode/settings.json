@@ -26,9 +26,19 @@
 		"**/luksoid": true,
 		"**/mkdocs": true,
 		"**/openldap": true,
+		"**/pgadmin4": true,
+		"**/redis-commander": true,
 		"**/sqlmigration": true,
 		"**/sqlrunner": true,
-		"**/subversion": true
+		"**/subversion": true,
+		"**/sqlmigrationbuilder": true,
+		"**/sqlmigrationrunner": true,
+		"**/sqlmigrationrunner-postgres": true,
+	},
+	"markdownlint.config": {
+		"MD031": {
+			"list_items": false
+		}
 	},
 	"cSpell.words": [
 		"devel",
@@ -37,8 +47,11 @@
 		"luksoid",
 		"mkdocs",
 		"mybranch",
+		"pgadmin",
 		"skopeo",
 		"sqlmigration",
+		"sqlmigrationbuilder",
+		"sqlmigrationrunner",
 		"sqlrunner",
 		"theanurin",
 		"worktree",

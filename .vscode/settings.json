@@ -27,6 +27,7 @@
 		"**/mkdocs": true,
 		"**/openldap": true,
 		"**/pgadmin4": true,
+		"**/portainer": true,
 		"**/redis-commander": true,
 		"**/sqlmigration": true,
 		"**/sqlrunner": true,

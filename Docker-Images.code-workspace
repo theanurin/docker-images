@@ -46,6 +46,9 @@
 			"path": "subversion"
 		},
 		{
+			"path": "portainer"
+		},
+		{
 			"name": "workspace",
 			"path": "."
 		},

@@ -7,4 +7,7 @@ RUN \
     fluent-plugin-elasticsearch \
     fluent-plugin-rewrite-tag-filter \
   && rm -rf /tmp/* /var/tmp/* /usr/lib/ruby/gems/*/cache/*.gem
+COPY docker/docker-entrypoint.sh /usr/local/bin/docker-entrypoint-fluentd.sh
 USER fluent
+ENV LOG_LEVEL=info
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint-fluentd.sh"]

@@ -11,6 +11,12 @@
 
 This just our infrastructure image.
 
+# Spec
+
+## Environment variables
+
+* `LOG_LEVEL` - Fluentd log level. Values: `trace`, `debug`, `info` (default), `warn`, `error`
+
 # Inside
 
 | Item                                                                                            | Version  |

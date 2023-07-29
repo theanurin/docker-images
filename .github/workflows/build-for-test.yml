@@ -3,7 +3,8 @@ name: Build docker image
 on:
   push:
     branches:
-      - '*'
+      - 'gentoo-sources-bundle'
+      - 'gentoo-sources-bundle-*'
   workflow_dispatch:
 
 jobs:

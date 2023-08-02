@@ -10,18 +10,23 @@ if [ $# -eq 0 ]; then
 	OPENLDAP_SSL_KEY=""
 
 	if [ -n "${CONFIG_LEGO_DOMAIN}" ]; then
+		if [ -z "${SSL_CERT_EXPIRE_TIMEOUT}" ]; then
+			echo "A variable SSL_CERT_EXPIRE_TIMEOUT is not set. Cannot continue." >&2
+			exit 12
+		fi
+
 		OPENLDAP_SSL_CERT="/data/etc/lego/certificates/${CONFIG_LEGO_DOMAIN}.crt"
 		OPENLDAP_SSL_KEY="/data/etc/lego/certificates/${CONFIG_LEGO_DOMAIN}.key"
 
 		OPENLDAP_ENDPOINTS="${OPENLDAP_ENDPOINTS} ldaps://"
 
 		echo -n "Checking the certificate for exparation... "
-		if [ -f "${OPENLDAP_SSL_CERT}" ] && openssl x509 -in "${OPENLDAP_SSL_CERT}" -noout -checkend 86400; then
+		if [ -f "${OPENLDAP_SSL_CERT}" ] && openssl x509 -in "${OPENLDAP_SSL_CERT}" -noout -checkend "${SSL_CERT_EXPIRE_TIMEOUT}"; then
 			echo
 			echo "Certificate is good. No need to re-create."
 		else
 			echo
-			echo "Certificate has been expired or will do so within 24 hours (86400 seconds)!"
+			echo "Certificate has been expired or will do so within ${SSL_CERT_EXPIRE_TIMEOUT} seconds!"
 
 			echo
 			echo "CONFIG_LEGO_DOMAIN is defined. Entering to SSL generation runtime..."

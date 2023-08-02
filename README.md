@@ -13,12 +13,12 @@
 * Easy to update production environment (just re-create container)
 * Easy to bring-up mirror
 
-
 ## Spec
 
 ### Environment variables
 
-TBD
+* `SSL_CERT_EXPIRE_TIMEOUT` - Timeout in seconds to check certificate expiration. Default: `86400`
+* TBD
 
 ### Expose ports
 

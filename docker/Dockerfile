@@ -83,4 +83,7 @@ ENV EXEC_PROPAGATION_TIMEOUT=3600
 # See for "debug-level" in man page for SLAPD https://linux.die.net/man/8/slapd
 ENV SLAPD_DEBUG_LEVEL=
 
+# Timeout in seconds to check certificate expiration
+ENV SSL_CERT_EXPIRE_TIMEOUT=86400
+
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]

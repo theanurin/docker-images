@@ -24,11 +24,12 @@ No any variables
 ## Volumes
 
 * `/data` - Hold Postgres'es data
+* `/updates` - Files `*.sql` from the folder is executing at startup of a container
 
 # Inside
 
-* Alpine Linux 3.16.5
-* PostgreSQL 13.11 Server
+* Alpine Linux 3.16.7
+* PostgreSQL 13.12 Server
 * Database `devdb`
 * Flag table `"public"."emptytestflag"`
 * User `postgres` - superuser (no password)
@@ -36,14 +37,18 @@ No any variables
 * User `devuser` - regular user (no password)
 
 # Launch
-1. Start development server
-	```bash
-	docker run --interactive --tty --rm --publish 5432:5432 theanurin/devel.postgres-13
-	```
+
+1. Start development
+
+    ```shell
+    docker run --interactive --tty --rm --publish 5432:5432 theanurin/devel.postgres-13
+    ```
+
 1. Use connection strings (no password):
-	* `postgres://postgres@127.0.0.1:5432/postgres` - to login as superuser
-	* `postgres://devadmin@127.0.0.1:5432/devdb` - to login as `devdb` owner
-	* `postgres://devuser@127.0.0.1:5432/devdb` - to login as regular user
+
+    * `postgres://postgres@127.0.0.1:5432/postgres` - to login as superuser
+    * `postgres://devadmin@127.0.0.1:5432/devdb` - to login as `devdb` owner
+    * `postgres://devuser@127.0.0.1:5432/devdb` - to login as regular user
 
 # Support
 

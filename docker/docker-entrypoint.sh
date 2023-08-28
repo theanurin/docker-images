@@ -25,22 +25,36 @@ else
 	#fi
 
 	if [ -d /updates ]; then
-		FILES=$(find /updates -type f -name '*.sql' | sort)
-		if [ -n "${FILES}" ]; then
+		FILES=$(cd /updates && find * -type f -name '*.sql' -maxdepth 0 | sort)
+		DB_DIRS=$(cd /updates && find * -type d -maxdepth 0 | sort)
+		if [ -n "${FILES}" -o -n "${DB_DIRS}" ]; then
 			echo "Found files in the /updates directory. Entering to update mode..."
 		
 			echo "Starting Postgres server to apply SQL updates..."
 			PGUSER=postgres pg_ctl -D /data -o "-c listen_addresses=''" -w start
 
-			if [ -f /DBNAME ]; then
-				DBNAME=$(cat /DBNAME)
-			else
-				DBNAME=devdb
+			if [ -n "${FILES}" ]; then
+				if [ -f /DBNAME ]; then
+					# Allows to inherit this image and set DB name in file /DBNAME
+					DBNAME=$(cat /DBNAME)
+				else
+					DBNAME=devdb
+				fi
+				for FILE in ${FILES}; do
+					echo "Apply SQL update /updates/${FILE} in database ${DBNAME}"
+					/usr/bin/psql --pset=pager=off --variable=ON_ERROR_STOP=1 --username "postgres" --no-password --dbname "${DBNAME}" --file="/updates/${FILE}"
+				done
 			fi
-			for FILE in ${FILES}; do
-				echo "Apply SQL update: ${FILE}"
-				/usr/bin/psql --pset=pager=off --variable=ON_ERROR_STOP=1 --username "postgres" --no-password --dbname "${DBNAME}" --file="${FILE}"
-			done
+
+			if [ -n "${DB_DIRS}" ]; then
+				for DB_DIR in ${DB_DIRS}; do
+					DB_FILES=$(cd "/updates/${DB_DIR}" && find . -type f -name '*.sql' -maxdepth 1 | sort)
+					for DB_FILE in ${DB_FILES}; do
+						echo "Apply SQL update /updates/${DB_DIR}/${DB_FILE} in database ${DB_DIR}"
+						/usr/bin/psql --pset=pager=off --variable=ON_ERROR_STOP=1 --username "postgres" --no-password --dbname "${DB_DIR}" --file="/updates/${DB_DIR}/${DB_FILE}"
+					done
+				done
+			fi
 
 			echo "Stoping Postgres server ..."
 			PGUSER=postgres pg_ctl -D /data -m fast -w stop

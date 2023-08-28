@@ -25,6 +25,8 @@ No any variables
 
 * `/data` - Hold Postgres'es data
 * `/updates` - Files `*.sql` from the folder is executing at startup of a container
+    * `/updates/*.sql` - execute in `devdb` as `postgres` user
+    * `/updates/<db_name>/*.sql` - execute in `<db_name>` as `postgres` user
 
 # Inside
 

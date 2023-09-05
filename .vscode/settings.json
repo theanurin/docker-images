@@ -1,4 +1,10 @@
 {
 	"files.autoSave": "afterDelay",
-	"files.autoSaveDelay": 3000
+	"files.autoSaveDelay": 3000,
+	"cSpell.words": [
+		"jemoji",
+		"racc",
+		"rexml",
+		"theanurin"
+	]
 }

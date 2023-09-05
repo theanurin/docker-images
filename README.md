@@ -32,19 +32,23 @@
 
 # Inside
 
-* [Jekyll](https://jekyllrb.com/) v4.2.2
-* [Bundler gem](https://rubygems.org/gems/bundler) v2.3.18
+* [Jekyll](https://jekyllrb.com/) v4.3.2
+* [Bundler gem](https://rubygems.org/gems/bundler)
 * Additional Gems:
-	* [json](https://rubygems.org/gems/json)
-	* [nokogiri](https://rubygems.org/gems/nokogiri)
-	* [racc](https://rubygems.org/gems/racc)
-
+	* [jemoji](https://rubygems.org/gems/jemoji) v0.13.0
+	* [just-the-docs](https://rubygems.org/gems/just-the-docs) v0.6.1
+	* [minitest](https://rubygems.org/gems/minitest) v5.19.0
+	* [racc](https://rubygems.org/gems/racc) v1.7.1
+	* [rexml](https://rubygems.org/gems/rexml) v3.2.6
 
 # Launch
 1. Start development server in site root directory (where `jekyll's _config.yml` located)
-	```bash
-	docker run --interactive --rm --volume ${PWD}:/data --publish 4000:4000 theanurin/jekyll
-	```
+  ```bash
+  docker run --interactive --rm \
+    --volume ${PWD}:/data \
+    --publish 4000:4000 \
+    theanurin/jekyll
+  ```
 1. Open browser http://127.0.0.1:4000/
 1. Edit content and look for hot-reloaded changes in the browser
 
@@ -58,5 +62,6 @@
 # Development
 ## Build and debug
 ```shell
-docker build --tag theanurin/jekyll --file docker/Dockerfile . && docker run --interactive --tty --rm --entrypoint /bin/sh theanurin/jekyll
+docker build --tag theanurin/jekyll --file docker/Dockerfile . && \
+  docker run --interactive --tty --rm --entrypoint /bin/sh theanurin/jekyll
 ```

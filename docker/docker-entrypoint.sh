@@ -11,7 +11,7 @@ if [ $# -eq 0 ]; then
     echo
     echo "I will execute:"
     echo "  bundle install"
-    echo "  jekyll serve --incremental"
+    echo "  jekyll serve"
     echo
     echo "Feel free to pass your own command line (as image arguments). Some examples:"
     echo "  jekyll new .  - Generate a new site"
@@ -25,7 +25,7 @@ if [ $# -eq 0 ]; then
     echo
     echo "Starting 'jekyll serve' to serve a site and rebuilds it on changes ..."
     echo
-    exec jekyll serve --incremental --host 0.0.0.0 --port 4000
+    exec jekyll serve --host '0.0.0.0' --port 4000
 else
     exec "$@"
 fi

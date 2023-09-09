@@ -38,7 +38,7 @@
 ### Volumes
 
 * `/data/etc` - Configuration stuff
-* `/data/etc/slapd-init.d` - Place here LDIF files that will deployed (one time) into new instance
+* `/data/etc/slapd-init.d` - Place here LDIF files that will deployed (one time) into new instance via `slapadd`. Probably good place to configure OpenLDAP modules, schemas, etc. But you unable to setup database here (due to `slapadd` is not intended for incremental use, see [thread](https://www.openldap.org/lists/openldap-software/200807/msg00101.html)...)
 * `/data/db` - LDAP databases
 
 ### Defaults

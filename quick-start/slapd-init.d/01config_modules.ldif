@@ -1,0 +1,7 @@
+dn: cn=module,cn=config
+objectClass: olcModuleList
+cn: module{0}
+olcModuleLoad: back_mdb
+olcModuleLoad: memberof
+olcModuleLoad: refint
+olcModulePath: /usr/lib/openldap

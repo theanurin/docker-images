@@ -1,0 +1,18 @@
+# Converted from file https://raw.githubusercontent.com/jirutka/ssh-ldap-pubkey/2be51cae65dea738c8d87cd0d46ec1e6a198ed50/etc/openssh-lpk.schema
+#
+# docker run --interactive --tty --rm theanurin/openldap:latest /bin/sh
+# wget https://raw.githubusercontent.com/jirutka/ssh-ldap-pubkey/2be51cae65dea738c8d87cd0d46ec1e6a198ed50/etc/openssh-lpk.schema
+# mkdir -p /tmp/ldif/db
+# echo 'include /openssh-lpk.schema' > /tmp/ldif/conf
+# slaptest -f /tmp/ldif/conf -F /tmp/ldif/db
+# Find your LDIF: /tmp/ldif/db/cn\=config/cn\=schema/cn\=\{0}openssh-lpk.ldif
+#
+
+dn: cn=openssh-lpk,cn=schema,cn=config
+objectClass: olcSchemaConfig
+cn: openssh-lpk
+olcAttributeTypes: {0}( 1.3.6.1.4.1.24552.500.1.1.1.13 NAME 'sshPublicKey' D
+ ESC 'OpenSSH Public key' EQUALITY octetStringMatch SYNTAX 1.3.6.1.4.1.1466.
+ 115.121.1.40 )
+olcObjectClasses: {0}( 1.3.6.1.4.1.24552.500.1.1.2.0 NAME 'ldapPublicKey' DE
+ SC 'OpenSSH LPK objectclass' SUP top AUXILIARY MUST uid MAY sshPublicKey )

@@ -1,0 +1,13 @@
+dn: olcDatabase=mdb,cn=config
+changetype: add
+objectClass: olcConfig
+objectClass: olcDatabaseConfig
+objectClass: olcMdbConfig
+olcDatabase: mdb
+olcDbDirectory: /data/db/org.example
+olcSuffix: dc=example,dc=org
+olcAccess: to dn.base="" by * read
+olcAccess: to * by dn="cn=admin,dc=example,dc=org" write by * read
+olcRootDN: cn=admin,dc=example,dc=org
+# password "openldap"
+olcRootPW: {SSHA}VP9RG/n2DkMGlDP+/A80uEZLtRHhUxuR

@@ -5,3 +5,53 @@ objectClass: organization
 dc: example
 o: Example Corporation
 description: The Example Corporation
+
+dn: ou=people,dc=example,dc=org
+objectClass: top
+objectClass: organizationalUnit
+ou: people
+
+dn: ou=group,dc=example,dc=org
+objectClass: top
+objectClass: organizationalUnit
+ou: group
+
+dn: gidNumber=0,ou=group,dc=example,dc=org
+objectClass: top
+objectClass: posixGroup
+cn: root
+gidNumber: 0
+
+dn: gidNumber=5001,ou=group,dc=example,dc=org
+objectClass: top
+objectClass: posixGroup
+cn: serhii.zghama
+gidNumber: 5001
+
+dn: gidNumber=5002,ou=group,dc=example,dc=org
+objectClass: top
+objectClass: posixGroup
+cn: maxim.anurin
+gidNumber: 5002
+
+dn: uidNumber=5001,ou=people,dc=example,dc=org
+objectClass: top
+objectClass: account
+objectClass: posixAccount
+uidNumber: 5001
+gidNumber: 5001
+uid: serhii.zghama
+cn: Serhii Zgama
+homeDirectory: /home/serhii.zghama
+loginShell: /bin/bash
+
+dn: uidNumber=5002,ou=people,dc=example,dc=org
+objectClass: top
+objectClass: account
+objectClass: posixAccount
+uidNumber: 5002
+gidNumber: 5002
+uid: maxim.anurin
+cn: Maxim Anurin
+homeDirectory: /home/maxim.anurin
+loginShell: /bin/bash

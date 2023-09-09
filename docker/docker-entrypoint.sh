@@ -59,17 +59,17 @@ if [ $# -eq 0 ]; then
 
 			if [ -n "${CONFIG_LEGO_CHALLENGE_HTTP_01}" ]; then
 				echo
-				echo "Using HTTP-01 challange solver. Make sure that your container available from Internet on port 80 and binds to domain(s): ${CONFIG_LEGO_DOMAIN}"
+				echo "Using HTTP-01 challenge solver. Make sure that your container available from Internet on port 80 and binds to domain(s): ${CONFIG_LEGO_DOMAIN}"
 				LEGO_OPTS="${LEGO_OPTS} --http"
 			fi
 			if [ -n "${CONFIG_LEGO_CHALLENGE_TLS_ALPN_01}" ]; then
 				echo
-				echo "Using TLS-ALPN-01 challange solver. Make sure that your container available from Internet on port 443 and binds to domain(s): ${CONFIG_LEGO_DOMAIN}"
+				echo "Using TLS-ALPN-01 challenge solver. Make sure that your container available from Internet on port 443 and binds to domain(s): ${CONFIG_LEGO_DOMAIN}"
 				LEGO_OPTS="${LEGO_OPTS} --tls"
 			fi
 			if [ -n "${CONFIG_LEGO_CHALLENGE_DNS_01_PROVIDER}" ]; then
 				echo
-				echo "Using DNS-01 challange solver. DNS Provider plugin: ${CONFIG_LEGO_CHALLENGE_DNS_01_PROVIDER}"
+				echo "Using DNS-01 challenge solver. DNS Provider plugin: ${CONFIG_LEGO_CHALLENGE_DNS_01_PROVIDER}"
 				if [ "${CONFIG_LEGO_CHALLENGE_DNS_01_PROVIDER}" = "exec" ]; then
 					if [ -z "${EXEC_PATH}" ]; then
 						echo

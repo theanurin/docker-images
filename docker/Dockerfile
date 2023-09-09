@@ -32,10 +32,14 @@ RUN apk add --no-cache \
 COPY --chown=root:root docker/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 COPY --chown=root:root dns-01-solvers/ /opt/dns-01-solvers/
 
-# Expose port 389 (unsecured) and 636 (secured). Port 80 and 443 used by CONFIG_LEGO_CHALLENGE_HTTP_01 and CONFIG_LEGO_CHALLENGE_TLS_ALPN_01
+# Expose ports:
+# - 389 LDAP unsecured (ldap://)
+# - 636 LDAP secured (ldaps://)
+# - 80  used by CONFIG_LEGO_CHALLENGE_HTTP_01
+# - 443 used by CONFIG_LEGO_CHALLENGE_TLS_ALPN_01
 EXPOSE 80 389 443 636
 
-VOLUME [ "/data/db", "/data/etc", "/data/etc/slapd-init.d" ]
+VOLUME [ "/data/etc", "/data/db" ]
 
 # CONFIG_OPENLDAP_MODE is one of
 # - DIRECTORY for new layout https://www.openldap.org/doc/admin24/slapdconf2.html

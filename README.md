@@ -56,19 +56,29 @@
 * utilities, tools, and sample clients
 * [LEGO](https://go-acme.github.io/lego/) - Let’s Encrypt client and ACME library written in Go.
 * custom dns-01-solvers scripts to solve DNS-01 challenge:
-	1. `tools.adm.py` for [Hosting Ukraine](https://www.ukraine.com.ua/)
+  1. `tools.adm.py` for [Hosting Ukraine](https://www.ukraine.com.ua/)
 
 ## Launch
+
+### Without SSL (probably for local usage)
+
+```shell
+docker run --rm --interactive --tty \
+  --publish 389:389 \
+  --env SLAPD_DEBUG_LEVEL=-1 \
+  theanurin/openldap
+```
+
+See [Quick Start guide](https://github.com/theanurin/docker-images/blob/openldap/quick-start/README.md) for details.
 
 ### With ACME challenge HTTP_01
 
 NOTE: The container's port 80 should be public available on your domain defined in CONFIG_LEGO_DOMAIN variable.
 
-
-```bash
+```shell
 export CONFIG_LEGO_OPTS="--server=https://acme-staging-v02.api.letsencrypt.org/directory" # Skip this for ACME production environment
-export CONFIG_LEGO_DOMAIN="ldap.your-domain.test"
-export CONFIG_LEGO_EMAIL="admin@your-domain.test"
+export CONFIG_LEGO_DOMAIN="ldap.example.org"
+export CONFIG_LEGO_EMAIL="admin@example.org"
 export CONFIG_LEGO_CHALLENGE_HTTP_01="true"
 
 mkdir ldap-etc.local ldap-db.local
@@ -88,11 +98,10 @@ docker run --rm --interactive --tty \
 
 NOTE: The container's port 443 should be public available on your domain defined in CONFIG_LEGO_DOMAIN variable.
 
-
-```bash
+```shell
 export CONFIG_LEGO_OPTS="--server=https://acme-staging-v02.api.letsencrypt.org/directory" # Skip this for ACME production environment
-export CONFIG_LEGO_DOMAIN="ldap.your-domain.test"
-export CONFIG_LEGO_EMAIL="admin@your-domain.test"
+export CONFIG_LEGO_DOMAIN="ldap.example.org"
+export CONFIG_LEGO_EMAIL="admin@example.org"
 export CONFIG_LEGO_CHALLENGE_TLS_ALPN_01="true"
 
 mkdir ldap-etc.local ldap-db.local
@@ -108,20 +117,47 @@ docker run --rm --interactive --tty \
   theanurin/openldap
 ```
 
-### With ACME challenge DNS_01 (with custom solver `tools.adm.py`)
+### With ACME challenge DNS_01
 
 NOTE: DNS_01 is perfect when you are not able to expose ACME web server ports. But you have to write own solver script if you use no-name DNS provider. See LEGO's ready to use [DNS Providers](https://go-acme.github.io/lego/dns/).
 
-```bash
+#### Cloudflare
+
+```shell
 export CONFIG_LEGO_OPTS="--server=https://acme-staging-v02.api.letsencrypt.org/directory" # Skip this for ACME production environment
-export CONFIG_LEGO_DOMAIN="ldap.your-domain.test"
-export CONFIG_LEGO_EMAIL="admin@your-domain.test"
+export CONFIG_LEGO_DOMAIN="ldap.example.org"
+export CONFIG_LEGO_EMAIL="admins@example.org"
+export CONFIG_LEGO_CHALLENGE_DNS_01_PROVIDER="cloudflare"
+export CONFIG_LEGO_CHALLENGE_DNS_01_RESOLVERS="arely.ns.cloudflare.com,cameron.ns.cloudflare.com"
+
+export CLOUDFLARE_DNS_API_TOKEN=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+export CLOUDFLARE_ZONE_API_TOKEN=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+mkdir openldap-etc.local openldap-db.local
+
+docker run --rm --interactive --tty \
+  --env CONFIG_LEGO_OPTS --env CONFIG_LEGO_DOMAIN --env CONFIG_LEGO_EMAIL \
+  --env CONFIG_LEGO_CHALLENGE_DNS_01_PROVIDER --env CONFIG_LEGO_CHALLENGE_DNS_01_RESOLVERS \
+  --env CLOUDFLARE_EMAIL --env CLOUDFLARE_DNS_API_TOKEN --env CLOUDFLARE_ZONE_API_TOKEN \
+  --mount "type=bind,source=$PWD/openldap-etc.local,target=/data/etc" \
+  --mount "type=bind,source=$PWD/openldap-db.local,target=/data/db" \
+  --publish 127.0.0.1:389:389 \
+  --publish 0.0.0.0:636:636 \
+  theanurin/openldap
+```
+
+#### Custom solver `tools.adm.py`
+
+```shell
+export CONFIG_LEGO_OPTS="--server=https://acme-staging-v02.api.letsencrypt.org/directory" # Skip this for ACME production environment
+export CONFIG_LEGO_DOMAIN="ldap.example.org"
+export CONFIG_LEGO_EMAIL="admin@example.org"
 export CONFIG_LEGO_CHALLENGE_DNS_01_PROVIDER="exec"
 export CONFIG_LEGO_CHALLENGE_DNS_01_RESOLVERS="ns313.inhostedns.org,ns213.inhostedns.net,ns113.inhostedns.com"
 export EXEC_POLLING_INTERVAL=30
 export EXEC_PROPAGATION_TIMEOUT=600
 export EXEC_PATH="/opt/dns-01-solvers/tools.adm.py"
-export ADM_TOOLS_ROOT_DOMAINS="your-domain.test"
+export ADM_TOOLS_ROOT_DOMAINS="example.org"
 export ADM_TOOLS_API_TOKEN_FILE=/run/secrets/admtools_token
 
 mkdir ldap-etc.local ldap-db.local

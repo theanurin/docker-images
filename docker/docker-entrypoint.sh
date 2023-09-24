@@ -20,7 +20,7 @@ if [ $# -eq 0 ]; then
 
 		OPENLDAP_ENDPOINTS="${OPENLDAP_ENDPOINTS} ldaps://"
 
-		echo -n "Checking the certificate for exparation... "
+		echo -n "Checking the certificate for expiration... "
 		if [ -f "${OPENLDAP_SSL_CERT}" ] && openssl x509 -in "${OPENLDAP_SSL_CERT}" -noout -checkend "${SSL_CERT_EXPIRE_TIMEOUT}"; then
 			echo
 			echo "Certificate is good. No need to re-create."

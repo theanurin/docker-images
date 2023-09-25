@@ -19,7 +19,8 @@
 
 * `SLAPD_DEBUG_LEVEL` - slapd debug level (`-1` enable all debugging). See [Debugging Levels](https://www.openldap.org/doc/admin23/runningslapd.html) table.
 * `CONFIG_LEGO_DOMAIN` - Enable [Lego](https://github.com/go-acme/lego) and define domain of your OpenLDAP server
-  * `CONFIG_LEGO_EMAIL` - TBD
+  `CONFIG_LEGO_DOMAIN_2`, `CONFIG_LEGO_DOMAIN_3`, `CONFIG_LEGO_DOMAIN_4`, `CONFIG_LEGO_DOMAIN_5` - Additional domains.
+  * `CONFIG_LEGO_EMAIL` - an email for LEGO account
   * `CONFIG_LEGO_CHALLENGE_HTTP_01` - Set to `true` to enable __HTTP-01__ challenge solver. Make sure that your container will be available from Internet on port 80 and binds to domain defined in CONFIG_LEGO_DOMAIN
   * `CONFIG_LEGO_CHALLENGE_TLS_ALPN_01` - Set to `true` to enable __TLS-ALPN-01__ challenge solver. Make sure that your container will be available from Internet on port 443 and binds to domain defined in CONFIG_LEGO_DOMAIN
   * `CONFIG_LEGO_CHALLENGE_DNS_01_PROVIDER` - Set to one of following values to enable __DNS-01__ challenge solver.

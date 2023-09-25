@@ -55,7 +55,20 @@ if [ $# -eq 0 ]; then
 			fi
 
 			LEGO_ENVS=""
-			LEGO_OPTS="${CONFIG_LEGO_OPTS} --accept-tos --path /data/etc/lego --domains \"${CONFIG_LEGO_DOMAIN}\" --email \"${CONFIG_LEGO_EMAIL}\""
+			LEGO_OPTS="${CONFIG_LEGO_OPTS} --accept-tos --path /data/etc/lego --email \"${CONFIG_LEGO_EMAIL}\" --domains \"${CONFIG_LEGO_DOMAIN}\""
+
+			if [ -n "${CONFIG_LEGO_DOMAIN_2}" ]; then
+				LEGO_OPTS="${LEGO_OPTS} --domains \"${CONFIG_LEGO_DOMAIN_2}\""
+			fi
+			if [ -n "${CONFIG_LEGO_DOMAIN_3}" ]; then
+				LEGO_OPTS="${LEGO_OPTS} --domains \"${CONFIG_LEGO_DOMAIN_3}\""
+			fi
+			if [ -n "${CONFIG_LEGO_DOMAIN_4}" ]; then
+				LEGO_OPTS="${LEGO_OPTS} --domains \"${CONFIG_LEGO_DOMAIN_4}\""
+			fi
+			if [ -n "${CONFIG_LEGO_DOMAIN_5}" ]; then
+				LEGO_OPTS="${LEGO_OPTS} --domains \"${CONFIG_LEGO_DOMAIN_5}\""
+			fi
 
 			if [ -n "${CONFIG_LEGO_CHALLENGE_HTTP_01}" ]; then
 				echo

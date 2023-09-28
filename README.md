@@ -31,7 +31,7 @@ This variables passes the names of the color to change background color
 
 # Inside
 
-* Portainer v2.18.3
+* Portainer v2.19.1
 
 # Launch
 

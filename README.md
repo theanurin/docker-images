@@ -27,14 +27,14 @@
 
 # Inside
 
-* pgAdmin4 v7.5
+* pgAdmin4 v7.7
 
 # Launch
 
 ```shell
 docker run --rm -it \
   --env PGADMIN_BG_COLOR='#000fff' \
-  --env 'PGADMIN_DEFAULT_EMAIL=user@domain.com' \
+  --env 'PGADMIN_DEFAULT_EMAIL=user@example.org' \
   --env 'PGADMIN_DEFAULT_PASSWORD=SuperSecret' \
   --publish 80:80 \
   theanurin/pgadmin4

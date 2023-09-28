@@ -28,7 +28,7 @@ if [ "${MAIN_CSS_COUNT}" == 1 ]; then
 	sed -i "s/--bg-body-color:var(--grey-2);/--bg-body-color:${PORTAINER_DARK_BG_COLOR};/g"      "${MAIN_CSS_FILE}"
 	sed -i "s/--bg-body-color:var(--black-color);/--bg-body-color:${PORTAINER_HIGH_BG_COLOR};/g" "${MAIN_CSS_FILE}"
 
-	exec /portainer
+	exec /portainer "$@"
 else
 	echo "This command cannot be executed because there are multiple specified files. Contact developers."
 	exit 4

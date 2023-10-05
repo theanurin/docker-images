@@ -19,8 +19,8 @@
 
 * `SLAPD_DEBUG_LEVEL` - slapd debug level (`-1` enable all debugging). See [Debugging Levels](https://www.openldap.org/doc/admin23/runningslapd.html) table.
 * `CONFIG_LEGO_DOMAIN` - Enable [Lego](https://github.com/go-acme/lego) and define domain of your OpenLDAP server
-  `CONFIG_LEGO_DOMAIN_2`, `CONFIG_LEGO_DOMAIN_3`, `CONFIG_LEGO_DOMAIN_4`, `CONFIG_LEGO_DOMAIN_5` - Additional domains.
-  * `CONFIG_LEGO_EMAIL` - an email for LEGO account
+  * `CONFIG_LEGO_DOMAIN_2`, `CONFIG_LEGO_DOMAIN_3`, `CONFIG_LEGO_DOMAIN_4`, `CONFIG_LEGO_DOMAIN_5` - Additional domains.
+  * `CONFIG_LEGO_EMAIL` - An email for LEGO account
   * `CONFIG_LEGO_CHALLENGE_HTTP_01` - Set to `true` to enable __HTTP-01__ challenge solver. Make sure that your container will be available from Internet on port 80 and binds to domain defined in CONFIG_LEGO_DOMAIN
   * `CONFIG_LEGO_CHALLENGE_TLS_ALPN_01` - Set to `true` to enable __TLS-ALPN-01__ challenge solver. Make sure that your container will be available from Internet on port 443 and binds to domain defined in CONFIG_LEGO_DOMAIN
   * `CONFIG_LEGO_CHALLENGE_DNS_01_PROVIDER` - Set to one of following values to enable __DNS-01__ challenge solver.
@@ -50,9 +50,14 @@
 ## Inside
 
 * [slapd](https://www.openldap.org/software/man.cgi?query=slapd) - stand-alone LDAP daemon (server)
-  * [ldap](https://pkgs.alpinelinux.org/package/v3.18/main/armhf/openldap-back-ldap) - OpenLDAP ldap backend
-  * [mdb](https://pkgs.alpinelinux.org/package/v3.18/main/armhf/openldap-back-mdb) - OpenLDAP mdb backend
-  * [null](https://pkgs.alpinelinux.org/package/v3.18/main/armhf/openldap-back-null) - OpenLDAP null backend
+  * Backends:
+    * [ldap](https://pkgs.alpinelinux.org/package/v3.18/main/armhf/openldap-back-ldap) - OpenLDAP ldap backend
+    * [mdb](https://pkgs.alpinelinux.org/package/v3.18/main/armhf/openldap-back-mdb) - OpenLDAP mdb backend
+    * [null](https://pkgs.alpinelinux.org/package/v3.18/main/armhf/openldap-back-null) - OpenLDAP null backend
+  * Overlays:
+    * [memberof](https://pkgs.alpinelinux.org/package/v3.18/main/aarch64/openldap-overlay-memberof) - OpenLDAP memberof overlay
+    * [refint](https://pkgs.alpinelinux.org/package/v3.18/main/aarch64/openldap-overlay-refint) - OpenLDAP refint overlay
+    * [syncprov](https://pkgs.alpinelinux.org/package/v3.18/main/aarch64/openldap-overlay-syncprov) - OpenLDAP syncprov overlay
 * [libraries](https://www.openldap.org/software/man.cgi?query=ldap) - implementing the LDAP protocol
 * utilities, tools, and sample clients
 * [LEGO](https://go-acme.github.io/lego/) - Let’s Encrypt client and ACME library written in Go.

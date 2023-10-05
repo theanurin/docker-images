@@ -1,12 +1,11 @@
 ARG ALPINE_BUILD=3.18.3
 
-#
 FROM alpine:${ALPINE_BUILD}
 
 ARG VER_OPENLDAP=2.6.5
 ARG VER_LEGO=4.11.0
-ARG VER_PYTHON=3.11.5
-ARG VER_OPENSSL=3.1.2
+ARG VER_PYTHON=3.11.6
+ARG VER_OPENSSL=3.1.3
 
 #
 # Add OpenLDAP backends (just names)
@@ -14,19 +13,21 @@ ARG VER_OPENSSL=3.1.2
 ARG BACKENDS="ldap mdb null"
 
 # Add OpenLDAP overlays (just names)
-# https://pkgs.alpinelinux.org/packages?name=openldap-overlay-*&branch=v3.11
+# https://pkgs.alpinelinux.org/packages?name=openldap-overlay-*&branch=v3.18
 ARG OVERLAYS="memberof refint syncprov"
 
 # Install packages
 RUN apk add --no-cache \
   openldap~=${VER_OPENLDAP} \
+  openldap-clients~=${VER_OPENLDAP} \
   $(for OVERLAY in ${OVERLAYS}; do echo -n "openldap-overlay-${OVERLAY}~=${VER_OPENLDAP} "; done) \
   $(for BACKEND in ${BACKENDS}; do echo -n "openldap-back-${BACKEND}~=${VER_OPENLDAP} "; done) \
   lego~=${VER_LEGO} \
   python3~=${VER_PYTHON} \
   openssl~=${VER_OPENSSL} \
   py-pip && \
-  pip3 install --upgrade pip && pip3 install requests
+  pip3 install --upgrade pip && \
+  pip3 install requests
 
 # Copy entrypoint script to root /
 COPY --chown=root:root docker/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh

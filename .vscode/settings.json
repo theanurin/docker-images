@@ -6,10 +6,13 @@
         "ldaps",
         "ldapsearch",
         "ldif",
+        "memberof",
         "osixia",
         "phpldapadmin",
+        "refint",
         "slapadd",
         "SSHA",
+        "syncprov",
         "theanurin",
         "Xplorer"
     ]

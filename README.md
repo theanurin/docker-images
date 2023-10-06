@@ -59,6 +59,8 @@ exit
 | theanurin/gentoo-sources-bundle:X.Y.Z                   | latest build for specific kernel (multi-arch)         |
 | theanurin/gentoo-sources-bundle:YYYYMMDD-X.Y.Z          | specific build for specific kernel (multi-arch)       |
 | theanurin/gentoo-sources-bundle:ARCH                    | latest build for latest kernel for specific ARCH      |
+| theanurin/gentoo-sources-bundle:ARCH-X                  | latest build for specific kernel for specific ARCH    |
+| theanurin/gentoo-sources-bundle:ARCH-X.Y                | latest build for specific kernel for specific ARCH    |
 | theanurin/gentoo-sources-bundle:ARCH-X.Y.Z              | latest build for specific kernel for specific ARCH    |
 | theanurin/gentoo-sources-bundle:YYYYMMDD-ARCH-X.Y.Z     | specific build for specific kernel for specific ARCH  |
 
@@ -72,5 +74,13 @@ exit
 python3 -m venv .venv
 source .venv/bin/activate
 pip3 install requests beautifulsoup4
+pip uninstall urllib3
+pip install 'urllib3<2.0'
 ./tools/gentoo-sources-package-parser.py
 ```
+
+### Git tag format
+
+Samples:
+
+- `6.1.53-r1/amd64,x86,arm,arm64`

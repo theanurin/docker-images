@@ -4,7 +4,7 @@
 			"path": "configuration-templates"
 		},
 		{
-			"path": "devel.postgres-13"
+			"path": "devel.postgres"
 		},
 		{
 			"path": "gentoo-sources-bundle"

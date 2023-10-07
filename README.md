@@ -9,7 +9,7 @@ This is workspace branch of Docker Images multi project repository based on [orp
 | Branch                                                                 | Description                                                                                                                          |
 |------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|
 | [configuration-templates](../../tree/configuration-templates)          | Set of template processors that run against configuration properties.                                                                |
-| [devel.postgres-13](../../tree/devel.postgres-13)                      | PostgreSQL for development and testing purposes.                                                                                     |
+| [devel.postgres](../../tree/devel.postgres)                            | PostgreSQL for development and testing purposes.                                                                                     |
 | [fluentd](../../tree/luentd/)                                          | Fluentd is an open source data collector for unified logging layer.                                                                  |
 | [gentoo-sources-bundle](../../tree/gentoo-sources-bundle)              | Gentoo stage3 based image with set of packages to make ability to compile kernel in few commands via Docker.                         |
 | [jekyll](../../tree/jekyll)                                            | Jekyll - Transform your plain text into static websites and blogs.                                                                   |
@@ -49,13 +49,15 @@ This is workspace branch of Docker Images multi project repository based on [orp
 ### Add new orphan branch
 
 ```shell
-NEW_ORPHAN_BRANCH=mybranch
-git worktree add --detach "${NEW_ORPHAN_BRANCH}"
-cd "${NEW_ORPHAN_BRANCH}"
-git checkout --orphan "${NEW_ORPHAN_BRANCH}"
-git commit --allow-empty --message "Initial Commit"
-git push origin "${NEW_ORPHAN_BRANCH}"
+NEW_BRANCH=...
+git worktree add --detach "./${NEW_BRANCH}"
+cd "./${NEW_BRANCH}"
+git checkout --orphan "${NEW_BRANCH}"
+git reset --hard
+git commit --allow-empty -m "Initial Commit"
+git push origin "${NEW_BRANCH}":"${NEW_BRANCH}"
 ```
+
 
 ### Get list of Docker image tags
 
@@ -67,6 +69,8 @@ skopeo --override-os linux inspect docker://docker.io/theanurin/mkdocs | jq -r '
 
 ```shell
 cat tags.local.txt | while read TAG; do echo $TAG; skopeo copy --all docker://docker.io/zxteamorg/jekyll:$TAG docker://docker.io/theanurin/jekyll:$TAG; done
+
+cat tags.local.txt | while read TAG; do echo $TAG; skopeo copy --all docker://docker.io/zxteamorg/messenger-bridge:$TAG docker://docker.io/theanurin/messenger-bridge:$TAG; done
 ```
 
 ### Diff not synced tags

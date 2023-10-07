@@ -1,9 +1,9 @@
-[![Docker Image Version](https://img.shields.io/docker/v/theanurin/devel.postgres-13?sort=date&label=Version)](https://hub.docker.com/r/theanurin/devel.postgres-13/tags)
-[![Docker Image Size](https://img.shields.io/docker/image-size/theanurin/devel.postgres-13?label=Image%20Size)](https://hub.docker.com/r/theanurin/devel.postgres-13/tags)
-[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/theanurin/docker-images/devel.postgres-13-docker-image-release.yml?label=GitHub%20Workflow)](https://github.com/theanurin/docker-images/actions/workflows/devel.postgres-13-docker-image-release.yml)
-[![GitHub Repo Stars](https://img.shields.io/github/stars/theanurin/docker-images?label=GitHub%20Starts)](https://github.com/theanurin/docker-images/tree/devel.postgres)
-[![Docker Pulls](https://img.shields.io/docker/pulls/theanurin/devel.postgres-13?label=Docker%20Pulls)](https://hub.docker.com/r/theanurin/devel.postgres-13)
-[![Docker Stars](https://img.shields.io/docker/stars/theanurin/devel.postgres-13?label=Docker%20Stars)](https://hub.docker.com/r/theanurin/devel.postgres-13)
+|               |                                                                                |                                                                    |                                                              |                                                    |                                                    |
+|---------------|--------------------------------------------------------------------------------|--------------------------------------------------------------------|--------------------------------------------------------------|----------------------------------------------------|----------------------------------------------------|
+| PostgreSQL 13 | [![GitHub Workflow Status][13 GitHub Workflow Status]][13 GitHub Workflow Log] | [![Docker Image Version][13 Docker Image Version]][13 Docker Tags] | [![Docker Image Size][13 Docker Image Size]][13 Docker Tags] | [![Docker Pulls][13 Docker Pulls]][13 Docker Repo] | [![Docker Stars][13 Docker Stars]][13 Docker Repo] |
+| PostgreSQL 14 | [![GitHub Workflow Status][14 GitHub Workflow Status]][14 GitHub Workflow Log] | [![Docker Image Version][14 Docker Image Version]][14 Docker Tags] | [![Docker Image Size][14 Docker Image Size]][14 Docker Tags] | [![Docker Pulls][14 Docker Pulls]][14 Docker Repo] | [![Docker Stars][14 Docker Stars]][14 Docker Repo] |
+| PostgreSQL 15 | [![GitHub Workflow Status][15 GitHub Workflow Status]][15 GitHub Workflow Log] | [![Docker Image Version][15 Docker Image Version]][15 Docker Tags] | [![Docker Image Size][15 Docker Image Size]][15 Docker Tags] | [![Docker Pulls][15 Docker Pulls]][15 Docker Repo] | [![Docker Stars][15 Docker Stars]][15 Docker Repo] |
+
 
 # PostgreSQL (For Developers)
 
@@ -54,3 +54,33 @@ For development and testing purposes we need pre-setup Postgres server to automa
 
 * Maintained by: [Max Anurin](https://anurin.name/)
 * Where to get help: [Telegram](https://t.me/theanurin)
+
+[GitHub Repo Branch]: https://github.com/theanurin/docker-images/tree/devel.postgres
+[GitHub Repo Stars]: https://img.shields.io/github/stars/theanurin/docker-images?label=GitHub%20Starts
+
+[13 GitHub Workflow Status]: https://img.shields.io/github/actions/workflow/status/theanurin/docker-images/devel.postgres-13-docker-image-release.yml?label=GitHub%20Workflow
+[13 GitHub Workflow Log]: https://github.com/theanurin/docker-images/actions/workflows/devel.postgres-13-docker-image-release.yml
+[13 Docker Repo]: https://hub.docker.com/r/theanurin/devel.postgres-13
+[13 Docker Image Version]: https://img.shields.io/docker/v/theanurin/devel.postgres-13?sort=date&label=Version
+[13 Docker Image Size]: https://img.shields.io/docker/image-size/theanurin/devel.postgres-13?label=Image%20Size
+[13 Docker Tags]: https://hub.docker.com/r/theanurin/devel.postgres-13/tags
+[13 Docker Stars]: https://img.shields.io/docker/stars/theanurin/devel.postgres-13?label=Docker%20Stars
+[13 Docker Pulls]: https://img.shields.io/docker/pulls/theanurin/devel.postgres-13?label=Docker%20Pulls
+
+[14 GitHub Workflow Status]: https://img.shields.io/github/actions/workflow/status/theanurin/docker-images/devel.postgres-14-docker-image-release.yml?label=GitHub%20Workflow
+[14 GitHub Workflow Log]: https://github.com/theanurin/docker-images/actions/workflows/devel.postgres-14-docker-image-release.yml
+[14 Docker Repo]: https://hub.docker.com/r/theanurin/devel.postgres-14
+[14 Docker Image Version]: https://img.shields.io/docker/v/theanurin/devel.postgres-14?sort=date&label=Version
+[14 Docker Image Size]: https://img.shields.io/docker/image-size/theanurin/devel.postgres-14?label=Image%20Size
+[14 Docker Tags]: https://hub.docker.com/r/theanurin/devel.postgres-14/tags
+[14 Docker Stars]: https://img.shields.io/docker/stars/theanurin/devel.postgres-14?label=Docker%20Stars
+[14 Docker Pulls]: https://img.shields.io/docker/pulls/theanurin/devel.postgres-14?label=Docker%20Pulls
+
+[15 GitHub Workflow Status]: https://img.shields.io/github/actions/workflow/status/theanurin/docker-images/devel.postgres-15-docker-image-release.yml?label=GitHub%20Workflow
+[15 GitHub Workflow Log]: https://github.com/theanurin/docker-images/actions/workflows/devel.postgres-15-docker-image-release.yml
+[15 Docker Repo]: https://hub.docker.com/r/theanurin/devel.postgres-15
+[15 Docker Image Version]: https://img.shields.io/docker/v/theanurin/devel.postgres-15?sort=date&label=Version
+[15 Docker Image Size]: https://img.shields.io/docker/image-size/theanurin/devel.postgres-15?label=Image%20Size
+[15 Docker Tags]: https://hub.docker.com/r/theanurin/devel.postgres-15/tags
+[15 Docker Stars]: https://img.shields.io/docker/stars/theanurin/devel.postgres-15?label=Docker%20Stars
+[15 Docker Pulls]: https://img.shields.io/docker/pulls/theanurin/devel.postgres-15?label=Docker%20Pulls

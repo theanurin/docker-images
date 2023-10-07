@@ -1,0 +1,31 @@
+ARG BUILD_IMAGE=alpine:3.18.4
+
+FROM ${BUILD_IMAGE} AS postgres_builder
+ARG POSTGRES_PAKCAGE_VERSION=14.9-r0
+RUN apk add --no-cache postgresql14=${POSTGRES_PAKCAGE_VERSION} postgresql14-contrib=${POSTGRES_PAKCAGE_VERSION}
+RUN apk add --no-cache bash
+COPY docker/docker-build.sql /build-toolkit/
+COPY docker/docker-build.sh /build-toolkit/
+RUN /build-toolkit/docker-build.sh
+COPY docker/docker-healthcheck.sh /build/usr/local/bin/docker-healthcheck-postgres-14.sh
+COPY docker/docker-entrypoint.sh /build/usr/local/bin/docker-entrypoint-postgres-14.sh
+
+
+FROM ${BUILD_IMAGE}
+ARG POSTGRES_PAKCAGE_VERSION=14.9-r0
+RUN apk add --no-cache postgresql14=${POSTGRES_PAKCAGE_VERSION} postgresql14-contrib=${POSTGRES_PAKCAGE_VERSION}
+COPY --from=postgres_builder /build/ /
+USER root
+#HEALTHCHECK --interval=15s --timeout=5s --start-period=2s --start-interval=1s --retries=6  CMD /usr/local/bin/docker-healthcheck-postgres-14.sh
+HEALTHCHECK  --interval=1s  --timeout=5s --start-period=2s                     --retries=3  CMD /usr/local/bin/docker-healthcheck-postgres-14.sh
+#
+# Volume /data make more problems than benefits...
+# For some case we want to embed data in /data, but this is not possible due volume directive.
+#
+# https://stackoverflow.com/questions/44020785/remove-a-volume-in-a-dockerfile
+# https://stackoverflow.com/questions/40006278/prevent-volume-creation-on-docker-run
+#
+# Comment it temporary while 
+#VOLUME /data
+EXPOSE 5432
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint-postgres-14.sh"]

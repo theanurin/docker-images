@@ -13,7 +13,7 @@ if [ "$(id -u)" = '0' ]; then
 	chown -R postgres /data /build/usr/share/postgresql.template
 	chmod 700 /data /build/usr/share/postgresql.template
 
-	mkdir -p /run/postgresql /build/run/postgresql 
+	mkdir -p /run/postgresql /build/run/postgresql
 	chown -R postgres /run/postgresql /build/run/postgresql
 	chmod 775 /run/postgresql /build/run/postgresql
 

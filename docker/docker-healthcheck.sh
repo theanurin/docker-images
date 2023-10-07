@@ -5,8 +5,8 @@
 
 set -e
 
-if [ ! -f /run/pg/init_done.flag ]; then
-    # See for creation of /run/pg/init_done.flag in docker-entrypoint.sh
+if [ ! -f /run/postgresql/init_done.flag ]; then
+    # See for creation of /run/postgresql/init_done.flag in docker-entrypoint.sh
     echo "PostgreSQL does not initialized yet. Be patient..." >&2
     # 1: unhealthy - the container is not working correctly
     exit 1

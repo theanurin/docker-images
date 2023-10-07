@@ -3,12 +3,11 @@ ARG BUILD_IMAGE=alpine:3.18.4
 FROM ${BUILD_IMAGE} AS postgres_builder
 ARG POSTGRES_PAKCAGE_VERSION=14.9-r0
 RUN apk add --no-cache postgresql14=${POSTGRES_PAKCAGE_VERSION} postgresql14-contrib=${POSTGRES_PAKCAGE_VERSION}
-RUN apk add --no-cache bash
-COPY docker/docker-build.sql /build-toolkit/
-COPY docker/docker-build.sh /build-toolkit/
-RUN /build-toolkit/docker-build.sh
+COPY docker/docker-builder.sh     /build/usr/local/bin/docker-builder-postgres-14.sh
 COPY docker/docker-healthcheck.sh /build/usr/local/bin/docker-healthcheck-postgres-14.sh
-COPY docker/docker-entrypoint.sh /build/usr/local/bin/docker-entrypoint-postgres-14.sh
+COPY docker/docker-entrypoint.sh  /build/usr/local/bin/docker-entrypoint-postgres-14.sh
+COPY docker/init-data/            /.postgres-init-sql/
+RUN /build/usr/local/bin/docker-builder-postgres-14.sh
 
 
 FROM ${BUILD_IMAGE}

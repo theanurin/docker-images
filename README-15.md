@@ -39,7 +39,7 @@ For development and testing purposes we need pre-setup Postgres server to automa
 * Alpine Linux 3.18.4
 * PostgreSQL 15.4 Server
 
-# Launch
+## Launch
 
 1. Start for development
 
@@ -53,7 +53,7 @@ For development and testing purposes we need pre-setup Postgres server to automa
     * `postgres://devadmin@127.0.0.1:5432/devdb` - to login as `devdb` owner
     * `postgres://devuser@127.0.0.1:5432/devdb` - to login as regular user
 
-# Support
+## Support
 
 * Maintained by: [Max Anurin](https://anurin.name/)
 * Where to get help: [Telegram](https://t.me/theanurin)

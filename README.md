@@ -34,7 +34,7 @@ For development and testing purposes we need pre-setup Postgres server to automa
 * User `devadmin` - owner of the database `devdb` (no password)
 * User `devuser` - regular user (no password)
 
-# Launch
+## Launch
 
 1. Start for development
 
@@ -50,7 +50,18 @@ For development and testing purposes we need pre-setup Postgres server to automa
     * `postgres://devadmin@127.0.0.1:5432/devdb` - to login as `devdb` owner
     * `postgres://devuser@127.0.0.1:5432/devdb` - to login as regular user
 
-# Support
+## Build Own Images With Additional Predefined Data
+
+```dockerfile
+FROM theanurin/devel.postgres-15 AS postgres_builder
+COPY init-sql/ /.postgres-init-sql/
+RUN /usr/local/bin/docker-builder-postgres-15.sh
+
+FROM theanurin/devel.postgres-15
+COPY --from=postgres_builder /build/ /
+```
+
+## Support
 
 * Maintained by: [Max Anurin](https://anurin.name/)
 * Where to get help: [Telegram](https://t.me/theanurin)

@@ -12,10 +12,17 @@ if [ ! -f /run/pg/init_done.flag ]; then
     exit 1
 fi
 
-if pg_isready --dbname=devdb --username=devuser; then
-    # 0: success - the container is healthy and ready for use
-    exit 0
+if ! pg_isready --dbname=devdb --username=devuser; then
+    echo "PostgreSQL (pg_isready) is not ready yet. Be patient..." >&2
+    # 1: unhealthy - the container is not working correctly
+    exit 1
 fi
 
-# 1: unhealthy - the container is not working correctly
-exit 1
+if [ ! -S /run/postgresql/.s.PGSQL.5432 ]; then
+    echo "PostgreSQL socket is not ready yet. Be patient..." >&2
+    # 1: unhealthy - the container is not working correctly
+    exit 1
+fi
+
+# 0: success - the container is healthy and ready for use
+exit 0

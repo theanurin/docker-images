@@ -5,7 +5,7 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/theanurin/devel.postgres-13?label=Docker%20Pulls)](https://hub.docker.com/r/theanurin/devel.postgres-13)
 [![Docker Stars](https://img.shields.io/docker/stars/theanurin/devel.postgres-13?label=Docker%20Stars)](https://hub.docker.com/r/theanurin/devel.postgres-13)
 
-## PostgreSQL 13 (For Developers)
+# PostgreSQL (For Developers)
 
 [PostgreSQL](https://www.postgresql.org/) is a powerful, open source object-relational database system with over 30 years of active development that has earned it a strong reputation for reliability, feature robustness, and performance
 
@@ -34,17 +34,14 @@ For development and testing purposes we need pre-setup Postgres server to automa
 * User `devadmin` - owner of the database `devdb` (no password)
 * User `devuser` - regular user (no password)
 
-## Inside
-
-* Alpine Linux 3.16.7
-* PostgreSQL 13.12 Server
-
 # Launch
 
 1. Start for development
 
     ```shell
     docker run --interactive --tty --rm --publish 5432:5432 theanurin/devel.postgres-13
+    docker run --interactive --tty --rm --publish 5432:5432 theanurin/devel.postgres-14
+    docker run --interactive --tty --rm --publish 5432:5432 theanurin/devel.postgres-15
     ```
 
 1. Use connection strings (no password):

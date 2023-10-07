@@ -1,21 +1,23 @@
 ARG BUILD_IMAGE=alpine:3.16.7
 
-
 FROM ${BUILD_IMAGE} AS postgres_builder
 ARG POSTGRES_PAKCAGE_VERSION=13.12-r0
 RUN apk add --no-cache postgresql13=${POSTGRES_PAKCAGE_VERSION} postgresql13-contrib=${POSTGRES_PAKCAGE_VERSION}
 RUN apk add --no-cache bash
 COPY docker/docker-build.sql /build-toolkit/
 COPY docker/docker-build.sh /build-toolkit/
-RUN chmod +x /build-toolkit/docker-build.sh && /build-toolkit/docker-build.sh
+RUN /build-toolkit/docker-build.sh
+COPY docker/docker-healthcheck.sh /build/usr/local/bin/docker-healthcheck-postgres-13.sh
 COPY docker/docker-entrypoint.sh /build/usr/local/bin/docker-entrypoint-postgres-13.sh
-RUN chmod +x /build/usr/local/bin/docker-entrypoint-postgres-13.sh
+
 
 FROM ${BUILD_IMAGE}
 ARG POSTGRES_PAKCAGE_VERSION=13.12-r0
 RUN apk add --no-cache postgresql13=${POSTGRES_PAKCAGE_VERSION} postgresql13-contrib=${POSTGRES_PAKCAGE_VERSION}
 COPY --from=postgres_builder /build/ /
 USER root
+#HEALTHCHECK --interval=15s --timeout=5s --start-period=2s --start-interval=1s --retries=6  CMD /usr/local/bin/docker-healthcheck-postgres-13.sh
+HEALTHCHECK  --interval=1s  --timeout=5s --start-period=2s                     --retries=3  CMD /usr/local/bin/docker-healthcheck-postgres-13.sh
 #
 # Volume /data make more problems than benefits...
 # For some case we want to embed data in /data, but this is not possible due volume directive.

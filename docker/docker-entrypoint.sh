@@ -17,6 +17,10 @@ if [ "$(id -u)" = '0' ]; then
 		cp -a /usr/share/postgresql.template/* /data
 	fi
 
+	mkdir /run/pg
+	chmod 755 /run/pg
+	chown postgres:postgres /run/pg
+
 	exec su -c "$0" postgres -- "$@"
 else
 	#if [ ! -s "/data/PG_VERSION" ]; then
@@ -63,6 +67,7 @@ else
 		fi
 	fi
 
+	touch /run/pg/init_done.flag
 	exec postgres -D /data
 fi
 

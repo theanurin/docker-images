@@ -3,4 +3,5 @@
 !docker/docker-build.sh
 !docker/docker-build.sql
 !docker/docker-entrypoint.sh
+!docker/docker-healthcheck.sh
 !./README.md

@@ -1,9 +1,10 @@
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/theanurin/docker-images/devel.postgres-docker-image-release.yml)
 [![Docker Image Version](https://img.shields.io/docker/v/theanurin/devel.postgres-13?sort=date&label=Version)](https://hub.docker.com/r/theanurin/devel.postgres-13/tags)
 [![Docker Image Size](https://img.shields.io/docker/image-size/theanurin/devel.postgres-13?label=Image%20Size)](https://hub.docker.com/r/theanurin/devel.postgres-13/tags)
 [![Docker Pulls](https://img.shields.io/docker/pulls/theanurin/devel.postgres-13?label=Pulls)](https://hub.docker.com/r/theanurin/devel.postgres-13)
 [![Docker Stars](https://img.shields.io/docker/stars/theanurin/devel.postgres-13?label=Docker%20Stars)](https://hub.docker.com/r/theanurin/devel.postgres-13)
 
-# Postgres 13
+# PostgreSQL 13 (For Developers)
 
 [PostgreSQL](https://www.postgresql.org/) is a powerful, open source object-relational database system with over 30 years of active development that has earned it a strong reputation for reliability, feature robustness, and performance
 

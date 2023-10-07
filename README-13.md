@@ -1,4 +1,4 @@
-![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/theanurin/docker-images/devel.postgres-docker-image-release.yml)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/theanurin/docker-images/devel.postgres-13-docker-image-release.yml)](https://github.com/theanurin/docker-images/actions/workflows/devel.postgres-13-docker-image-release.yml)
 [![Docker Image Version](https://img.shields.io/docker/v/theanurin/devel.postgres-13?sort=date&label=Version)](https://hub.docker.com/r/theanurin/devel.postgres-13/tags)
 [![Docker Image Size](https://img.shields.io/docker/image-size/theanurin/devel.postgres-13?label=Image%20Size)](https://hub.docker.com/r/theanurin/devel.postgres-13/tags)
 [![Docker Pulls](https://img.shields.io/docker/pulls/theanurin/devel.postgres-13?label=Pulls)](https://hub.docker.com/r/theanurin/devel.postgres-13)

@@ -1,9 +1,9 @@
-name: Docker Image (Release)
+name: PostgreSQL 13 - Docker Image (Release)
 
 on:
   push:
     tags:
-      - 'devel.postgres-13-*'
+      - 'devel.postgres-13.*'
 
 jobs:
   docker-image:
@@ -29,7 +29,7 @@ jobs:
             ghcr.io/${{ github.repository }}/devel.postgres-13
           # generate Docker tags based on the following events/attributes
           tags: |
-            type=match,pattern=devel.postgres-13-(.*),group=1
+            type=match,pattern=devel.postgres-(.*),group=1
 
       # See https://github.com/docker/login-action
       - name: Log In To The DockerHub
@@ -54,7 +54,7 @@ jobs:
         with:
           push: true
           platforms: linux/arm64,linux/amd64,linux/ppc64le,linux/s390x,linux/386,linux/arm/v7,linux/arm/v6
-          file: docker/Dockerfile
+          file: docker/Dockerfile-13
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
@@ -71,4 +71,5 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
           repository: ${{ secrets.DOCKERHUB_USERNAME }}/devel.postgres-13
+          readme-filepath: ./README-13.md
           short-description: "PostgreSQL is a powerful, open source object-relational database system with strong reputation for reliability, feature robustness, and performance."

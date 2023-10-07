@@ -1,9 +1,9 @@
-name: Docker Image (Snapshot/Tag)
+name: PostgreSQL 13 - Docker Image (Snapshot/Tag)
 
 on:
   push:
     tags:
-      - 'devel.postgres-13-*'
+      - 'devel.postgres-13.*'
 
 jobs:
   docker:
@@ -28,7 +28,7 @@ jobs:
             ghcr.io/${{ github.repository }}/devel.postgres-13/snapshot
           # generate Docker tags based on the following events/attributes
           tags: |
-            type=match,pattern=devel.postgres-13-(.*),group=1
+            type=match,pattern=devel.postgres-(.*),group=1
       # See https://github.com/docker/login-action
       - name: Log In To The GitHub Container Registry
         uses: docker/login-action@v2
@@ -45,6 +45,6 @@ jobs:
         with:
           push: true
           platforms: linux/arm64,linux/amd64,linux/ppc64le,linux/s390x,linux/386,linux/arm/v7,linux/arm/v6
-          file: docker/Dockerfile
+          file: docker/Dockerfile-13
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}

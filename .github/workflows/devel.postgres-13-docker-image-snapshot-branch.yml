@@ -1,10 +1,16 @@
-name: Docker Image (Snapshot/Branch)
+name: PostgreSQL 13 - Docker Image (Snapshot/Branch)
 
 on:
   push:
     branches:
-      - 'devel.postgres-13'
-      - 'devel.postgres-13-*'
+      - 'devel.postgres'
+      - 'devel.postgres-*'
+    paths:
+      - '.github/workflows/devel.postgres-13-docker-image-snapshot-branch.yml'
+      - 'docker/docker-build.*'
+      - 'docker/docker-entrypoint.sh'
+      - 'docker/docker-healthcheck.sh'
+      - 'docker/Dockerfile-13'
 
 jobs:
   docker:
@@ -46,6 +52,6 @@ jobs:
         with:
           push: true
           platforms: linux/arm64,linux/amd64,linux/ppc64le,linux/s390x,linux/386,linux/arm/v7,linux/arm/v6
-          file: docker/Dockerfile
+          file: docker/Dockerfile-13
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}

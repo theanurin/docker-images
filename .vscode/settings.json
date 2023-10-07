@@ -6,6 +6,7 @@
         "devel",
         "devuser",
         "emptytestflag",
+        "healthcheck",
         "theanurin"
     ]
 }

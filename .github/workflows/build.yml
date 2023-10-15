@@ -4,7 +4,7 @@ on:
   push:
     tags:
       - 'gentoo-sources-bundle*'
-      - 'gentoo-sources-bundle/**'
+      # - 'gentoo-sources-bundle/**'
       - 'gentoo-sources-bundle/*/*'
       # - 'gentoo-sources-bundle/6.1.53-r1/amd64,x86,arm,arm64'
 
@@ -68,7 +68,7 @@ jobs:
           echo "manifest_version=${MANIFEST_VERSION}" | tee -a "${GITHUB_OUTPUT}"
 
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       # - id: parse-gentoo-sources-packages
       #   run: |
@@ -106,7 +106,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Build And Push Image
         run: |
@@ -185,7 +185,7 @@ jobs:
   #   runs-on: ubuntu-latest
   #   steps:
   #     - name: Checkout
-  #       uses: actions/checkout@v2
+  #       uses: actions/checkout@v3
 
   #     - name: Update Docker Hub Description
   #       uses: peter-evans/dockerhub-description@v3

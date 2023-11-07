@@ -1,13 +1,13 @@
 {
 	"name": "@theanurin/sqlmigrationrunner",
-	"version": "0.10.13",
+	"version": "0.10.14",
 	"description": "Plain SQL Database Migration",
 	"private": true,
 	"dependencies": {
 		"@freemework/common": "^0.10.13",
 		"@freemework/hosting": "^0.10.13",
-		"@freemework/sql.misc.migration": "^0.10.13",
-		"@freemework/sql.postgres": "^0.10.13",
+		"@freemework/sql.misc.migration": "^0.10.14",
+		"@freemework/sql.postgres": "^0.10.14",
 		"lodash": "^4.17.21"
 	},
 	"bin": {

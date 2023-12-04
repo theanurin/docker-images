@@ -16,6 +16,7 @@ COPY --from=builder /build /
 #WORKDIR /usr/local/sqlmigration
 ENV POSTGRES_URL=
 ENV DB_TARGET_VERSION=
+ENV MIGRATION_DIR=/data
 #
 # Volumes make more problems than benefits...
 # For some case we want to embed data in /data, but this is not possible due volume directive.

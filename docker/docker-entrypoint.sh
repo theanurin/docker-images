@@ -13,11 +13,14 @@ case "$1" in
 		;;
 	install)
 		shift
-		if [ ! -d /data ]; then
-			echo "Container does not have embedded migration scripts in /data" >&2
+		if [ -z "${MIGRATION_DIR}" ]; then
+			MIGRATION_DIR="/data"
+		fi
+		if [ ! "${MIGRATION_DIR}" ]; then
+			echo "Container does not have embedded migration scripts in ${MIGRATION_DIR}" >&2
 			exit 1
 		fi
-		ENVARGS="migration.directory=/data"
+		ENVARGS="migration.directory=${MIGRATION_DIR}"
 		if [ -n "${POSTGRES_URL}" ]; then
 			ENVARGS="${ENVARGS} postgres.url=${POSTGRES_URL}"
 		fi
@@ -29,7 +32,6 @@ case "$1" in
 		;;
 	rollback)
 		shift
-		ENVARGS="migration.directory=/data"
 		if [ -n "${POSTGRES_URL}" ]; then
 			ENVARGS="${ENVARGS} postgres.url=${POSTGRES_URL}"
 		fi

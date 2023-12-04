@@ -47,8 +47,7 @@ function createConfigurationProxy(finalConfig) {
 		for (const key of keys) {
 			const dotIndex = key.indexOf(".");
 			if (dotIndex === -1) {
-				const value = sourceConfig.get(key);
-				target[key] = value;
+				target[key] = sourceConfig.get(key);
 			} else {
 				const parentKey = key.substring(0, dotIndex);
 				const subKey = key.substring(dotIndex + 1);
@@ -64,6 +63,9 @@ function createConfigurationProxy(finalConfig) {
 			target[parentKey] = inner;
 			target[`${parentKey}s`] = Object.keys(inner).filter(key => !key.endsWith("s") && key !== "$parent" && key !== "$root").map(key => {
 				const innerObj = inner[key];
+				if (typeof innerObj === "string" || typeof innerObj === "number" || typeof innerObj === "boolean") {
+					return innerObj;
+				}
 				const wrap = { ...innerObj };
 				Object.defineProperty(wrap, "$parent", {
 					get: function () {
@@ -84,30 +86,29 @@ function createConfigurationProxy(finalConfig) {
 
 	const objectConfig = keyWalker(null, finalConfig.keys, finalConfig, null, null);
 
-	function makeProxyAdapter(ns, obj, isOptionalPropery = false) {
+	function makeProxyAdapter(ns, obj, isOptionalProperty = false) {
 		return new Proxy(obj, {
-			get(_, propery) {
-				if (typeof propery === "string") {
-					let friendlyProperty = propery;
-					if (propery.startsWith("?")) {
-						friendlyProperty = propery.substring(1);
-						isOptionalPropery = true;
+			get(_, property) {
+				if (typeof property === "string") {
+					let friendlyProperty = property;
+					if (property.startsWith("?")) {
+						friendlyProperty = property.substring(1);
+						isOptionalProperty = true;
 					}
 					if (friendlyProperty in obj) {
 						const value = obj[friendlyProperty];
 						if (typeof value === "string" || typeof value === "number" || typeof value === "boolean") {
 							return value;
 						} else {
-							return makeProxyAdapter([...ns, friendlyProperty], value, isOptionalPropery);
+							return makeProxyAdapter([...ns, friendlyProperty], value, isOptionalProperty);
 						}
 					}
 
-					if (!isOptionalPropery) {
+					if (!isOptionalProperty) {
 						const fullProperty = [...ns, friendlyProperty].join(".");
 						throw new InvalidOperationError(`Non-existing property request '${fullProperty}'.`);
 					}
 				}
-				// console.log(`Missing value for property: ${propery}`);
 			}
 		});
 	}

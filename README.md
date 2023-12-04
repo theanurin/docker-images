@@ -17,9 +17,9 @@ TDB
 
 **No any variables**
 
-### Volumes
+### Directories
 
-* `/data` - Configuration files root
+* `/data` - Default directory (you may mount your configuration directory here)
 
 ### Cmd Args
 
@@ -45,7 +45,7 @@ Command arguments apply a configuration source:
 echo "<h1>Hello, {{NAME}} {{?SURNAME}}</h1>" | docker run \
     --interactive --rm \
     --env NAME="World" \
-    zxteamorg/devel.configuration-templates \
+    theanurin/configuration-templates \
       --engine mustache \
       --config-env
 ```
@@ -57,7 +57,7 @@ echo "<h1>Hello, {{NAME}} {{?SURNAME}}</h1>" | \
     --interactive --rm \
     --volume /path/to/configs:/data \
     --env NAME="World" \
-    zxteamorg/devel.configuration-templates \
+    theanurin/configuration-templates \
       --engine mustache \
       --config-file=common.config \
       --config-file=devel.config \
@@ -65,9 +65,17 @@ echo "<h1>Hello, {{NAME}} {{?SURNAME}}</h1>" | \
       --config-env
 ```
 
-## Magic symbols
+## Magic
 
-* Symbol "?" - treat the property as optional(by default properites are mandatory).
+### Symbols
+
+- symbol "?" - treat the property as optional(by default properties are mandatory).
+- symbol "s" at the end of property allows to obtain child keys.
+
+### Properties
+
+- `$parent` - point to parent data node
+- `$root` - point to root data node
 
 ## Support
 

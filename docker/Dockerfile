@@ -29,4 +29,3 @@ ENV MIGRATION_DIR=/data
 #VOLUME /etc/sqlmigration/secrets /run/secrets
 USER node
 ENTRYPOINT [ "/usr/local/bin/docker-entrypoint.sh" ]
-CMD [ "banner" ]

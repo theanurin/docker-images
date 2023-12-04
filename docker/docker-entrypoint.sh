@@ -5,16 +5,6 @@ if [ -z "${MIGRATION_DIR}" ]; then
 fi
 
 case "$1" in
-	help)
-		echo
-		echo "-------------------------------------------------------------------------------------"
-		echo "    Following a content of README.md. See more details inside sources repository.    "
-		echo "-------------------------------------------------------------------------------------"
-		echo
-		echo
-		cat /usr/local/sqlmigration/README.md
-		exit 1
-		;;
 	install)
 		shift
 		if [ ! -d "${MIGRATION_DIR}" ]; then
@@ -42,6 +32,13 @@ case "$1" in
 		exec env -i ${ENVARGS} /usr/local/sqlmigration/bin/rollback.js $*
 		;;
 	*)
-		exec /bin/sh -c "$@"
+		echo
+		echo "-------------------------------------------------------------------------------------"
+		echo "    Following a content of README.md. See more details inside sources repository.    "
+		echo "-------------------------------------------------------------------------------------"
+		echo
+		echo
+		cat /usr/local/sqlmigration/README.md
+		exit 1
 		;;
 esac

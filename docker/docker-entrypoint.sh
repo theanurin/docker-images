@@ -1,5 +1,9 @@
 #!/bin/sh
 
+if [ -z "${MIGRATION_DIR}" ]; then
+	MIGRATION_DIR="/data"
+fi
+
 case "$1" in
 	help)
 		echo
@@ -13,10 +17,7 @@ case "$1" in
 		;;
 	install)
 		shift
-		if [ -z "${MIGRATION_DIR}" ]; then
-			MIGRATION_DIR="/data"
-		fi
-		if [ ! "${MIGRATION_DIR}" ]; then
+		if [ ! -d "${MIGRATION_DIR}" ]; then
 			echo "Container does not have embedded migration scripts in ${MIGRATION_DIR}" >&2
 			exit 1
 		fi
@@ -27,7 +28,7 @@ case "$1" in
 		if [ -n "${DB_TARGET_VERSION}" ]; then
 			ENVARGS="${ENVARGS} migration.targetVersion=${DB_TARGET_VERSION}"
 		fi
-		[ -f "/data/BANNER" ] && cat /data/BANNER
+		[ -f "${MIGRATION_DIR}/BANNER" ] && cat "${MIGRATION_DIR}/BANNER"
 		exec env -i ${ENVARGS} /usr/local/sqlmigration/bin/install.js $*
 		;;
 	rollback)
@@ -38,22 +39,9 @@ case "$1" in
 		if [ -n "${DB_TARGET_VERSION}" ]; then
 			ENVARGS="${ENVARGS} migration.targetVersion=${DB_TARGET_VERSION}"
 		fi
-		[ -f "/data/BANNER" ] && cat /data/BANNER
 		exec env -i ${ENVARGS} /usr/local/sqlmigration/bin/rollback.js $*
 		;;
-	banner)
-		shift
-		if [ ! -d /data ]; then
-			echo "Container does not have embedded migration scripts in /data" >&2
-			exit 1
-		fi
-		if [ ! -f /data/BANNER ]; then
-			echo "Embedded migration scripts does not have banner file: /data/BANNER" >&2
-			exit 2
-		fi
-		exec cat /data/BANNER
-		;;
 	*)
-		exec /bin/sh
+		exec /bin/sh -c "$@"
 		;;
 esac

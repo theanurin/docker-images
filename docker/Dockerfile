@@ -7,7 +7,7 @@ FROM node:12-alpine
 ENV VERSION_FROM=""
 ENV VERSION_TO=""
 ENV ENV=""
-ENV SOURCE_PATH="updates"
+ENV SOURCE_PATH="migration"
 ENV BUILD_PATH=".dist"
 ENV EXTRA_CONFIGS=""
 COPY --from=Builder /build/ /

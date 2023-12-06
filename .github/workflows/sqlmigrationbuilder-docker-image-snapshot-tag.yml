@@ -1,4 +1,4 @@
-name: Docker Image (Snapshot/Tag)
+name: SQL Migration Builder - Docker Image (Snapshot/Tag)
 
 on:
   push:

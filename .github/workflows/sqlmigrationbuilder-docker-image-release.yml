@@ -1,13 +1,12 @@
-name: Docker Image (Snapshot/Branch)
+name: SQL Migration Builder - Docker Image (Release)
 
 on:
   push:
-    branches:
-      - 'sqlmigrationbuilder'
+    tags:
       - 'sqlmigrationbuilder-*'
 
 jobs:
-  docker:
+  docker-image:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -26,10 +25,19 @@ jobs:
         with:
           # list of Docker images to use as base name for tags
           images: |
-            ghcr.io/${{ github.repository }}/sqlmigrationbuilder/snapshot
+            ${{ secrets.DOCKERHUB_USERNAME }}/sqlmigrationbuilder
+            ghcr.io/${{ github.repository }}/sqlmigrationbuilder
           # generate Docker tags based on the following events/attributes
           tags: |
-            type=raw,value={{sha}}
+            type=match,pattern=sqlmigrationbuilder-(.*),group=1
+
+      # See https://github.com/docker/login-action
+      - name: Log In To The DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
       # See https://github.com/docker/login-action
       - name: Log In To The GitHub Container Registry
         uses: docker/login-action@v2
@@ -50,3 +58,18 @@ jobs:
           file: docker/Dockerfile
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+
+  readme:
+    needs: [docker-image]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Update image README and description
+        uses: peter-evans/dockerhub-description@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          repository: ${{ secrets.DOCKERHUB_USERNAME }}/sqlmigrationbuilder
+          short-description: "SQL Migration Builder - is a processor of Mustache based SQL script templates."

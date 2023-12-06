@@ -20,8 +20,8 @@ TDB
 * `VERSION_FROM` - version from. Default: '',
 * `VERSION_TO` - version to. Default: ''.
 * `ENV` - a name of target build environment, like: `devel`, `test`, `production`. Default: ''.
-* `SOURCE_PATH` - relative path to sources. Default: 'updates'.
-* `BUILD_PATH` - relative path to buid artifacts. Default: '.dist'.
+* `SOURCE_PATH` - relative path to sources. Default: 'migration'.
+* `BUILD_PATH` - relative path to build artifacts. Default: '.dist'.
 * `EXTRA_CONFIGS` - comma-separated list of additional configuration files (relative to `/data` directory). Default: ''.
 
 

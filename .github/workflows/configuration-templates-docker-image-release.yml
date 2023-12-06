@@ -1,4 +1,4 @@
-name: Docker Image (Snapshot/Tag)
+name: Configuration Templates - Docker Image (Release)
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - 'configuration-templates-*'
 
 jobs:
-  docker:
+  docker-image:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -25,10 +25,19 @@ jobs:
         with:
           # list of Docker images to use as base name for tags
           images: |
-            ghcr.io/${{ github.repository }}/configuration-templates/snapshot
+            ${{ secrets.DOCKERHUB_USERNAME }}/configuration-templates
+            ghcr.io/${{ github.repository }}/configuration-templates
           # generate Docker tags based on the following events/attributes
           tags: |
             type=match,pattern=configuration-templates-(.*),group=1
+
+      # See https://github.com/docker/login-action
+      - name: Log In To The DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
       # See https://github.com/docker/login-action
       - name: Log In To The GitHub Container Registry
         uses: docker/login-action@v2
@@ -44,7 +53,23 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
-          platforms: linux/arm64,linux/amd64,linux/ppc64le,linux/s390x,linux/arm/v7,linux/arm/v6
+          #platforms: linux/arm64,linux/amd64,linux/ppc64le,linux/s390x,linux/arm/v7,linux/arm/v6
+          platforms: linux/arm64,linux/amd64,linux/s390x,linux/arm/v7,linux/arm/v6
           file: docker/Dockerfile
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+
+  readme:
+    needs: [docker-image]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Update image README and description
+        uses: peter-evans/dockerhub-description@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          repository: ${{ secrets.DOCKERHUB_USERNAME }}/configuration-templates
+          short-description: "Configuration Templates - is a set of template processors that run against configuration properties."

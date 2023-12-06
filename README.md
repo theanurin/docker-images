@@ -5,7 +5,7 @@
 
 # SQL Migration Runner for PostgreSQL
 
-!!!DEPRECATION WARNING: This project is moving into [sqlmigrationbuilder](https://github.com/theanurin/docker-images/tree/sqlmigrationbuilder)
+!!!DEPRECATION WARNING: This project is moving into [sqlmigrationrunner](https://github.com/theanurin/docker-images/tree/sqlmigrationrunner)
 
 This is migration runtime that allows to install/rollback SQL scripts. Powered by `MigrationManager` from `@zxteam/sql`.
 

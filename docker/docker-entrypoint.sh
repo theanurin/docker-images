@@ -9,8 +9,8 @@ if [ "$(id -u)" = '0' ]; then
 	chown -R postgres:postgres /data
 	chmod 750 /data
 
-	# chown -R postgres:postgres /updates
-	# chmod 750 /updates
+	# chown -R postgres:postgres /dbseed
+	# chmod 750 /dbseed
 
 	if [ ! -s "/data/PG_VERSION" ]; then
 		echo "Creating database backend directory from /usr/share/postgresql.template ..."
@@ -29,11 +29,11 @@ else
 	#	cp -a /usr/share/postgresql.template/* /data
 	#fi
 
-	if [ -d /updates ]; then
-		FILES=$(cd /updates && find * -type f -name '*.sql' -maxdepth 0 | sort)
-		DB_DIRS=$(cd /updates && find * -type d -maxdepth 0 | sort)
+	if [ -d /dbseed ]; then
+		FILES=$(cd /dbseed && find * -type f -name '*.sql' -maxdepth 0 | sort)
+		DB_DIRS=$(cd /dbseed && find * -type d -maxdepth 0 | sort)
 		if [ -n "${FILES}" -o -n "${DB_DIRS}" ]; then
-			echo "Found files in the /updates directory. Entering to update mode..."
+			echo "Found files in the /dbseed directory. Entering to update mode..."
 		
 			echo "Starting Postgres server to apply SQL updates..."
 			PGUSER=postgres pg_ctl -D /data -o "-c listen_addresses=''" -w start
@@ -46,17 +46,18 @@ else
 					DBNAME=devdb
 				fi
 				for FILE in ${FILES}; do
-					echo "Apply SQL update /updates/${FILE} in database ${DBNAME}"
-					/usr/bin/psql --pset=pager=off --variable=ON_ERROR_STOP=1 --username "postgres" --no-password --dbname "${DBNAME}" --file="/updates/${FILE}"
+					echo "Apply SQL update /dbseed/${FILE} in database ${DBNAME}"
+					/usr/bin/psql --pset=pager=off --variable=ON_ERROR_STOP=1 --username "postgres" --no-password --dbname "${DBNAME}" --file="/dbseed/${FILE}"
 				done
 			fi
 
 			if [ -n "${DB_DIRS}" ]; then
 				for DB_DIR in ${DB_DIRS}; do
-					DB_FILES=$(cd "/updates/${DB_DIR}" && find . -type f -name '*.sql' -maxdepth 1 | sort)
+					# DB_FILES=$(cd "/dbseed/${DB_DIR}" && find . -type f -name '*.sql' -maxdepth 1 | sort)
+					DB_FILES=$(find "/dbseed/${DB_DIR}" -type f -name '*.sql' -maxdepth 1 | sort)
 					for DB_FILE in ${DB_FILES}; do
-						echo "Apply SQL update /updates/${DB_DIR}/${DB_FILE} in database ${DB_DIR}"
-						/usr/bin/psql --pset=pager=off --variable=ON_ERROR_STOP=1 --username "postgres" --no-password --dbname "${DB_DIR}" --file="/updates/${DB_DIR}/${DB_FILE}"
+						echo "Apply SQL update ${DB_FILE} in database ${DB_DIR}"
+						/usr/bin/psql --pset=pager=off --variable=ON_ERROR_STOP=1 --username "postgres" --no-password --dbname "${DB_DIR}" --file="${DB_FILE}"
 					done
 				done
 			fi

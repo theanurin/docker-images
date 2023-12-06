@@ -22,9 +22,9 @@ For development and testing purposes we need pre-setup Postgres server to automa
 ### Directories
 
 * `/data` - Hold Postgres'es data
-* `/updates` - Files `*.sql` from the folder is executing at startup of a container
-    * `/updates/*.sql` - execute in `devdb` as `postgres` user
-    * `/updates/<db_name>/*.sql` - execute in `<db_name>` as `postgres` user
+* `/dbseed` - Files `*.sql` from the folder is executing at startup of a container
+    * `/dbseed/*.sql` - execute in `devdb` as `postgres` user
+    * `/dbseed/<db_name>/*.sql` - execute in `<db_name>` as `postgres` user
 
 ### Predefined Stuff
 
@@ -36,8 +36,8 @@ For development and testing purposes we need pre-setup Postgres server to automa
 
 ## Inside
 
-* Alpine Linux 3.18.4
-* PostgreSQL 14.9 Server
+* Alpine Linux 3.18.5
+* PostgreSQL 14.10 Server
 
 ## Launch
 

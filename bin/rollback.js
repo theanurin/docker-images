@@ -23,7 +23,7 @@ const { version: packageVersion } = require("../package.json");
 
 
 FLogger.setLoggerFactory((loggerName) => FLoggerConsole.create(loggerName, { level: FLoggerLevel.INFO, format: "text" }));
-const appLogger = FLogger.create("install");
+const appLogger = FLogger.create("rollback");
 
 const appCancellationTokenSource = new FCancellationTokenSourceManual();
 const appExecutionContext = new FCancellationExecutionContext(FExecutionContext.Default, appCancellationTokenSource.token);
@@ -114,11 +114,10 @@ async function readConfiguration() {
 	const config = new FConfigurationChain(...configParts);
 
 	const postgresUrl = config.get("postgres.url").asUrl;
-	const migrationSourcesDirectory = config.get("migration.directory").asString;
 	const targetVersion = config.has("migration.targetVersion") ? config.get("migration.targetVersion").asString : null;
 
 	return Object.freeze({
-		postgresUrl, targetVersion, migrationSourcesDirectory
+		postgresUrl, targetVersion
 	});
 }
 

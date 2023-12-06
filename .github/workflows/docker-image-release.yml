@@ -1,4 +1,4 @@
-name: Docker Image (Release)
+name: SQL Migration Runner - Docker Image (Release)
 
 on:
   push:

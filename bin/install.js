@@ -94,7 +94,7 @@ async function main() {
 			await manager.install(appExecutionContext, migrationSources, config.targetVersion);
 		} else {
 			appLogger.info(appExecutionContext, () => `Installing migration scripts to latest version ...`);
-			await manager.install(appExecutionContext);
+			await manager.install(appExecutionContext, migrationSources);
 		}
 	} finally {
 		appLogger.info(appExecutionContext, "Closing database connection ...");

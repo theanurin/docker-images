@@ -1,6 +1,6 @@
 {
 	"name": "@theanurin/sqlmigrationrunner",
-	"version": "0.11.3",
+	"version": "0.11.4",
 	"description": "Plain SQL Database Migration",
 	"private": true,
 	"dependencies": {

@@ -17,10 +17,12 @@ if [ "$(id -u)" = '0' ]; then
 		cp -a /usr/share/postgresql.template/* /data
 	fi
 
-	mkdir          /run/postgresql
-	chown postgres /run/postgresql
-	chmod 775      /run/postgresql
-
+	# Allows to use `docker commit` and `docker stop/start` (prevent dir creation on second run)
+	if [ ! -d /run/postgresql ]; then
+		mkdir          /run/postgresql
+		chown postgres /run/postgresql
+		chmod 775      /run/postgresql
+	fi
 
 	exec su -c "$0" postgres -- "$@"
 else
@@ -29,7 +31,8 @@ else
 	#	cp -a /usr/share/postgresql.template/* /data
 	#fi
 
-	if [ -d /dbseed ]; then
+	# Apply DBSeed only for first launch (in flavour to use `docker commit`)
+	if [ ! -f /run/postgresql/init_done.flag -a -d /dbseed ]; then
 		FILES=$(cd /dbseed && find * -type f -name '*.sql' -maxdepth 0 | sort)
 		DB_DIRS=$(cd /dbseed && find * -type d -maxdepth 0 | sort)
 		if [ -n "${FILES}" -o -n "${DB_DIRS}" ]; then
@@ -72,4 +75,3 @@ else
 	touch /run/postgresql/init_done.flag
 	exec postgres -D /data
 fi
-

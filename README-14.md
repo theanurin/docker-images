@@ -55,6 +55,8 @@ For development and testing purposes we need pre-setup Postgres server to automa
 
 ## Build Own Images With Additional Predefined Data
 
+### Based On SQL scripts
+
 ```dockerfile
 FROM theanurin/devel.postgres-14 AS postgres_builder
 COPY init-sql/ /.postgres-init-sql/
@@ -63,6 +65,15 @@ RUN /usr/local/bin/docker-builder-postgres-14.sh
 FROM theanurin/devel.postgres-14
 COPY --from=postgres_builder /build/ /
 ```
+
+### Based on state of a container
+
+```shell
+docker commit <container_id/name> <image_repo:image_tag>
+
+# Use image <image_repo:image_tag>
+```
+
 
 ## Support
 

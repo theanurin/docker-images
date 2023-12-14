@@ -53,6 +53,28 @@ For development and testing purposes we need pre-setup Postgres server to automa
     * `postgres://devadmin@127.0.0.1:5432/devdb` - to login as `devdb` owner
     * `postgres://devuser@127.0.0.1:5432/devdb` - to login as regular user
 
+## Build Own Images With Additional Predefined Data
+
+### Based On SQL scripts
+
+```dockerfile
+FROM theanurin/devel.postgres-15 AS postgres_builder
+COPY init-sql/ /.postgres-init-sql/
+RUN /usr/local/bin/docker-builder-postgres-15.sh
+
+FROM theanurin/devel.postgres-15
+COPY --from=postgres_builder /build/ /
+```
+
+### Based on state of a container
+
+```shell
+docker commit <container_id/name> <image_repo:image_tag>
+
+# Use image <image_repo:image_tag>
+```
+
+
 ## Support
 
 * Maintained by: [Max Anurin](https://anurin.name/)

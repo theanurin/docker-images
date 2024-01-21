@@ -27,7 +27,7 @@
 
 # Inside
 
-* pgAdmin4 v7.7
+* pgAdmin4 v8.2
 
 # Launch
 

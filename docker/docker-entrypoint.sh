@@ -13,4 +13,4 @@ if [ -z "${PGADMIN_BG_COLOR}" ]; then
 	exit 1
 fi
 
-exec sudo --preserve-env --user=pgadmin /entrypoint.sh
+exec sudo --preserve-env --user=pgadmin --set-home /entrypoint.sh

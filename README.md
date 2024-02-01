@@ -32,14 +32,17 @@
 
 # Inside
 
-* [Jekyll](https://jekyllrb.com/) v4.3.2
+* [Jekyll](https://jekyllrb.com/) v4.3.3
 * [Bundler gem](https://rubygems.org/gems/bundler)
 * Additional Gems:
 	* [jemoji](https://rubygems.org/gems/jemoji) v0.13.0
-	* [just-the-docs](https://rubygems.org/gems/just-the-docs) v0.6.1
-	* [minitest](https://rubygems.org/gems/minitest) v5.19.0
-	* [racc](https://rubygems.org/gems/racc) v1.7.1
+	* [just-the-docs](https://rubygems.org/gems/just-the-docs) v0.7.0
+	* [minitest](https://rubygems.org/gems/minitest) v5.21.2
+	* [racc](https://rubygems.org/gems/racc) v1.7.3
 	* [rexml](https://rubygems.org/gems/rexml) v3.2.6
+* [NodeJS](https://nodejs.org/) v18.18.2
+* [NPM](https://www.npmjs.com/) v9.6.6
+	* [Pug](https://www.npmjs.com/package/pug)
 
 # Launch
 1. Start development server in site root directory (where `jekyll's _config.yml` located)

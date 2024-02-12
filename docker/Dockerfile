@@ -1,4 +1,4 @@
-ARG BUILD_IMAGE=ruby:3.3.0-alpine3.18
+ARG BUILD_IMAGE=ruby:3.2.3-alpine3.18
 
 FROM ${BUILD_IMAGE} AS builder
 ARG JEKYLL_GEM_VERSION=4.3.3
@@ -14,7 +14,7 @@ RUN \
   test "${GEM_HOME}" == '/usr/local/bundle' && \
   apk add --no-cache build-base gcompat libxml2 libxslt nodejs~="${NODEJS_VERSION}" npm~="${NPM_VERSION}" && \
   npm install --global "pug@${PUG_VERION}" && \
-  apk add --no-cache --virtual .build-deps libxml2-dev libxslt-dev && \
+  apk add --no-cache libxml2-dev libxslt-dev && \
   gem install bundler && \
   gem install jekyll -v "${JEKYLL_GEM_VERSION}" && \
   gem install jemoji -v "${JEMOJI_GEM_VERSION}" && \
@@ -22,9 +22,9 @@ RUN \
   gem install minitest -v "${MINITEST_GEM_VERSION}" && \
   gem install racc -v "${RACC_GEM_VERSION}" && \
   gem install rexml -v "${REXML_GEM_VERSION}" && \
-  rm -rf "${GEM_HOME}/cache" && \
-  apk del .build-deps
+  rm -rf "${GEM_HOME}/cache"
 COPY docker/docker-entrypoint.sh /usr/local/bin/docker-entrypoint-jekyll.sh
-VOLUME [ "/data", "/usr/local/bundle/cache" ]
+VOLUME [ "/data" ]
+# ENV BUNDLE_PATH=/data/vendor/bundle
 EXPOSE 4000
 ENTRYPOINT [ "/usr/local/bin/docker-entrypoint-jekyll.sh" ]

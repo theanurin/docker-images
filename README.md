@@ -9,25 +9,25 @@
 
 # Image reason
 
-* Changed background color
+- Changed background color
 
 # Spec
 
 ## Environment variables
 
-* `PGADMIN_BG_COLOR` - this variable passes the name of the color to change background color
+- `PGADMIN_BG_COLOR` - this variable passes the name of the color to change background color
 
 ## Expose ports
 
-* `tcp/80` - pgAdmin listening endpoint
+- `tcp/80` - pgAdmin listening endpoint
 
 ## Volumes
 
-* No any volumes
+- No any volumes
 
 # Inside
 
-* pgAdmin4 v8.2
+- pgAdmin4 v8.2
 
 # Launch
 
@@ -42,5 +42,5 @@ docker run --rm -it \
 
 # Support
 
-* Maintained by: [Max Anurin](https://anurin.name/)
-* Where to get help: [Telegram](https://t.me/theanurin)
+- Maintained by: [Max Anurin](https://anurin.name/)
+- Where to get help: [Telegram](https://t.me/theanurin)

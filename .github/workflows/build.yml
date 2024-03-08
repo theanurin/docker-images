@@ -70,20 +70,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      # - id: parse-gentoo-sources-packages
-      #   run: |
-      #     pip3 install requests beautifulsoup4
-      #     ./tools/gentoo-sources-package-parser.py
-
-# ::set-output name=build_version::["5.15.122:stable:latest:arm32v5:linux/arm/v5", "5.15.122:stable:latest:arm32v6:linux/arm/v6", "5.15.122:stable:latest:arm32v7:linux/arm/v7", "5.10.187:stable:non-latest:arm32v5:linux/arm/v5", "5.10.187:stable:non-latest:arm32v6:linux/arm/v6"]
-# ::set-output name=manifest_version::["5.15.122:arm32v5,arm32v6,arm32v7", "5.10.187:arm32v5,arm32v6"]
-# ::set-output name=manifest_latest::["5.15.122:arm32v5,5.15.122:arm32v6,5.15.122:arm32v7"]
-
-#           echo "build_version=["5.15.122:stable:latest:arm32v5:linux/arm/v5", "5.15.122:stable:latest:arm32v6:linux/arm/v6", "5.15.122:stable:latest:arm32v7:linux/arm/v7", "5.10.187:stable:non-latest:arm32v5:linux/arm/v5", "5.10.187:stable:non-latest:arm32v6:linux/arm/v6"]" | tee -a "${GITHUB_OUTPUT}"
-#           echo "manifest_version=["5.15.122:arm32v5,arm32v6,arm32v7", "5.10.187:arm32v5,arm32v6"]" | tee -a "${GITHUB_OUTPUT}"
-#           echo "manifest_latest=["5.15.122:arm32v5,5.15.122:arm32v6,5.15.122:arm32v7"]" | tee -a "${GITHUB_OUTPUT}"
-
-
   image:
     needs: configure
     runs-on: ubuntu-latest
@@ -124,35 +110,35 @@ jobs:
             .
           docker push "theanurin/gentoo-sources-bundle:${DOCKER_TAG}-${KERNEL_VERSION}"
 
-  # build-manifest-version:
-  #   needs: [configure,image]
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     # See https://github.com/docker/login-action
-  #     - name: Login to DockerHub
-  #       uses: docker/login-action@v1
-  #       with:
-  #         username: ${{ secrets.DOCKERHUB_USERNAME }}
-  #         password: ${{ secrets.DOCKERHUB_TOKEN }}
+  build-manifest-version:
+    needs: [configure,image]
+    runs-on: ubuntu-latest
+    steps:
+      # See https://github.com/docker/login-action
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-  #     - name: Make cross arch docker image via manifest
-  #       run: |
-  #         KERNEL_VERSION=$(echo ${{ configure.manifest_version }} | cut -d: -f1)
-  #         KERNEL_MAJOR=$(echo -n "${KERNEL_VERSION}" | cut -d. -f1)
-  #         KERNEL_MAJOR_MINOR=$(echo -n "${KERNEL_VERSION}" | cut -d. -f1-2)
-  #         DOCKER_TAGS=$(echo ${{ configure.manifest_version }} | cut -d: -f2 | sed 's/,/ /g')
-  #         AMEND_OPTS=""
-  #         for DOCKER_TAG in ${DOCKER_TAGS}; do
-  #           AMEND_OPTS="${AMEND_OPTS} --amend \"theanurin/gentoo-sources-bundle:${DOCKER_TAG}-${GITHUB_REF_NAME}-${KERNEL_VERSION}\""
-  #         done
-  #         eval "docker manifest create \"theanurin/gentoo-sources-bundle:${GITHUB_REF_NAME}-${KERNEL_VERSION}\" ${AMEND_OPTS}"
-  #         docker manifest push "theanurin/gentoo-sources-bundle:${GITHUB_REF_NAME}-${KERNEL_VERSION}"
-  #         eval "docker manifest create \"theanurin/gentoo-sources-bundle:${KERNEL_VERSION}\" ${AMEND_OPTS}"
-  #         docker manifest push "theanurin/gentoo-sources-bundle:${KERNEL_VERSION}"
-  #         eval "docker manifest create \"theanurin/gentoo-sources-bundle:${KERNEL_MAJOR}\" ${AMEND_OPTS}"
-  #         docker manifest push "theanurin/gentoo-sources-bundle:${KERNEL_MAJOR}"
-  #         eval "docker manifest create \"theanurin/gentoo-sources-bundle:${KERNEL_MAJOR_MINOR}\" ${AMEND_OPTS}"
-  #         docker manifest push "theanurin/gentoo-sources-bundle:${KERNEL_MAJOR_MINOR}"
+      - name: Make cross arch docker image via manifest
+        run: |
+          KERNEL_VERSION="${{ needs.configure.outputs.kernel_version }}"
+          KERNEL_MAJOR=$(echo -n "${KERNEL_VERSION}" | cut -d. -f1)
+          KERNEL_MAJOR_MINOR=$(echo -n "${KERNEL_VERSION}" | cut -d. -f1-2)
+          BUILD_ARCHS=$(echo '${{ needs.configure.outputs.build_arch }}' | jq -r '.[]')
+          AMEND_OPTS=""
+          for BUILD_ARCH in ${BUILD_ARCHS}; do
+            DOCKER_TAG=$(echo "${BUILD_ARCH}" | cut -d: -f1)
+            DOCKER_PLATFORM=$(echo "${BUILD_ARCH}" | cut -d: -f2)
+            AMEND_OPTS="${AMEND_OPTS} --amend \"theanurin/gentoo-sources-bundle:${DOCKER_TAG}-${KERNEL_VERSION}\""
+          done
+          eval "docker manifest create \"theanurin/gentoo-sources-bundle:${KERNEL_VERSION}\" ${AMEND_OPTS}"
+          docker manifest push "theanurin/gentoo-sources-bundle:${KERNEL_VERSION}"
+          eval "docker manifest create \"theanurin/gentoo-sources-bundle:${KERNEL_MAJOR_MINOR}\" ${AMEND_OPTS}"
+          docker manifest push "theanurin/gentoo-sources-bundle:${KERNEL_MAJOR_MINOR}"
+          eval "docker manifest create \"theanurin/gentoo-sources-bundle:${KERNEL_MAJOR}\" ${AMEND_OPTS}"
+          docker manifest push "theanurin/gentoo-sources-bundle:${KERNEL_MAJOR}"
 
   # build-manifest-latest:
   #   needs: [configure,image]

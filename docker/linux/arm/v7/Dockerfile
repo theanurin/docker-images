@@ -27,9 +27,7 @@ RUN \
   [ "${KERNEL_STABILITY}" == "testing" ] && echo 'ACCEPT_KEYWORDS="~arm"' >> /etc/portage/make.conf; \
   FEATURES="-ipc-sandbox -network-sandbox -pid-sandbox -sandbox -usersandbox" ACCEPT_LICENSE="linux-firmware" emerge --quiet =sys-kernel/gentoo-sources-${KERNEL_VERSION} | tee /support/emerge.log; \
   eselect kernel set 1; \
-  echo "${KERNEL_VERSION}" > /KERNEL_VERSION; \
-  echo "linux/arm/v7" > /DOCKER_ARCH; \
-  echo "DOCKER_ARCH=\"${DOCKER_ARCH}\"" >> /etc/env.d/99kernel; \
+  echo "DOCKER_ARCH=\"linux/arm/v7\"" >> /etc/env.d/99kernel; \
   echo "KERNEL_VERSION=\"${KERNEL_VERSION}\"" >> /etc/env.d/99kernel; \
   echo "KCONFIG_OVERWRITECONFIG=\"y\"" >> /etc/env.d/99kernel; \
   env-update; \

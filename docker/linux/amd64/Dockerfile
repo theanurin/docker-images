@@ -25,7 +25,7 @@ RUN \
   fi; \
   eselect news read all; \
   [ "${KERNEL_STABILITY}" == "testing" ] && echo 'ACCEPT_KEYWORDS="~amd64"' >> /etc/portage/make.conf; \
-  FEATURES="-ipc-sandbox -network-sandbox -pid-sandbox -sandbox -usersandbox" ACCEPT_LICENSE="linux-firmware" emerge --quiet =sys-kernel/gentoo-sources-${KERNEL_VERSION} | tee /support/emerge.log; \
+  FEATURES="-ipc-sandbox -network-sandbox -pid-sandbox -sandbox -usersandbox" ACCEPT_LICENSE="intel-ucode linux-firmware linux-fw-redistributable" emerge --quiet =sys-kernel/gentoo-sources-${KERNEL_VERSION} sys-kernel/linux-firmware sys-firmware/intel-microcode net-wireless/wireless-regdb | tee /support/emerge.log; \
   eselect kernel set 1; \
   echo "DOCKER_ARCH=\"linux/amd64\"" >> /etc/env.d/99kernel; \
   echo "KERNEL_VERSION=\"${KERNEL_VERSION}\"" >> /etc/env.d/99kernel; \

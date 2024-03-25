@@ -7,6 +7,14 @@
 
 Gentoo stage3 based image with set of packages to make ability to compile kernel in few commands via Docker.
 
+## Accept Licenses
+
+You are accepted following licenses by using `amd64` or `i686` image:
+
+- `/var/db/repos/gentoo/licenses/intel-ucode`
+- `/var/db/repos/gentoo/licenses/linux-firmware`
+- `/var/db/repos/gentoo/licenses/linux-fw-redistributable`
+
 ## Author's Notes
 
 From some point I have to managing a lot of different kernel versions and configurations.

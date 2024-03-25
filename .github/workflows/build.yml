@@ -1,12 +1,11 @@
-name: Build and push docker image
+name: Gentoo Sources Bundle - Docker Image
 
 on:
   push:
     tags:
-      - 'gentoo-sources-bundle*'
-      # - 'gentoo-sources-bundle/**'
+      # - 'gentoo-sources-bundle/$KERNEL/$COMMA_SEPARATED_ARCH'
+      # - 'gentoo-sources-bundle/6.1.53-r1/amd64,i686,arm,arm64'
       - 'gentoo-sources-bundle/*/*'
-      # - 'gentoo-sources-bundle/6.1.53-r1/amd64,x86,arm,arm64'
 
 jobs:
   configure:
@@ -27,7 +26,7 @@ jobs:
             exit 1
           fi
 
-          if ! echo -n "${{ github.ref_name }}" | egrep -qe '^gentoo-sources-bundle\/[1-9]\.[0-9]+\.[0-9]+(-r[0-9]+)?\/(amd64|x86|arm|arm64)(,(amd64|x86|arm|arm64))*$'; then
+          if ! echo -n "${{ github.ref_name }}" | egrep -qe '^gentoo-sources-bundle\/[1-9]\.[0-9]+\.[0-9]+(-r[0-9]+)?\/(amd64|i686|arm|arm64)(,(amd64|i686|arm|arm64))*$'; then
             echo "Wrong tag name '${{ github.ref_name }}'." >&2
             exit 2
           fi
@@ -50,8 +49,8 @@ jobs:
               arm64)
                 BUILD_DOCKER_ARCHS_JSON=$(echo "${BUILD_DOCKER_ARCHS_JSON}" | jq -c '. += ["arm64v8:linux/arm64/v8"]')
                 ;;
-              x86)
-                BUILD_DOCKER_ARCHS_JSON=$(echo "${BUILD_DOCKER_ARCHS_JSON}" | jq -c '. += ["x86:linux/386"]')
+              i686)
+                BUILD_DOCKER_ARCHS_JSON=$(echo "${BUILD_DOCKER_ARCHS_JSON}" | jq -c '. += ["i686:linux/386"]')
                 ;;
               *)
                 echo "Unsupported kernel arch: ${KERNEL_ARCH}" >&2
@@ -61,10 +60,10 @@ jobs:
           # 6.1.53-r1
           echo "kernel_version=${KERNEL_VERSION}" | tee -a "${GITHUB_OUTPUT}"
 
-          # ["amd64:linux/amd64","arm64v8:linux/arm64/v8","arm32v5:linux/arm/v5","arm32v6:linux/arm/v6","arm32v7:linux/arm/v7","x86:linux/386"]
+          # ["amd64:linux/amd64","arm64v8:linux/arm64/v8","arm32v5:linux/arm/v5","arm32v6:linux/arm/v6","arm32v7:linux/arm/v7","i686:linux/386"]
           echo "build_arch=${BUILD_DOCKER_ARCHS_JSON}" | tee -a "${GITHUB_OUTPUT}"
 
-          # 6.1.53-r1/amd64,x86,arm,arm64
+          # 6.1.53-r1/amd64,i686,arm,arm64
           echo "manifest_version=${MANIFEST_VERSION}" | tee -a "${GITHUB_OUTPUT}"
 
       - name: Checkout
@@ -130,7 +129,6 @@ jobs:
           AMEND_OPTS=""
           for BUILD_ARCH in ${BUILD_ARCHS}; do
             DOCKER_TAG=$(echo "${BUILD_ARCH}" | cut -d: -f1)
-            DOCKER_PLATFORM=$(echo "${BUILD_ARCH}" | cut -d: -f2)
             AMEND_OPTS="${AMEND_OPTS} --amend \"theanurin/gentoo-sources-bundle:${DOCKER_TAG}-${KERNEL_VERSION}\""
           done
           eval "docker manifest create \"theanurin/gentoo-sources-bundle:${KERNEL_VERSION}\" ${AMEND_OPTS}"

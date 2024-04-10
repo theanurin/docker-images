@@ -24,8 +24,24 @@
   * `CONFIG_LEGO_CHALLENGE_HTTP_01` - Set to `true` to enable __HTTP-01__ challenge solver. Make sure that your container will be available from Internet on port 80 and binds to domain defined in CONFIG_LEGO_DOMAIN
   * `CONFIG_LEGO_CHALLENGE_TLS_ALPN_01` - Set to `true` to enable __TLS-ALPN-01__ challenge solver. Make sure that your container will be available from Internet on port 443 and binds to domain defined in CONFIG_LEGO_DOMAIN
   * `CONFIG_LEGO_CHALLENGE_DNS_01_PROVIDER` - Set to one of following values to enable __DNS-01__ challenge solver.
-    * `exec` - TBD
-    * `cloudflare` - TBD
+    * `exec`
+      ```shell
+      CONFIG_LEGO_CHALLENGE_DNS_01_PROVIDER="exec"
+      CONFIG_LEGO_CHALLENGE_DNS_01_RESOLVERS="ns313.inhostedns.org,ns213.inhostedns.net,ns113.inhostedns.com"
+      EXEC_PATH="/opt/dns-01-solvers/tools.adm.py"
+      EXEC_POLLING_INTERVAL=30
+      EXEC_PROPAGATION_TIMEOUT=600
+      ADM_TOOLS_API_LOGIN="admins@example.org"
+      ADM_TOOLS_API_TOKEN=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+      ADM_TOOLS_ROOT_DOMAINS="example.org"
+      ```
+    * `cloudflare`
+      ```shell
+      CONFIG_LEGO_CHALLENGE_DNS_01_PROVIDER="cloudflare"
+      CONFIG_LEGO_CHALLENGE_DNS_01_RESOLVERS="arely.ns.cloudflare.com,cameron.ns.cloudflare.com"
+      CLOUDFLARE_DNS_API_TOKEN=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+      CLOUDFLARE_ZONE_API_TOKEN=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+      ```
 * `SSL_CERT_EXPIRE_TIMEOUT` - Timeout in seconds to check certificate expiration. Default: `86400`
 * TBD
 

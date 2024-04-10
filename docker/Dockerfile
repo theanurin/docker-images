@@ -1,19 +1,19 @@
-ARG ALPINE_BUILD=3.18.3
+ARG ALPINE_BUILD=3.19.1
 
 FROM alpine:${ALPINE_BUILD}
 
-ARG VER_OPENLDAP=2.6.5
-ARG VER_LEGO=4.11.0
-ARG VER_PYTHON=3.11.6
-ARG VER_OPENSSL=3.1.3
+ARG VER_OPENLDAP=2.6.6-r1
+ARG VER_LEGO=4.14.2-r3
+ARG VER_PYTHON=3.11.8-r0
+ARG VER_OPENSSL=3.1.4-r6
 
 #
 # Add OpenLDAP backends (just names)
-# https://pkgs.alpinelinux.org/packages?name=openldap-back-*&branch=v3.18
+# https://pkgs.alpinelinux.org/packages?name=openldap-back-*&branch=v3.19
 ARG BACKENDS="ldap mdb null"
 
 # Add OpenLDAP overlays (just names)
-# https://pkgs.alpinelinux.org/packages?name=openldap-overlay-*&branch=v3.18
+# https://pkgs.alpinelinux.org/packages?name=openldap-overlay-*&branch=v3.19
 ARG OVERLAYS="memberof refint syncprov"
 
 # Install packages
@@ -26,8 +26,8 @@ RUN apk add --no-cache \
   python3~=${VER_PYTHON} \
   openssl~=${VER_OPENSSL} \
   py-pip && \
-  pip3 install --upgrade pip && \
-  pip3 install requests
+  pip3 install --break-system-packages --upgrade pip && \
+  pip3 install --break-system-packages requests
 
 # Copy entrypoint script to root /
 COPY --chown=root:root docker/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh

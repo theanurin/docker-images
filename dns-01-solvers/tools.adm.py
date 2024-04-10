@@ -46,20 +46,31 @@ if "EXEC_MODE" in os.environ and os.environ["EXEC_MODE"] == "RAW":
 if "ADM_TOOLS_API_URL" not in os.environ:
 	os.environ["ADM_TOOLS_API_URL"] = "https://adm.tools"
 
-if "ADM_TOOLS_ROOT_DOMAINS" not in os.environ or "ADM_TOOLS_API_URL" not in os.environ or "ADM_TOOLS_API_TOKEN_FILE" not in os.environ:
-	print("You need to define following variables to use the app: ADM_TOOLS_ROOT_DOMAINS, ADM_TOOLS_API_URL and ADM_TOOLS_API_TOKEN_FILE", sys.argv[0], file=sys.stderr)
+if "ADM_TOOLS_ROOT_DOMAINS" not in os.environ or "ADM_TOOLS_API_URL" not in os.environ:
+	print("You need to define following variables to use the app: ADM_TOOLS_ROOT_DOMAINS, ADM_TOOLS_API_URL", sys.argv[0], file=sys.stderr)
+	sys.exit(1)
+
+if not("ADM_TOOLS_API_TOKEN" in os.environ or "ADM_TOOLS_API_TOKEN_FILE" in os.environ):
+	print("You need to define API token: ADM_TOOLS_API_TOKEN_FILE or ADM_TOOLS_API_TOKEN", sys.argv[0], file=sys.stderr)
+	sys.exit(1)
+
+if "ADM_TOOLS_API_TOKEN" in os.environ and "ADM_TOOLS_API_TOKEN_FILE" in os.environ:
+	print("Unable to start due to both variables ADM_TOOLS_API_TOKEN_FILE and ADM_TOOLS_API_TOKEN are defined same time", sys.argv[0], file=sys.stderr)
 	sys.exit(1)
 
 rootDomains = os.environ["ADM_TOOLS_ROOT_DOMAINS"].split(",")
 dnsApiUrl = os.environ["ADM_TOOLS_API_URL"]
-dnsApiTokenFile = os.environ["ADM_TOOLS_API_TOKEN_FILE"]
 
-try:
-	with open(dnsApiTokenFile, "r") as f:
-		dnsApiToken = f.read()
-except Exception as e:
-	print("Cannot load token file '" + dnsApiTokenFile + "'.", "Inner error:", e, file=sys.stderr)
-	sys.exit(1)
+if  "ADM_TOOLS_API_TOKEN_FILE" in os.environ:
+	try:
+		dnsApiTokenFile = os.environ["ADM_TOOLS_API_TOKEN_FILE"]
+		with open(dnsApiTokenFile, "r") as f:
+			dnsApiToken = f.read()
+	except Exception as e:
+		print("Cannot load token file '" + dnsApiTokenFile + "'.", "Inner error:", e, file=sys.stderr)
+		sys.exit(1)
+else:
+	 dnsApiToken = os.environ["ADM_TOOLS_API_TOKEN"]
 
 for rootDomainIndex in range(len(rootDomains)):
 	rootDomain = rootDomains[rootDomainIndex]

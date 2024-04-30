@@ -1,7 +1,9 @@
-[![Docker Image Version](https://img.shields.io/docker/v/theanurin/sqlmigrationrunner?sort=date&label=Version)](https://hub.docker.com/r/theanurin/sqlmigrationrunner/tags)
-[![Docker Image Size](https://img.shields.io/docker/image-size/theanurin/sqlmigrationrunner?label=Image%20Size)](https://hub.docker.com/r/theanurin/sqlmigrationrunner/tags)
-[![Docker Pulls](https://img.shields.io/docker/pulls/theanurin/sqlmigrationrunner?label=Pulls)](https://hub.docker.com/r/theanurin/sqlmigrationrunner)
-[![Docker Stars](https://img.shields.io/docker/stars/theanurin/sqlmigrationrunner?label=Docker%20Stars)](https://hub.docker.com/r/theanurin/sqlmigrationrunner)
+[![Docker Image Version][Docker Image Version]][Docker Tags]
+[![Docker Image Size][Docker Image Size]][Docker Tags]
+[![GitHub Workflow Status][GitHub Workflow Status]][GitHub Workflow Log]
+[![GitHub Repo Stars]][GitHub Repo Branch]
+[![Docker Pulls][Docker Pulls]][Docker Repo]
+[![Docker Stars][Docker Stars]][Docker Repo]
 
 # SQL Migration Runner
 
@@ -40,50 +42,77 @@ In following sample you may see structure of [bundle](https://docs.freemework.or
 
 where `v0000`, `v0001` and `v0002` versions of a database. Choose version naming by your own. `MigrationManager` used alpha-number sorting to define install/rollback sequence.
 
-
 ## Use this container directly
+
+### Environment Variables
+
+| Variable                     | Description                                                                         | Example                                                                                                                                                 |
+| ---------------------------- | ----------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| DB_URL                       | DB connectivity URI                                                                 | `postgres://user@host.docker.internal:5432/emptytestdb`, `mysql://user@host.docker.internal:5432/emptytestdb`, `file+sqlite:///var/myproject/sqlite.db` |
+| DB_PASSWORD (optional)       | Provide user password. Mutually excluded by DB_PASSWORD_FILE                        | SuperPassword                                                                                                                                           |
+| DB_PASSWORD_FILE (optional)  | Provide a path to file where stored user password. Mutually excluded by DB_PASSWORD | /run/secret/SuperPassword                                                                                                                               |
+| DB_TARGET_VERSION (optional) | Version of database of which `install`/`rollback` process must stop                 | v0042                                                                                                                                                   |
 
 ### Install
 
 ```shell
 docker run --rm --tty --interactive \
   --volume /PATH/TO/YOUR/MIGRATION/DIRECTORY:/data \
-  --env POSTGRES_URL="postgres://postgres@host.docker.internal:5432/emptytestdb" \
+  --env DB_URL="postgres://postgres@host.docker.internal:5432/emptytestdb" \
   --env DB_TARGET_VERSION="v0042" \
   theanurin/sqlmigrationrunner install
 ```
-
-Note: `DB_TARGET_VERSION` is optional. Install latest version, if omitted.
-
 
 ### Rollback
 
 ```shell
 docker run --rm --tty --interactive \
-  --env POSTGRES_URL="postgres://postgres@host.docker.internal:5432/emptytestdb" \
+  --env DB_URL="postgres://postgres@host.docker.internal:5432/emptytestdb" \
   --env DB_TARGET_VERSION="v0042" \
   theanurin/sqlmigrationrunner rollback
 ```
 
-Note: `DB_TARGET_VERSION` is optional. Rollback all versions, if omitted.
+## Build standalone, self-executable SQL release image
 
-### Advanced (use secret files instead env vars)
+```Dockerfile
+ARG BUILD_ZONE=production
+ARG SQL_MIGRATION_BUILDER_IMAGE=theanurin/sqlmigrationbuilder
+ARG SQL_MIGRATION_RUNNER_IMAGE=theanurin/sqlmigrationrunner
 
-Instead passing `POSTGRES_URL` via `--env` you may bind a volume with [secret files](https://docs.docker.com/engine/swarm/secrets/) named `postgres.url` directory:
+FROM ${SQL_MIGRATION_BUILDER_IMAGE} AS sql_builder
+ARG BUILD_VERSION_FROM
+ARG BUILD_VERSION_TO
+ARG BUILD_ZONE
+WORKDIR /build
+RUN apk add --no-cache tree
+COPY migration ./updates
+COPY database.config .
+COPY database-${BUILD_ZONE}.config .
+# Compile SQL scripts
+RUN ENV="${BUILD_ZONE}" VERSION_FROM="${BUILD_VERSION_FROM}" VERSION_TO="${BUILD_VERSION_TO}" /usr/local/bin/docker-entrypoint.js
+RUN mkdir --parents .stage/usr/local/sqlmigration
+# Move compiled artifacts
+RUN mv .dist .stage/data
+# Generate README.md
+RUN (cd .stage/data/ && tree) | sed 's/[[:blank:]]/·/g' > .stage/usr/local/sqlmigration/README.md
+# Include RELEASE_NOTES.md 
+COPY RELEASE_NOTES.md ./.stage/data/
 
-- `/etc/sqlmigration/secrets`
-- `/run/secrets`
 
-Expected secrets directory tree:
-
+FROM ${SQL_MIGRATION_RUNNER_IMAGE}
+COPY --from=sql_builder /build/.stage /
 ```
-/run/secrets
-├── ...
-├── postgres.url
-└── ...
-```
 
 
-## Use this container to build standalone SQL release container
 
-TBD
+
+[GitHub Repo Branch]: https://github.com/theanurin/docker-images/tree/sqlmigrationrunner
+[GitHub Repo Stars]: https://img.shields.io/github/stars/theanurin/docker-images?label=GitHub%20Starts
+[GitHub Workflow Status]: https://img.shields.io/github/actions/workflow/status/theanurin/docker-images/sqlmigrationrunner-docker-image-release.yml?label=GitHub%20Workflow
+[GitHub Workflow Log]: https://github.com/theanurin/docker-images/actions/workflows/sqlmigrationrunner-docker-image-release.yml
+[Docker Repo]: https://hub.docker.com/r/theanurin/sqlmigrationrunner
+[Docker Image Version]: https://img.shields.io/docker/v/theanurin/sqlmigrationrunner?sort=date&label=Version
+[Docker Image Size]: https://img.shields.io/docker/image-size/theanurin/sqlmigrationrunner?label=Image%20Size
+[Docker Tags]: https://hub.docker.com/r/theanurin/sqlmigrationrunner/tags
+[Docker Stars]: https://img.shields.io/docker/stars/theanurin/sqlmigrationrunner?label=Docker%20Stars
+[Docker Pulls]: https://img.shields.io/docker/pulls/theanurin/sqlmigrationrunner?label=Pulls

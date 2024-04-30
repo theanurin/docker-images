@@ -28,6 +28,7 @@
 		"freemework",
 		"sqlmigration",
 		"sqlmigrationrunner",
-		"theanurin"
+		"theanurin",
+		"WORKDIR"
 	]
 }

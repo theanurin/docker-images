@@ -52,7 +52,7 @@ async function main() {
 	}
 
 	mainLogger.info("Building Mustache templates...");
-	//const databaseName = configurationProxy.name;
+
 	const transformedSources = migrationSources.map(
 		(content, opts) => {
 			mainLogger.info(`[${opts.versionName}] ${opts.itemName}`);
@@ -61,7 +61,7 @@ async function main() {
 				direction: opts.direction, // install/rollback
 				version: opts.versionName,
 				file: opts.itemName,
-				database: configurationProxy
+				...configurationProxy,
 			};
 
 			if (appOpts.envName !== null) {
@@ -137,16 +137,16 @@ function createConfiguration(configFile, envConfigurationFile, extraConfigFiles,
 
 	const finalConfig = chainConfiguration(...configs);
 
-	if (!finalConfig.hasNamespace("database")) {
-		return null;
-	}
-
-	return finalConfig.getConfiguration("database");
+	return finalConfig;
 }
 
 function createConfigurationProxy(finalConfig) {
-	function keyWalker(keys, sourceConfig, parent) {
+	function keyWalker(rootObj, keys, sourceConfig, parentObject, parentKeyName) {
 		const target = {};
+		if (rootObj === null) {
+			rootObj = target;
+		}
+		target["$root"] = rootObj;
 		const dottedKeys = new Map();
 		for (const key of keys) {
 			const dotIndex = key.indexOf(".");
@@ -163,15 +163,37 @@ function createConfigurationProxy(finalConfig) {
 			}
 		}
 		for (const [parentKey, subKeys] of dottedKeys.entries()) {
-			const inner = keyWalker(subKeys, sourceConfig.getConfiguration(parentKey), parentKey);
+			const inner = keyWalker(rootObj, subKeys, sourceConfig.getConfiguration(parentKey), target, parentKey);
 			target[parentKey] = inner;
-			target[`${parentKey}s`] = Object.keys(inner).filter(key => !key.endsWith("s")).map(key => inner[key]);
-
+			target[`${parentKey}s`] = Object.keys(inner).filter(key => !key.endsWith("s") && key !== "$parent" && key !== "$root").map(key => {
+				const innerObj = inner[key];
+				if (typeof innerObj === "string" || typeof innerObj === "number" || typeof innerObj === "boolean") {
+					return innerObj;
+				}
+				const wrap = { ...innerObj };
+				Object.defineProperty(wrap, "$parent", {
+					get: function () {
+						return innerObj["$parent"]["$parent"];
+					}
+				});
+				return wrap;
+			});
 		}
+
+		if (parentObject !== null) {
+			target["$parent"] = parentObject;
+		}
+
 		return target;
 	}
 
-	const objectConfig = keyWalker(finalConfig.keys, finalConfig);
+	const objectConfig = keyWalker(
+		null,
+		finalConfig.keys.filter(k => k.startsWith("database")), // ignore any configuration keys except database*
+		finalConfig,
+		null,
+		null
+	);
 
 	function makeProxyAdapter(ns, obj) {
 		return new Proxy(obj, {
@@ -193,7 +215,6 @@ function createConfigurationProxy(finalConfig) {
 	}
 
 	const proxyConfig = makeProxyAdapter([], objectConfig);
-
 
 	return proxyConfig;
 }

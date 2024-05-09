@@ -26,7 +26,7 @@ RUN \
   [ "${KERNEL_STABILITY}" == "testing" ] && echo 'ACCEPT_KEYWORDS="~arm64"' >> /etc/portage/make.conf; \
   FEATURES="-ipc-sandbox -network-sandbox -pid-sandbox -sandbox -usersandbox" emerge --quiet =sys-kernel/gentoo-sources-${KERNEL_VERSION} | tee /support/emerge.log; \
   eselect kernel set 1; \
-  echo "DOCKER_ARCH=\"linux/arm64/v8\"" >> /etc/env.d/99kernel; \
+  echo "DOCKER_ARCH=\"linux/arm64/v8\"" >> /etc/env.d/99dockerarch; \
   echo "KERNEL_VERSION=\"${KERNEL_VERSION}\"" >> /etc/env.d/99kernel; \
   echo "KCONFIG_OVERWRITECONFIG=\"y\"" >> /etc/env.d/99kernel; \
   env-update; \

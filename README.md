@@ -1,9 +1,9 @@
-[![Docker Pulls](https://img.shields.io/docker/pulls/theanurin/gentoo-sources-bundle?label=Pulls)](https://hub.docker.com/r/theanurin/gentoo-sources-bundle)
+[![GitHub Workflow Status][GitHub Workflow Status]][GitHub Workflow Log]
+[![GitHub Repo Stars]][GitHub Repo Branch]
+[![Docker Pulls][Docker Pulls]][Docker Repo]
+[![Docker Stars][Docker Stars]][Docker Repo]
 
 # Gentoo Sources Bundle
-
-!!! WARNING: Moving into https://github.com/theanurin/docker-images
-
 
 Gentoo stage3 based image with set of packages to make ability to compile kernel in few commands via Docker.
 
@@ -92,3 +92,12 @@ pip install 'urllib3<2.0'
 Samples:
 
 - `6.1.53-r1/amd64,x86,arm,arm64`
+
+[GitHub Repo Branch]: https://github.com/theanurin/docker-images/tree/gentoo-sources-bundle
+[GitHub Repo Stars]: https://img.shields.io/github/stars/theanurin/docker-images?label=GitHub%20Starts
+[GitHub Workflow Status]: https://img.shields.io/github/actions/workflow/status/theanurin/docker-images/gentoo-sources-bundle-docker-image-release.yml?label=GitHub%20Workflow
+[GitHub Workflow Log]: https://github.com/theanurin/docker-images/actions/workflows/gentoo-sources-bundle-docker-image-release.yml
+[Docker Repo]: https://hub.docker.com/r/theanurin/gentoo-sources-bundle
+[Docker Tags]: https://hub.docker.com/r/theanurin/gentoo-sources-bundle/tags
+[Docker Stars]: https://img.shields.io/docker/stars/theanurin/gentoo-sources-bundle?label=Docker%20Stars
+[Docker Pulls]: https://img.shields.io/docker/pulls/theanurin/gentoo-sources-bundle?label=Pulls

@@ -1,13 +1,16 @@
 {
     "cSpell.words": [
         "Anurin",
+        "dbname",
         "dbseed",
         "devadmin",
         "devdb",
         "devel",
         "devuser",
         "emptytestflag",
+        "EOSQL",
         "healthcheck",
+        "psql",
         "theanurin"
     ]
 }

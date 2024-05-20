@@ -23,21 +23,21 @@ For development and testing purposes we need pre-setup Postgres server to automa
 
 * `/data` - Hold Postgres'es data
 * `/dbseed` - Files `*.sql` from the folder is executing at startup of a container
-    * `/dbseed/*.sql` - execute in `devdb` as `postgres` user
-    * `/dbseed/<db_name>/*.sql` - execute in `<db_name>` as `postgres` user
+    * `/dbseed/*.sql` - execute in `devdb` database as `postgres` user
+    * `/dbseed/<db_name>/*.sql` - execute in `<db_name>` database as `postgres` user
 
 ### Predefined Stuff
 
-* Database `devdb`
-* Flag table `"public"."emptytestflag"`
+* Predefined database `devdb`
+* Predefined flag table `"public"."emptytestflag"`
 * User `postgres` - superuser (no password)
 * User `devadmin` - owner of the database `devdb` (no password)
 * User `devuser` - regular user (no password)
 
 ## Inside
 
-* Alpine Linux 3.18.5
-* PostgreSQL 14.10 Server
+* Alpine Linux 3.19
+* PostgreSQL 14.12 Server
 
 ## Launch
 
@@ -55,23 +55,74 @@ For development and testing purposes we need pre-setup Postgres server to automa
 
 ## Build Own Images With Additional Predefined Data
 
-### Based On SQL scripts
+### Based on SQL scripts
+
+In this scenario your init SQL files are placed in `./init-sql` directory and will be applied in alphabetical order.
 
 ```dockerfile
 FROM theanurin/devel.postgres-14 AS postgres_builder
-COPY init-sql/ /.postgres-init-sql/
+COPY ./init-sql/ /.builder-postgres.d/
 RUN /usr/local/bin/docker-builder-postgres-14.sh
 
 FROM theanurin/devel.postgres-14
 COPY --from=postgres_builder /build/ /
 ```
 
+### Based on execution shell script
+
+In this scenario your have to provide shell script `/.builder-postgres.sh` that will execute at build time. The script responsible for data generation.
+
+```shell
+#!/bin/sh
+#
+# sample of generate-data.sh
+#
+
+set -e
+
+DB_NAME="my-db"
+DB_OWNER="${DB_NAME}-owner"
+
+# Execute command via file using Redirecting Input redirections
+psql --dbname=postgres --username=postgres --set user="${DB_OWNER}" --file=<(echo 'CREATE USER :"user" WITH LOGIN;')
+
+# Execute command via Here Documents redirections
+psql --dbname=postgres --username=postgres --set db="${DB_NAME}" --set db_owner="${DB_OWNER}" <<-'EOSQL'
+    CREATE DATABASE :"db" WITH
+    OWNER = :"db_owner" ENCODING = 'UTF8'
+    CONNECTION LIMIT = -1;
+EOSQL
+
+# Execute command via inline SQL
+psql --dbname="${DB_NAME}" --username="${DB_OWNER}" --command='CREATE TABLE "test" ("id" INTEGER NOT NULL);'
+
+echo "Wow, ${DB_NAME} was created successfully!"
+```
+
+```dockerfile
+FROM theanurin/devel.postgres-14 AS build_stage
+COPY ./generate-data.sh /.builder-postgres.sh
+RUN chmod +x /.builder-postgres.sh
+RUN /usr/local/bin/docker-builder-postgres-14.sh
+
+FROM theanurin/devel.postgres-14
+COPY --from=build_stage /build/ /
+```
+
 ### Based on state of a container
 
 ```shell
-docker commit <container_id/name> <image_repo:image_tag>
+# Run container
+docker run --detach --name pg_builder --publish 5432:5432 theanurin/devel.postgres-14
 
-# Use image <image_repo:image_tag>
+# Fill you data into Postgres
+./my-data-script.sh postgres://postgres@127.0.0.1:5432/postgres
+
+# Stop container and make new image
+docker stop pg_builder
+docker commit pg_builder my_devel.postgres-14_with_data
+
+# Use image my_devel.postgres-14_with_data
 ```
 
 

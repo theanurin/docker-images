@@ -3,10 +3,6 @@
 set -Eeo pipefail
 # TODO swap to -Eeuo pipefail above (after handling all potentially-unset variables)
 
-if [ "${1:0:1}" = '-' ]; then
-	set -- postgres
-fi
-
 if [ "$(id -u)" = '0' ]; then
 	echo "Started as user 'root'."
 
@@ -22,11 +18,6 @@ if [ "$(id -u)" = '0' ]; then
 	chown -R postgres /build/usr/share/postgresql.template
 	chmod 700 /build/usr/share/postgresql.template
 
-
-
-	# mkdir -p /run/postgresql /build/run/postgresql
-	# chown -R postgres /run/postgresql /build/run/postgresql
-	# chmod 775 /run/postgresql /build/run/postgresql
 	mkdir -p /run/postgresql
 	chown -R postgres /run/postgresql
 	chmod 775 /run/postgresql
@@ -49,14 +40,14 @@ else
 fi
 
 if [ -f /DB_USER ]; then
-	# Allows to inherit this image and set DB name in file /DB_USER
+	# Allows to inherit this image and set DB user in file /DB_USER
 	DB_USER=$(cat /DB_USER)
 else
 	DB_USER=devuser
 fi
 
 if [ -f /DB_OWNER ]; then
-	# Allows to inherit this image and set DB name in file /DB_OWNER
+	# Allows to inherit this image and set DB owner in file /DB_OWNER
 	DB_OWNER=$(cat /DB_OWNER)
 else
 	DB_OWNER=devadmin
@@ -89,7 +80,10 @@ alias psql='psql --pset=pager=off --variable=ON_ERROR_STOP=1 --username "postgre
 if [ "${NEW_INSTALL}" == "yes" ]; then
 	for NEW_USER in ${DB_USER} ${DB_OWNER}; do
 		echo "Create an user: ${NEW_USER}"
-		psql --set user="$NEW_USER" -f <(echo "CREATE USER :user WITH LOGIN;")
+		# psql --set user="$NEW_USER" -f <(echo "CREATE USER :user WITH LOGIN;")
+		psql --set user="$NEW_USER" <<-'EOSQL'
+			CREATE USER :user WITH LOGIN;
+		EOSQL
 	done
 	unset NEW_USER
 
@@ -104,15 +98,31 @@ if [ "${NEW_INSTALL}" == "yes" ]; then
 	EOSQL
 fi
 
-echo "Apply init SQL"
-FILES=$(cd /.postgres-init-sql && find * -type f -name '*.sql' -maxdepth 0 | sort)
-if [ -n "${FILES}" ]; then
-	for FILE in ${FILES}; do
-		echo "Apply SQL update /.postgres-init-sql/${FILE} in database ${DB_NAME}"
-		psql --dbname "${DB_NAME}" --file="/.postgres-init-sql/${FILE}"
-		#/usr/bin/psql --pset=pager=off --variable=ON_ERROR_STOP=1 --username "postgres" --no-password --dbname "${DB_NAME}" --file="/.postgres-init-sql/${FILE}"
-	done
+if [ -x /.builder-postgres.sh ]; then
+	if [ -d /.builder-postgres.d ]; then
+		echo "ERROR: Both mutual exclusive /.builder-postgres.sh file and /.builder-postgres.d directory are presented. Pls fix to continue." >&2
+		exit 87
+	fi
+
+	echo "Executing /.builder-postgres.sh ..."
+	/.builder-postgres.sh
+else
+	if [ -f /.builder-postgres.sh ]; then
+		echo "WARN: A non-executable file /.builder-postgres.sh is presented. Maybe you forgot to chmod +x ..."
+	fi
+
+	# In user-build mode, this direcotry may occurs
+	if [ -d /.builder-postgres.d ]; then
+		FILES=$(cd /.builder-postgres.d && find * -type f -name '*.sql' -maxdepth 0 | sort)
+		if [ -n "${FILES}" ]; then
+			for FILE in ${FILES}; do
+				echo "Appling SQL update /.builder-postgres.d/${FILE} in database ${DB_NAME} ..."
+				psql --dbname "${DB_NAME}" --file="/.builder-postgres.d/${FILE}"
+			done
+		fi
+	fi
 fi
+
 
 PGUSER=postgres pg_ctl -D /data -m fast -w stop
 

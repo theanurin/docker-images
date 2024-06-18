@@ -15,8 +15,8 @@ ARG POSTGRES_PACKAGE_VERSION=15.7-r0
 RUN apk add --no-cache postgresql15=${POSTGRES_PACKAGE_VERSION} postgresql15-contrib=${POSTGRES_PACKAGE_VERSION}
 COPY --from=postgres_builder /build/ /
 USER root
-#HEALTHCHECK --interval=15s --timeout=5s --start-period=2s --start-interval=1s --retries=6  CMD /usr/local/bin/docker-healthcheck-postgres-15.sh
-HEALTHCHECK  --interval=1s  --timeout=5s --start-period=2s                     --retries=3  CMD /usr/local/bin/docker-healthcheck-postgres-15.sh
+#HEALTHCHECK --interval=15s --timeout=5s  --start-period=2s --start-interval=1s --retries=6    CMD /usr/local/bin/docker-healthcheck-postgres-15.sh
+HEALTHCHECK  --interval=1s  --timeout=10s --start-period=300s                   --retries=128  CMD /usr/local/bin/docker-healthcheck-postgres-15.sh
 #
 # Volume /data make more problems than benefits...
 # For some case we want to embed data in /data, but this is not possible due volume directive.

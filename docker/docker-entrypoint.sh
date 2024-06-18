@@ -13,8 +13,8 @@ if [ "$(id -u)" = '0' ]; then
 	# chmod 750 /dbseed
 
 	if [ ! -s "/data/PG_VERSION" ]; then
-		echo "Creating database backend directory from /usr/share/postgresql.template ..."
-		cp -a /usr/share/postgresql.template/* /data
+		echo "Copy /usr/share/postgresql.template -> /data ..."
+		time cp -a /usr/share/postgresql.template/* /data
 	fi
 
 	# Allows to use `docker commit` and `docker stop/start` (prevent dir creation on second run)

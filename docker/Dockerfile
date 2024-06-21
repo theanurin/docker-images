@@ -3,18 +3,24 @@ ARG BUILD_IMAGE=ruby:3.2.3-alpine3.18
 FROM ${BUILD_IMAGE} AS builder
 ARG JEKYLL_GEM_VERSION=4.3.3
 ARG JEMOJI_GEM_VERSION=0.13.0
-ARG JUST_THE_DOCS_GEM_VERSION=0.7.0
-ARG MINITEST_GEM_VERSION=5.21.2
-ARG NODEJS_VERSION=18.18.2
-ARG NPM_VERSION=9.6.6
-ARG PUG_VERION=3.0.0
-ARG RACC_GEM_VERSION=1.7.3
-ARG REXML_GEM_VERSION=3.2.6
+ARG JUST_THE_DOCS_GEM_VERSION=0.8.2
+ARG MINITEST_GEM_VERSION=5.24.0
+ARG NODEJS_VERSION=18.20.1-r0
+ARG NPM_VERSION=9.6.6-r0
+ARG PUG_VERION=3.0.3
+ARG GIT_VERSION=2.40.1-r0
+ARG GITLFS_VERSION=3.3.0-r6
+ARG RACC_GEM_VERSION=1.8.0
+ARG REXML_GEM_VERSION=3.3.0
 RUN \
   test "${GEM_HOME}" == '/usr/local/bundle' && \
-  apk add --no-cache build-base gcompat libxml2 libxslt nodejs~="${NODEJS_VERSION}" npm~="${NPM_VERSION}" && \
+  apk add --no-cache build-base gcompat libxml2 libxslt && \
+  apk add --no-cache nodejs~="${NODEJS_VERSION}" && \
+  apk add --no-cache npm~="${NPM_VERSION}" && \
   npm install --global "pug@${PUG_VERION}" && \
   apk add --no-cache libxml2-dev libxslt-dev && \
+  apk add --no-cache git~="${GIT_VERSION}" && \
+  apk add --no-cache git-lfs~="${GITLFS_VERSION}" && \
   gem install bundler && \
   gem install jekyll -v "${JEKYLL_GEM_VERSION}" && \
   gem install jemoji -v "${JEMOJI_GEM_VERSION}" && \

@@ -1,7 +1,7 @@
-[![Docker Image Version](https://img.shields.io/docker/v/theanurin/jekyll?sort=date&label=Version)](https://hub.docker.com/r/theanurin/jekyll/tags)
-[![Docker Image Size](https://img.shields.io/docker/image-size/theanurin/jekyll?label=Image%20Size)](https://hub.docker.com/r/theanurin/jekyll/tags)
-[![Docker Pulls](https://img.shields.io/docker/pulls/theanurin/jekyll?label=Pulls)](https://hub.docker.com/r/theanurin/jekyll)
-[![Docker Stars](https://img.shields.io/docker/stars/theanurin/jekyll?label=Docker%20Stars)](https://hub.docker.com/r/theanurin/jekyll)
+[![GitHub Workflow Status][GitHub Workflow Status]][GitHub Workflow Log]
+[![GitHub Repo Stars]][GitHub Repo Branch]
+[![Docker Pulls][Docker Pulls]][Docker Repo]
+[![Docker Stars][Docker Stars]][Docker Repo]
 
 # Jekyll
 
@@ -35,14 +35,16 @@
 * [Jekyll](https://jekyllrb.com/) v4.3.3
 * [Bundler gem](https://rubygems.org/gems/bundler)
 * Additional Gems:
-	* [jemoji](https://rubygems.org/gems/jemoji) v0.13.0
-	* [just-the-docs](https://rubygems.org/gems/just-the-docs) v0.7.0
-	* [minitest](https://rubygems.org/gems/minitest) v5.21.2
-	* [racc](https://rubygems.org/gems/racc) v1.7.3
-	* [rexml](https://rubygems.org/gems/rexml) v3.2.6
-* [NodeJS](https://nodejs.org/) v18.18.2
+  * [jemoji](https://rubygems.org/gems/jemoji) v0.13.0
+  * [just-the-docs](https://rubygems.org/gems/just-the-docs) v0.8.2
+  * [minitest](https://rubygems.org/gems/minitest) v5.24.0
+  * [racc](https://rubygems.org/gems/racc) v1.8.0
+  * [rexml](https://rubygems.org/gems/rexml) v3.3.0
+* [Git](https://git-scm.com/) v2.40.1
+* [Git LFS](https://git-lfs.com/) v3.3.0
+* [NodeJS](https://nodejs.org/) v18.20.1
 * [NPM](https://www.npmjs.com/) v9.6.6
-	* [Pug](https://www.npmjs.com/package/pug)
+  * [Pug](https://www.npmjs.com/package/pug)
 
 # Launch
 1. Start development server in site root directory (where `jekyll's _config.yml` located)
@@ -63,8 +65,18 @@
 
 
 # Development
+
 ## Build and debug
 ```shell
 docker build --tag theanurin/jekyll --file docker/Dockerfile . && \
   docker run --interactive --tty --rm --entrypoint /bin/sh theanurin/jekyll
 ```
+
+[GitHub Repo Branch]: https://github.com/theanurin/docker-images/tree/jekyll
+[GitHub Repo Stars]: https://img.shields.io/github/stars/theanurin/docker-images?label=GitHub%20Starts
+[GitHub Workflow Status]: https://img.shields.io/github/actions/workflow/status/theanurin/docker-images/jekyll-docker-image-release.yml?label=GitHub%20Workflow
+[GitHub Workflow Log]: https://github.com/theanurin/docker-images/actions/workflows/jekyll-docker-image-release.yml
+[Docker Repo]: https://hub.docker.com/r/theanurin/jekyll
+[Docker Tags]: https://hub.docker.com/r/theanurin/jekyll/tags
+[Docker Stars]: https://img.shields.io/docker/stars/theanurin/jekyll?label=Docker%20Stars
+[Docker Pulls]: https://img.shields.io/docker/pulls/theanurin/jekyll?label=Pulls

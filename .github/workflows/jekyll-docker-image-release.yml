@@ -1,23 +1,22 @@
-name: Docker Image (Snapshot/Branch)
+name: Jekyll - Docker Image
 
 on:
   push:
-    branches:
-      - 'jekyll'
+    tags:
       - 'jekyll-*'
 
 jobs:
-  docker:
+  docker-image:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set Up QEMU
-        uses: docker/setup-qemu-action@v2
+        uses: docker/setup-qemu-action@v3
 
       - name: Set Up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@v3
 
       # See https://github.com/docker/metadata-action#readme
       - name: Docker Meta
@@ -26,13 +25,22 @@ jobs:
         with:
           # list of Docker images to use as base name for tags
           images: |
-            ghcr.io/${{ github.repository }}/jekyll/snapshot
+            ${{ secrets.DOCKERHUB_USERNAME }}/jekyll
+            ghcr.io/${{ github.repository }}/jekyll
           # generate Docker tags based on the following events/attributes
           tags: |
-            type=raw,value={{sha}}
+            type=match,pattern=jekyll-(.*),group=1
+
+      # See https://github.com/docker/login-action
+      - name: Log In To The DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
       # See https://github.com/docker/login-action
       - name: Log In To The GitHub Container Registry
-        uses: docker/login-action@v2
+        uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
@@ -51,3 +59,18 @@ jobs:
           file: docker/Dockerfile
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+
+  readme:
+    needs: [docker-image]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Update image README and description
+        uses: peter-evans/dockerhub-description@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          repository: ${{ secrets.DOCKERHUB_USERNAME }}/jekyll
+          short-description: "Jekyll - Transform your plain text into static websites and blogs."

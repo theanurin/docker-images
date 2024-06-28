@@ -20,6 +20,10 @@
 
 # Spec
 
+## Environment variables
+
+- `BUNDLE_PATH` - Default: `/data/vendor/bundle`. The location on disk where all gems in your bundle will be located. See [bundle config](https://bundler.io/v2.5/man/bundle-config.1.html) for details.
+
 ## Expose ports
 
 * `tcp/4000` - `Jekyll` development server listening endpoint

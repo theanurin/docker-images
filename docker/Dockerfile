@@ -31,6 +31,6 @@ RUN \
   rm -rf "${GEM_HOME}/cache"
 COPY docker/docker-entrypoint.sh /usr/local/bin/docker-entrypoint-jekyll.sh
 VOLUME [ "/data" ]
-# ENV BUNDLE_PATH=/data/vendor/bundle
+ENV BUNDLE_PATH=/data/vendor/bundle
 EXPOSE 4000
 ENTRYPOINT [ "/usr/local/bin/docker-entrypoint-jekyll.sh" ]

@@ -26,9 +26,9 @@ This variables passes the names of the color to change background color
 
 # Inside
 
-- Traefik v2.2.0
-- Python 3.8.10-r0
-- py3-requests 2.22.0-r0
+- Traefik v2.11.8
+- Python 3.12.3-r1
+- py3-requests 2.32.3-r0
 
 # Launch
 

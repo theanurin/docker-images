@@ -64,9 +64,9 @@ async function main() {
 				...configurationProxy,
 			};
 
-			if (appOpts.envName !== null) {
-				const capitalizeEnvName = capitalize(appOpts.envName);
-				const envFlagName = `isEnvironment${capitalizeEnvName}`;
+			if (appOpts.buildConfiguration !== null) {
+				const capitalizeBuildConfiguration = capitalize(appOpts.buildConfiguration);
+				const envFlagName = `is${capitalizeBuildConfiguration}`;
 				renderContext[envFlagName] = true;
 			}
 
@@ -220,7 +220,7 @@ function createConfigurationProxy(finalConfig) {
 }
 
 function parseArgs() {
-	let envName = null;
+	let buildConfiguration = null;
 	let envConfigurationFile = null;
 	let versionFrom = null;
 	let versionTo = null;
@@ -236,9 +236,9 @@ function parseArgs() {
 		versionTo = process.env["VERSION_TO"];
 	}
 
-	if (process.env["ENV"]) {
-		envName = process.env["ENV"];
-		envConfigurationFile = path.normalize(path.join(process.cwd(), `database-${envName}.config`));
+	if (process.env["BUILD_CONFIGURATION"]) {
+		buildConfiguration = process.env["BUILD_CONFIGURATION"];
+		envConfigurationFile = path.normalize(path.join(process.cwd(), `database-${buildConfiguration}.config`));
 	}
 
 	if (process.env["SOURCE_PATH"]) {
@@ -256,7 +256,7 @@ function parseArgs() {
 
 
 	return Object.freeze({
-		envName,
+		buildConfiguration,
 		envConfigurationFile,
 		versionFrom,
 		versionTo,

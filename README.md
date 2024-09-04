@@ -17,25 +17,25 @@ TDB
 
 ## Environment variables
 
-* `VERSION_FROM` - version from. Default: '',
-* `VERSION_TO` - version to. Default: ''.
-* `ENV` - a name of target build environment, like: `devel`, `test`, `production`. Default: ''.
-* `SOURCE_PATH` - relative path to sources. Default: 'migration'.
+* `BUILD_CONFIGURATION` - a name of target build environment, like: `devel`, `test`, `production`. Default: ''.
 * `BUILD_PATH` - relative path to build artifacts. Default: '.dist'.
 * `EXTRA_CONFIGS` - comma-separated list of additional configuration files (relative to `/data` directory). Default: ''.
+* `SOURCE_PATH` - relative path to sources. Default: 'migration'.
+* `VERSION_FROM` - version from. Default: '',
+* `VERSION_TO` - version to. Default: ''.
 
 
 ## Little bit of "magic"
 
-### ENV make some magic
+### BUILD_CONFIGURATION make some magic
 
-* Render context provides capitalized environment zone flag in format: `isEnvironment${capitalized(ENV)}`
-* Use configuratoion file `database-{$ENV}.config`
+* Render context provides capitalized build configuration flag in format: `is${capitalized(BUILD_CONFIGURATION)}`
+* Use configuration file `database-{$BUILD_CONFIGURATION}.config`
 
 Examples:
-* ENV=production gives `isEnvironmentProduction: true` + read database-production.config
-* ENV=test gives `isEnvironmentTest: true` + read database-test.config
-* ENV=devel gives `isEnvironmentDevel: true` + read database-devel.config
+* BUILD_CONFIGURATION=production gives `isProduction: true` + read database-production.config
+* BUILD_CONFIGURATION=test gives `isTest: true` + read database-test.config
+* BUILD_CONFIGURATION=devel gives `isDevel: true` + read database-devel.config
 
 So you can use something like this:
 
@@ -44,16 +44,16 @@ So you can use something like this:
 -- EMULATOR kind will be produced only for non-production environments
 --
 CREATE TYPE "public"."SERVICE_KIND" AS ENUM (
-{{^isEnvironmentProduction}}
+{{^isProduction}}
 	'EMULATOR',
-{{/isEnvironmentProduction}}
+{{/isProduction}}
 	'WEBSOCKET'
 );
 ```
 
-### Accessors `'s`, `$root` and `$parent`
+### Accessors extension `s`, `$root` and `$parent`
 
-- extension `s` - refer to the property s array
+- extension `s` - refer to the propertie**s** array
 - `$root` - refer root data context
 - `$parent` - refer parent data context
 
@@ -72,11 +72,11 @@ CREATE SCHEMA "{{ name }}";
 COMMENT ON SCHEMA "{{ name }}" IS '{{ desc }}';
 
 -- Mustache doesn't allow you to refer to parent objects.
--- By this "magic" you are able to refer root data context
+-- By the "magic" you are able to refer root data context
 GRANT USAGE ON SCHEMA "{{ name }}" TO "{{$root.database.user.readonly}}";
 
 -- Mustache doesn't allow you to refer to parent objects.
--- By this "magic" you are able to refer parent data context.
+-- By the "magic" you are able to refer parent data context.
 GRANT USAGE ON SCHEMA "{{ name }}" TO "{{$parent.user.readonly}}";
 {{/database.schemas}}
 ```

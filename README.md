@@ -9,7 +9,7 @@
 
 This is [SQL Migration](https://docs.freemework.org/sql.misc.migration) runner to execute [bundle](https://docs.freemework.org/sql.misc.migration#bundle)(set) of install/rollback scripts.
 
-Public Image: https://hub.docker.com/r/theanurin/sqlmigrationrunner
+Public Image: <https://hub.docker.com/r/theanurin/sqlmigrationrunner>
 
 ## Input Directory Tree
 
@@ -46,12 +46,14 @@ where `v0000`, `v0001` and `v0002` versions of a database. Choose version naming
 
 ### Environment Variables
 
-| Variable                     | Description                                                                         | Example                                                                                                                                                 |
-| ---------------------------- | ----------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| DB_URL                       | DB connectivity URI                                                                 | `postgres://user@host.docker.internal:5432/emptytestdb`, `mysql://user@host.docker.internal:5432/emptytestdb`, `file+sqlite:///var/myproject/sqlite.db` |
-| DB_PASSWORD (optional)       | Provide user password. Mutually excluded by DB_PASSWORD_FILE                        | SuperPassword                                                                                                                                           |
-| DB_PASSWORD_FILE (optional)  | Provide a path to file where stored user password. Mutually excluded by DB_PASSWORD | /run/secret/SuperPassword                                                                                                                               |
-| DB_TARGET_VERSION (optional) | Version of database of which `install`/`rollback` process must stop                 | v0042                                                                                                                                                   |
+| Variable                     | Description                                                                                                              | Example                                                                                                                                                 |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| DB_URL                       | DB connectivity URI                                                                                                      | `postgres://user@host.docker.internal:5432/emptytestdb`, `mysql://user@host.docker.internal:5432/emptytestdb`, `file+sqlite:///var/myproject/sqlite.db` |
+| DB_USER (optional)           | Provide DB role (user) name. Mutually excluded by DB_USER_FILE. Override an user passed in DB_URL                        | SuperUser                                                                                                                                               |
+| DB_USER_FILE (optional)      | Provide a path to file where stored DB role (user) name. Mutually excluded by DB_USER. Override an user passed in DB_URL | /run/secret/DbOwnerUser                                                                                                                                 |
+| DB_PASSWORD (optional)       | Provide DB role password. Mutually excluded by DB_PASSWORD_FILE. Override an user passed in DB_URL                       | SuperPassword                                                                                                                                           |
+| DB_PASSWORD_FILE (optional)  | Provide a path to file where stored user password. Mutually excluded by DB_PASSWORD. Override an user passed in DB_URL   | /run/secret/DbOwnerPassword                                                                                                                             |
+| DB_TARGET_VERSION (optional) | Version of database of which `install`/`rollback` process must stop                                                      | v0042                                                                                                                                                   |
 
 ### Install
 
@@ -63,6 +65,8 @@ docker run --rm --tty --interactive \
   theanurin/sqlmigrationrunner install
 ```
 
+Command aliases: `install`, `up`, `migration-up`
+
 ### Rollback
 
 ```shell
@@ -71,6 +75,8 @@ docker run --rm --tty --interactive \
   --env DB_TARGET_VERSION="v0042" \
   theanurin/sqlmigrationrunner rollback
 ```
+
+Command aliases: `rollback`, `down`, `migration-down`
 
 ## Build standalone, self-executable SQL release image
 
@@ -85,7 +91,7 @@ ARG BUILD_VERSION_TO
 ARG BUILD_ZONE
 WORKDIR /build
 RUN apk add --no-cache tree
-COPY migration ./updates
+COPY migration ./migration
 COPY database.config .
 COPY database-${BUILD_ZONE}.config .
 # Compile SQL scripts
@@ -95,16 +101,13 @@ RUN mkdir --parents .stage/usr/local/sqlmigration
 RUN mv .dist .stage/data
 # Generate README.md
 RUN (cd .stage/data/ && tree) | sed 's/[[:blank:]]/·/g' > .stage/usr/local/sqlmigration/README.md
-# Include RELEASE_NOTES.md 
+# Include RELEASE_NOTES.md
 COPY RELEASE_NOTES.md ./.stage/data/
 
 
 FROM ${SQL_MIGRATION_RUNNER_IMAGE}
 COPY --from=sql_builder /build/.stage /
 ```
-
-
-
 
 [GitHub Repo Branch]: https://github.com/theanurin/docker-images/tree/sqlmigrationrunner
 [GitHub Repo Stars]: https://img.shields.io/github/stars/theanurin/docker-images?label=GitHub%20Starts

@@ -22,6 +22,7 @@ const fs = require("fs");
 
 const { version: packageVersion } = require("../package.json");
 
+const { MaskService } = require("../lib/mask-service.js");
 
 FLogger.setLoggerFactory((loggerName) => FLoggerConsole.create(loggerName, { level: FLoggerLevel.INFO, format: "text" }));
 const appLogger = FLogger.create("install");
@@ -54,7 +55,8 @@ async function main() {
 
 	const config = await readConfiguration();
 
-	appLogger.info(appExecutionContext, () => `Establishing database connection... ${config.postgresUrl.toString()}`);
+	const maskedPostgresUrl = MaskService.default.maskUri(config.postgresUrl);
+	appLogger.info(appExecutionContext, () => `Establishing database connection... ${maskedPostgresUrl.toString()}`);
 	const sqlConnectionFactory = new FSqlConnectionFactoryPostgres({
 		url: config.postgresUrl,
 		defaultSchema: `public`,

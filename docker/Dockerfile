@@ -4,6 +4,7 @@ ARG IMAGE=node:20-alpine
 FROM --platform=${ARCH} ${IMAGE} AS builder
 WORKDIR /build
 COPY bin ./usr/local/sqlmigration/bin
+COPY lib ./usr/local/sqlmigration/lib
 COPY .npmrc ./usr/local/sqlmigration/
 COPY package.json ./usr/local/sqlmigration/
 COPY package-lock.json ./usr/local/sqlmigration/

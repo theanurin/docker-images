@@ -48,7 +48,7 @@ async function gracefulShutdown(signal) {
 shutdownSignals.forEach((signal) => process.on(signal, () => gracefulShutdown(signal)));
 
 async function main() {
-	appLogger.info(appExecutionContext, `Database Migration Install v${packageVersion}`);
+	appLogger.info(appExecutionContext, `Database Migration Install/Up v${packageVersion}`);
 
 	const startDate = new Date();
 

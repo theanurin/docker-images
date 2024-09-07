@@ -17,25 +17,25 @@ TDB
 
 ## Environment variables
 
-* `BUILD_CONFIGURATION` - a name of target build environment, like: `devel`, `test`, `production`. Default: ''.
-* `BUILD_PATH` - relative path to build artifacts. Default: '.dist'.
-* `EXTRA_CONFIGS` - comma-separated list of additional configuration files (relative to `/data` directory). Default: ''.
-* `SOURCE_PATH` - relative path to sources. Default: 'migration'.
-* `VERSION_FROM` - version from. Default: '',
-* `VERSION_TO` - version to. Default: ''.
-
+* `DIST_PATH` - Path to build artifacts. Relative to `/data`. Default: '.dist'.
+* `ENV` - A name of target build environment, like a: `devel`, `test`, `production`. Default: ''.
+* `EXTRA_CONFIGS` - Comma-separated list of additional configuration files. Relative to `/data`. Default: ''.
+* `SOURCE_PATH` - Path to sources. Relative to `/data`. Default: 'migration'.
+* `VERSION_FROM` - Version from. Default: '',
+* `VERSION_TO` - Version to. Default: ''.
 
 ## Little bit of "magic"
 
-### BUILD_CONFIGURATION make some magic
+### ENV make some magic
 
-* Render context provides capitalized build configuration flag in format: `is${capitalized(BUILD_CONFIGURATION)}`
-* Use configuration file `database-{$BUILD_CONFIGURATION}.config`
+* Render context provides capitalized build configuration flag in format: `is${capitalized(ENV)}`
+* Use configuration file `database-{$ENV}.config`
 
 Examples:
-* BUILD_CONFIGURATION=production gives `isProduction: true` + read database-production.config
-* BUILD_CONFIGURATION=test gives `isTest: true` + read database-test.config
-* BUILD_CONFIGURATION=devel gives `isDevel: true` + read database-devel.config
+
+* ENV=production gives `isProduction: true` + read database-production.config
+* ENV=test gives `isTest: true` + read database-test.config
+* ENV=devel gives `isDevel: true` + read database-devel.config
 
 So you can use something like this:
 
@@ -101,7 +101,6 @@ docker run --interactive --tty --rm --volume /path/to/database/workdir:/data the
 
 * Maintained by: [ZXTeam](https://zxteam.org)
 * Where to get help: [Telegram Channel](https://t.me/zxteamorg)
-
 
 [GitHub Repo Branch]: https://github.com/theanurin/docker-images/tree/sqlmigrationbuilder
 [GitHub Repo Stars]: https://img.shields.io/github/stars/theanurin/docker-images?label=GitHub%20Starts

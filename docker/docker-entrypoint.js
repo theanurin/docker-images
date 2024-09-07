@@ -42,13 +42,13 @@ async function main() {
 		loadOpts
 	);
 
-	const destinationDirectory = path.normalize(path.join(process.cwd(), appOpts.buildDir));
-	if (fs.existsSync(destinationDirectory)) {
-		mainLogger.info(`Cleaning target directory ${destinationDirectory}...`);
-		deleteDirectoryRecursiveSync(destinationDirectory, false);
+	const distributionDirectory = path.normalize(path.join(process.cwd(), appOpts.distDir));
+	if (fs.existsSync(distributionDirectory)) {
+		mainLogger.info(`Cleaning target directory ${distributionDirectory}...`);
+		deleteDirectoryRecursiveSync(distributionDirectory, false);
 	} else {
-		mainLogger.info(`Creating target directory ${destinationDirectory}...`);
-		fs.mkdirSync(destinationDirectory, { recursive: true, mode: 0o777 });
+		mainLogger.info(`Creating target directory ${distributionDirectory}...`);
+		fs.mkdirSync(distributionDirectory, { recursive: true, mode: 0o777 });
 	}
 
 	mainLogger.info("Building Mustache templates...");
@@ -64,9 +64,9 @@ async function main() {
 				...configurationProxy,
 			};
 
-			if (appOpts.buildConfiguration !== null) {
-				const capitalizeBuildConfiguration = capitalize(appOpts.buildConfiguration);
-				const envFlagName = `is${capitalizeBuildConfiguration}`;
+			if (appOpts.envName !== null) {
+				const capitalizeEnvName = capitalize(appOpts.envName);
+				const envFlagName = `is${capitalizeEnvName}`;
 				renderContext[envFlagName] = true;
 			}
 
@@ -74,10 +74,10 @@ async function main() {
 		}
 	);
 
-	mainLogger.info(`Saving compiled scripts  to ${destinationDirectory}...`);
+	mainLogger.info(`Saving compiled scripts  to ${distributionDirectory}...`);
 	await transformedSources.saveToFilesystem(
 		DUMMY_CANCELLATION_TOKEN,
-		destinationDirectory
+		distributionDirectory
 	);
 
 	const endDate = new Date();
@@ -220,12 +220,12 @@ function createConfigurationProxy(finalConfig) {
 }
 
 function parseArgs() {
-	let buildConfiguration = null;
+	let envName = null;
 	let envConfigurationFile = null;
 	let versionFrom = null;
 	let versionTo = null;
 	let sourceDir = "updates";
-	let buildDir = ".dist";
+	let distDir = ".dist";
 	let extraConfigFiles = [];
 
 	if (process.env["VERSION_FROM"]) {
@@ -236,17 +236,17 @@ function parseArgs() {
 		versionTo = process.env["VERSION_TO"];
 	}
 
-	if (process.env["BUILD_CONFIGURATION"]) {
-		buildConfiguration = process.env["BUILD_CONFIGURATION"];
-		envConfigurationFile = path.normalize(path.join(process.cwd(), `database-${buildConfiguration}.config`));
+	if (process.env["ENV"]) {
+		envName = process.env["ENV"];
+		envConfigurationFile = path.normalize(path.join(process.cwd(), `database-${envName}.config`));
 	}
 
 	if (process.env["SOURCE_PATH"]) {
 		sourceDir = process.env["SOURCE_PATH"];
 	}
 
-	if (process.env["BUILD_PATH"]) {
-		buildDir = process.env["BUILD_PATH"];
+	if (process.env["DIST_PATH"]) {
+		distDir = process.env["DIST_PATH"];
 	}
 
 	if (process.env["EXTRA_CONFIGS"]) {
@@ -256,12 +256,12 @@ function parseArgs() {
 
 
 	return Object.freeze({
-		buildConfiguration,
+		envName,
 		envConfigurationFile,
 		versionFrom,
 		versionTo,
 		sourceDir,
-		buildDir,
+		distDir,
 		extraConfigFiles
 	});
 }

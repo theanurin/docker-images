@@ -81,21 +81,21 @@ Command aliases: `rollback`, `down`, `migration-down`
 ## Build standalone, self-executable SQL release image
 
 ```Dockerfile
-ARG BUILD_ZONE=production
+ARG BUILD_CONFIGURATION=production
 ARG SQL_MIGRATION_BUILDER_IMAGE=theanurin/sqlmigrationbuilder
 ARG SQL_MIGRATION_RUNNER_IMAGE=theanurin/sqlmigrationrunner
 
 FROM ${SQL_MIGRATION_BUILDER_IMAGE} AS sql_builder
+ARG BUILD_CONFIGURATION
 ARG BUILD_VERSION_FROM
 ARG BUILD_VERSION_TO
-ARG BUILD_ZONE
 WORKDIR /build
 RUN apk add --no-cache tree
 COPY migration ./migration
 COPY database.config .
-COPY database-${BUILD_ZONE}.config .
+COPY database-${BUILD_CONFIGURATION}.config .
 # Compile SQL scripts
-RUN ENV="${BUILD_ZONE}" VERSION_FROM="${BUILD_VERSION_FROM}" VERSION_TO="${BUILD_VERSION_TO}" /usr/local/bin/docker-entrypoint.js
+RUN ENV="${BUILD_CONFIGURATION}" VERSION_FROM="${BUILD_VERSION_FROM}" VERSION_TO="${BUILD_VERSION_TO}" /usr/local/bin/docker-entrypoint.js
 RUN mkdir --parents .stage/usr/local/sqlmigration
 # Move compiled artifacts
 RUN mv .dist .stage/data

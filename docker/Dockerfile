@@ -1,5 +1,5 @@
 ARG ARCH=amd64
-ARG IMAGE=node:20-alpine
+ARG IMAGE=node:18-alpine
 
 FROM --platform=${ARCH} ${IMAGE} AS builder
 WORKDIR /build

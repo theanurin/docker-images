@@ -23,7 +23,8 @@ if [ "$(id -u)" = '0' ]; then
 	chmod 775 /run/postgresql
 
 	echo "Restarting as user 'postgres'..."
-	exec su -c "$0" postgres -- "$@"
+	#exec su postgres -c "$0" -- "$@"
+	exec su postgres "$0" -- "$@"
 else
 	echo "Started as user '$(id -u -n)'."
 fi
@@ -31,6 +32,20 @@ fi
 mkdir -p /data
 chown -R "$(id -u)" /data 2>/dev/null
 chmod 700 /data 2>/dev/null
+
+DO_LISTEN_LOCALHOST="no"
+while [ -n "$1" ]; do
+	case "${1}" in
+		--listen-localhost)
+			DO_LISTEN_LOCALHOST="yes"
+			;;
+		*)
+			echo "ERROR: Unsupported argument '${1}'." >&2
+			exit 1
+			;;
+	esac
+	shift
+done
 
 if [ -f /DB_NAME ]; then
 	# Allows to inherit this image and set DB name in file /DB_NAME
@@ -71,9 +86,15 @@ if [ ! -s "/data/PG_VERSION" ]; then
 	echo "listen_addresses = '0.0.0.0'" >> /data/postgresql.conf
 fi
 
+if [ "${DO_LISTEN_LOCALHOST}" == "yes" ]; then
+	LISTEN_ADDRESS="127.0.0.1"
+else
+	LISTEN_ADDRESS=""
+fi
 # internal start of server in order to allow set-up using psql-client
 # does not listen on external TCP/IP and waits until start finishes
-PGUSER=postgres pg_ctl -D /data -o "-c listen_addresses=''" -w start
+PGUSER=postgres pg_ctl -D /data -o "-c listen_addresses='${LISTEN_ADDRESS}'" -w start
+
 
 alias psql='psql --pset=pager=off --variable=ON_ERROR_STOP=1 --username "postgres" --no-password'
 

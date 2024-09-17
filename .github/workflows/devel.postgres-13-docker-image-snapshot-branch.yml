@@ -7,7 +7,7 @@ on:
       - 'devel.postgres-*'
     paths:
       - '.github/workflows/devel.postgres-13-docker-image-snapshot-branch.yml'
-      - 'docker/docker-build.*'
+      - 'docker/docker-builder.sh'
       - 'docker/docker-entrypoint.sh'
       - 'docker/docker-healthcheck.sh'
       - 'docker/Dockerfile-13'

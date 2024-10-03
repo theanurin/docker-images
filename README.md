@@ -1,9 +1,7 @@
-[![Docker Build Status](https://img.shields.io/docker/cloud/build/zxteamorg/devel.protobuf?label=Build%20Status)](https://hub.docker.com/r/zxteamorg/devel.protobuf/builds)
-[![Docker Image Version](https://img.shields.io/docker/v/zxteamorg/devel.protobuf?sort=date&label=Version)](https://hub.docker.com/r/zxteamorg/devel.protobuf/tags)
-[![Docker Image Size](https://img.shields.io/docker/image-size/zxteamorg/devel.protobuf?label=Image%20Size)](https://hub.docker.com/r/zxteamorg/devel.protobuf/tags)
-[![Docker Pulls](https://img.shields.io/docker/pulls/zxteamorg/devel.protobuf?label=Pulls)](https://hub.docker.com/r/zxteamorg/devel.protobuf)
-[![Docker Pulls](https://img.shields.io/docker/stars/zxteamorg/devel.protobuf?label=Docker%20Stars)](https://hub.docker.com/r/zxteamorg/devel.protobuf)
-[![Docker Automation](https://img.shields.io/docker/cloud/automated/zxteamorg/devel.protobuf?label=Docker%20Automation)](https://hub.docker.com/r/zxteamorg/devel.protobuf/builds)
+[![Docker Image Version](https://img.shields.io/docker/v/theanurin/protobuf?sort=date&label=Version)](https://hub.docker.com/r/theanurin/protobuf/tags)
+[![Docker Image Size](https://img.shields.io/docker/image-size/theanurin/protobuf?label=Image%20Size)](https://hub.docker.com/r/theanurin/protobuf/tags)
+[![Docker Pulls](https://img.shields.io/docker/pulls/theanurin/protobuf?label=Pulls)](https://hub.docker.com/r/theanurin/protobuf)
+[![Docker Stars](https://img.shields.io/docker/stars/theanurin/protobuf?label=Docker%20Stars)](https://hub.docker.com/r/theanurin/protobuf)
 
 # Protocol buffers
 
@@ -40,13 +38,13 @@
 * C# bindings (--target=csharp)
 
 	```bash
-	docker run --interactive --tty --rm --volume /path/to/proto:/data/in --volume /path/to/src.gen:/data/out zxteamorg/devel.protobuf --target=csharp
+	docker run --interactive --tty --rm --volume /path/to/proto:/data/in --volume /path/to/src.gen:/data/out theanurin/protobuf --target=csharp
 	```
 
 * TypeScript bindings (--target=typescript)
 
 	```bash
-	docker run --interactive --tty --rm --volume /path/to/proto:/data/in --volume /path/to/src.gen:/data/out zxteamorg/devel.protobuf --target=typescript
+	docker run --interactive --tty --rm --volume /path/to/proto:/data/in --volume /path/to/src.gen:/data/out theanurin/protobuf --target=typescript
 	```
 
 ## As VSCode tasks
@@ -63,14 +61,14 @@
 			"label": "Generate C# Proto",
 			"group": "build",
 			"type": "shell",
-			"command": "docker run --interactive --tty --rm --mount type=bind,source=\"${workspaceFolder}/proto\",target=/data/in,readonly --volume \"${workspaceFolder}/gen.cs\":/data/out zxteamorg/devel.protobuf --target=csharp",
+			"command": "docker run --interactive --tty --rm --mount type=bind,source=\"${workspaceFolder}/proto\",target=/data/in,readonly --volume \"${workspaceFolder}/gen.cs\":/data/out theanurin/protobuf --target=csharp",
 			"problemMatcher": []
 		},
 		{
 			"label": "Generate TypeScript Proto",
 			"group": "build",
 			"type": "shell",
-			"command": "docker run --interactive --tty --rm --mount type=bind,source=\"${workspaceFolder}/proto\",target=/data/in,readonly --volume \"${workspaceFolder}/gen.ts\":/data/out zxteamorg/devel.protobuf --target=typescript",
+			"command": "docker run --interactive --tty --rm --mount type=bind,source=\"${workspaceFolder}/proto\",target=/data/in,readonly --volume \"${workspaceFolder}/gen.ts\":/data/out theanurin/protobuf --target=typescript",
 			"problemMatcher": []
 		}
 	],
@@ -95,7 +93,7 @@ stages:
 proto:
   stage: generate
   image:
-    name: zxteamorg/devel.protobuf
+    name: theanurin/protobuf
     entrypoint: ["/bin/sh", "-c"]
   script:
     - mkdir -p ./gen.cs ./gen.ts 
@@ -106,5 +104,5 @@ proto:
 
 # Support
 
-* Maintained by: [ZXTeam](https://zxteam.org)
-* Where to get help: [Telegram Channel](https://t.me/zxteamorg)
+* Maintained by: [Max Anurin](https://anurin.name/)
+* Where to get help: [Telegram](https://t.me/theanurin)

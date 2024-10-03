@@ -37,7 +37,8 @@
 		"sqlmigrationrunner": true,
 		"sqlmigrationrunner-postgres": true,
 		"tonos-cli":true,
-		"traefik": true
+		"traefik": true,
+		"zclassic": true,
 	},
 	"markdownlint.config": {
 		"MD031": {

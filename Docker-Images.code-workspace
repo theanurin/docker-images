@@ -58,6 +58,9 @@
 			"path": "traefik"
 		},
 		{
+			"path": "zclassic"
+		},
+		{
 			"name": "workspace",
 			"path": "."
 		},

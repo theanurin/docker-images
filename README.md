@@ -27,6 +27,7 @@ This is workspace branch of Docker Images multi project repository based on [orp
 | [subversion](../../tree/subversion)                                   | Apache Subversion is a software versioning and revision control system.                                                                                                         |
 | [tonos-cli](../../tree/tonos-cli)                                     | TON OS command line tool                                                                                                                                                        |
 | [traefik](../../tree/traefik)                                         | Traefik is a modern HTTP reverse proxy and load balancer that makes deploying microservices easy.                                                                               |
+| [zclassic](../../tree/zclassic)                                       | ZClassic Full Node                                                                                                                                                              |
 
 ## Get Started
 

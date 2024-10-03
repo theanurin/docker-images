@@ -23,6 +23,7 @@
 		"gentoo-sources-bundle": true,
 		"fluentd": true,
 		"jekyll": true,
+		"litecoin": true,
 		"luksoid": true,
 		"mkdocs": true,
 		"openldap": true,
@@ -48,6 +49,7 @@
 	"cSpell.words": [
 		"devel",
 		"fluentd",
+		"litecoin",
 		"LUKS",
 		"luksoid",
 		"mkdocs",

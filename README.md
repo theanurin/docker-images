@@ -1,9 +1,8 @@
-[![Docker Build Status](https://img.shields.io/docker/cloud/build/zxteamorg/tonos-cli?label=Build%20Status)](https://hub.docker.com/r/zxteamorg/tonos-cli/builds)
-[![Docker Image Version](https://img.shields.io/docker/v/zxteamorg/tonos-cli?sort=date&label=Version)](https://hub.docker.com/r/zxteamorg/tonos-cli/tags)
-[![Docker Image Size](https://img.shields.io/docker/image-size/zxteamorg/tonos-cli?label=Image%20Size)](https://hub.docker.com/r/zxteamorg/tonos-cli/tags)
-[![Docker Pulls](https://img.shields.io/docker/pulls/zxteamorg/tonos-cli?label=Pulls)](https://hub.docker.com/r/zxteamorg/tonos-cli)
-[![Docker Pulls](https://img.shields.io/docker/stars/zxteamorg/tonos-cli?label=Docker%20Stars)](https://hub.docker.com/r/zxteamorg/tonos-cli)
-[![Docker Automation](https://img.shields.io/docker/cloud/automated/zxteamorg/tonos-cli?label=Docker%20Automation)](https://hub.docker.com/r/zxteamorg/tonos-cli/builds)
+[![Docker Image Version](https://img.shields.io/docker/v/theanurin/tonos-cli?sort=date&label=Version)](https://hub.docker.com/r/theanurin/tonos-cli/tags)
+[![Docker Image Size](https://img.shields.io/docker/image-size/theanurin/tonos-cli?label=Image%20Size)](https://hub.docker.com/r/theanurin/tonos-cli/tags)
+[![Docker Pulls](https://img.shields.io/docker/pulls/theanurin/tonos-cli?label=Pulls)](https://hub.docker.com/r/theanurin/tonos-cli)
+[![Docker Stars](https://img.shields.io/docker/stars/theanurin/tonos-cli?label=Docker%20Stars)](https://hub.docker.com/r/theanurin/tonos-cli)
+
 
 # TON OS command line tool
 

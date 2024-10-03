@@ -29,7 +29,7 @@ The image is built as command line tool (`tonos-cli` as entrypoint) to be able t
 ## Test
 
 ```shell
-docker run --interactive --tty --rm zxteamorg/tonos-cli
+docker run --interactive --tty --rm theanurin/tonos-cli
 ```
 
 ## Usage
@@ -43,8 +43,8 @@ mkdir "${HOME}/.tonos-cli-data"
 It is pretty cool to make alias like:
 
 ```shell
-alias tonos-cli='docker run --interactive --tty --rm --mount "type=bind,source=${HOME}/.tonos-cli-data,target=/data" zxteamorg/tonos-cli'
-alias tonos-cli='docker run --interactive --tty --rm --mount "type=bind,source=${PWD}/.tonos.local,target=/data" zxteamorg/tonos-cli:alpine'
+alias tonos-cli='docker run --interactive --tty --rm --mount "type=bind,source=${HOME}/.tonos-cli-data,target=/data" theanurin/tonos-cli'
+alias tonos-cli='docker run --interactive --tty --rm --mount "type=bind,source=${PWD}/.tonos.local,target=/data" theanurin/tonos-cli:alpine'
 
 tonos-cli --help
 tonos-cli [subcommand args]
@@ -52,8 +52,8 @@ tonos-cli [subcommand args]
 
 # Support
 
-* Maintained by: [ZXTeam](https://zxteam.org)
-* Where to get help: [Telegram Channel](https://t.me/zxteamorg)
+* Maintained by: [Max Anurin](https://anurin.name/)
+* Where to get help: [Telegram](https://t.me/theanurin)
 
 # Sample Test Sequence
 
@@ -61,7 +61,7 @@ tonos-cli [subcommand args]
     ```shell
     mkdir "${HOME}/.tonos-cli-data-simpletest"
     cd "${HOME}/.tonos-cli-data-simpletest"
-    alias tonos-cli='docker run --interactive --tty --rm --mount "type=bind,source=${HOME}/.tonos-cli-data-simpletest,target=/data" zxteamorg/tonos-cli'
+    alias tonos-cli='docker run --interactive --tty --rm --mount "type=bind,source=${HOME}/.tonos-cli-data-simpletest,target=/data" theanurin/tonos-cli'
 
     # Generate configuration file tonos-cli.conf.json
     tonos-cli config

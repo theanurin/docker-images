@@ -28,6 +28,9 @@
 			"path": "pgadmin4"
 		},
 		{
+			"path": "portainer"
+		},
+		{
 			"path": "redis-commander"
 		},
 		{
@@ -46,7 +49,10 @@
 			"path": "subversion"
 		},
 		{
-			"path": "portainer"
+			"path": "tonos-cli"
+		},
+		{
+			"path": "traefik"
 		},
 		{
 			"name": "workspace",
@@ -55,6 +61,6 @@
 	],
 	"settings": {
 		"files.autoSave": "afterDelay",
-		"files.autoSaveDelay": 3000
+		"files.autoSaveDelay": 3000,
 	}
 }

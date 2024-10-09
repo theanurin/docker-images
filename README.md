@@ -87,6 +87,7 @@
 ```shell
 docker run --rm --interactive --tty \
   --publish 389:389 \
+  --ulimit nofile=1024:1024 \
   --env SLAPD_DEBUG_LEVEL=-1 \
   theanurin/openldap
 ```
@@ -108,6 +109,7 @@ mkdir ldap-etc.local ldap-db.local
 docker run --rm --interactive --tty \
   --env CONFIG_LEGO_OPTS --env CONFIG_LEGO_DOMAIN --env CONFIG_LEGO_EMAIL \
   --env CONFIG_LEGO_CHALLENGE_HTTP_01 \
+  --ulimit nofile=1024:1024 \
   --mount "type=bind,source=$PWD/ldap-etc.local,target=/data/etc" \
   --mount "type=bind,source=$PWD/ldap-db.local,target=/data/db" \
   --publish 0.0.0.0:80:80 \
@@ -131,6 +133,7 @@ mkdir ldap-etc.local ldap-db.local
 docker run --rm --interactive --tty \
   --env CONFIG_LEGO_OPTS --env CONFIG_LEGO_DOMAIN --env CONFIG_LEGO_EMAIL \
   --env CONFIG_LEGO_CHALLENGE_TLS_ALPN_01 \
+  --ulimit nofile=1024:1024 \
   --mount "type=bind,source=$PWD/ldap-etc.local,target=/data/etc" \
   --mount "type=bind,source=$PWD/ldap-db.local,target=/data/db" \
   --publish 127.0.0.1:389:389 \
@@ -161,6 +164,7 @@ docker run --rm --interactive --tty \
   --env CONFIG_LEGO_OPTS --env CONFIG_LEGO_DOMAIN --env CONFIG_LEGO_EMAIL \
   --env CONFIG_LEGO_CHALLENGE_DNS_01_PROVIDER --env CONFIG_LEGO_CHALLENGE_DNS_01_RESOLVERS \
   --env CLOUDFLARE_EMAIL --env CLOUDFLARE_DNS_API_TOKEN --env CLOUDFLARE_ZONE_API_TOKEN \
+  --ulimit nofile=1024:1024 \
   --mount "type=bind,source=$PWD/openldap-etc.local,target=/data/etc" \
   --mount "type=bind,source=$PWD/openldap-db.local,target=/data/db" \
   --publish 127.0.0.1:389:389 \
@@ -189,6 +193,7 @@ docker run --rm --interactive --tty \
   --env CONFIG_LEGO_CHALLENGE_DNS_01_PROVIDER --env CONFIG_LEGO_CHALLENGE_DNS_01_RESOLVERS \
   --env EXEC_PATH --env EXEC_POLLING_INTERVAL --env EXEC_PROPAGATION_TIMEOUT \
   --env ADM_TOOLS_ROOT_DOMAINS --env ADM_TOOLS_API_TOKEN_FILE \
+  --ulimit nofile=1024:1024 \
   --mount "type=bind,source=$PWD/ldap-etc.local,target=/data/etc" \
   --mount "type=bind,source=$PWD/ldap-db.local,target=/data/db" \
   --mount "type=bind,source=/path/to/admtools_token,target=/run/secrets/admtools_token" \

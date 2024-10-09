@@ -1,4 +1,4 @@
-name: Docker Image (Snapshot/Tag)
+name: OpenLDAP - Docker Image (Snapshot/Tag)
 
 on:
   push:

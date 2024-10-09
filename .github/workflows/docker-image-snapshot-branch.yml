@@ -1,4 +1,4 @@
-name: Docker Image (Snapshot/Branch)
+name: OpenLDAP - Docker Image (Snapshot/Branch)
 
 on:
   push:

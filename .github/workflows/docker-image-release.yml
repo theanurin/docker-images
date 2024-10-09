@@ -1,4 +1,4 @@
-name: Docker Image (Release)
+name: OpenLDAP - Docker Image
 
 on:
   push:

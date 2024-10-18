@@ -9,4 +9,3 @@ COPY --from=builder /build/ /
 WORKDIR /data
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint.js"]
 CMD ["--config-env"]
-

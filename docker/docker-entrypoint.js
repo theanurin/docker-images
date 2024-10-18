@@ -12,7 +12,7 @@ const { launcher, registerShutdownHook } = require("@zxteam/launcher");
 const Mustache = require("mustache");
 const fs = require('fs');
 
-function runtime(cancellationToken, configuration) {
+function runtime(cancellationToken, settings) {
 	let templateContent;
 
 	try {
@@ -27,7 +27,7 @@ function runtime(cancellationToken, configuration) {
 
 	return new Promise(function (resolve, reject) {
 		process.stdout.write(
-			Mustache.render(templateContent, configuration, null, { escape: function (text) { return text; } }),
+			Mustache.render(templateContent, settings, null, { escape: function (text) { return text; } }),
 			function (err) {
 				if (err) { return reject(err); }
 				return resolve();
@@ -36,7 +36,7 @@ function runtime(cancellationToken, configuration) {
 	});
 }
 
-function createConfigurationProxy(finalConfig) {
+function createDynamicSettings(finalConfig) {
 	function keyWalker(rootObj, keys, sourceConfig, parentObject, parentKeyName) {
 		const target = {};
 		if (rootObj === null) {
@@ -156,4 +156,4 @@ registerShutdownHook(async function () {
 	});
 });
 
-launcher(createConfigurationProxy, runtimeFactory);
+launcher(createDynamicSettings, runtimeFactory);

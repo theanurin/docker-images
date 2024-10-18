@@ -42,9 +42,9 @@ Command arguments apply a configuration source:
 ## Launch
 
 ```shell
-echo "<h1>Hello, {{NAME}} {{?SURNAME}}</h1>" | docker run \
+echo "<h1>Hello, {{NAME}} {{?SURNAME}}</h1>{{#items}}<p>{{name}}</p>{{/items}}" | docker run \
     --interactive --rm \
-    --env NAME="World" \
+    --env NAME="World" --env item.1.name=1 --env item.2.name=2 \
     theanurin/configuration-templates \
       --engine mustache \
       --config-env

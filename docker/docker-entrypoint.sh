@@ -9,7 +9,7 @@ Install/Up/MigrateUp:
     --volume /PATH/TO/YOUR/MIGRATION/DIRECTORY:/data \\
     --env DB_URL="postgres://postgres@host.docker.internal:5432/emptytestdb" \\
     --env DB_TARGET_VERSION="v01.42" \\
-    theanurin/sqlmigrationrunner install
+    theanurin/sqlmigrationrunner --mode=strict install
 
 
 Rollback/Down/MigrateDown:
@@ -100,7 +100,7 @@ case "$1" in
 		if [ -n "${DB_TARGET_VERSION}" ]; then
 			ENVARGS="${ENVARGS} migration.targetVersion=${DB_TARGET_VERSION}"
 		fi
-		exec env -i ${ENVARGS} /usr/local/sqlmigration/bin/rollback.js $*
+		exec env -i ${ENVARGS} LOG_LEVEL="${LOG_LEVEL}" /usr/local/sqlmigration/bin/rollback.js $*
 		;;
 	*)
 		print_usage

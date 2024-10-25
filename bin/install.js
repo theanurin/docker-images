@@ -13,6 +13,7 @@ const {
 	FConfigurationChain,
 	FExecutionContext,
 	FCancellationExecutionContext,
+	FException,
 } = require("@freemework/common");
 const { FConfigurationEnv, FConfigurationDirectory } = require("@freemework/hosting");
 const { FSqlMigrationSources } = require("@freemework/sql.misc.migration");
@@ -24,7 +25,12 @@ const { version: packageVersion } = require("../package.json");
 
 const { MaskService } = require("../lib/mask-service.js");
 
-FLogger.setLoggerFactory((loggerName) => FLoggerConsole.create(loggerName, { level: FLoggerLevel.INFO, format: "text" }));
+FLogger.setLoggerFactory((loggerName) => FLoggerConsole.create(loggerName, {
+	level: process.env["LOG_LEVEL"] !== undefined
+		? FLoggerLevel.parse(process.env["LOG_LEVEL"].toUpperCase())
+		: FLoggerLevel.INFO,
+	format: "text",
+}));
 const appLogger = FLogger.create("install");
 
 const appCancellationTokenSource = new FCancellationTokenSourceManual();
@@ -50,6 +56,18 @@ shutdownSignals.forEach((signal) => process.on(signal, () => gracefulShutdown(si
 
 async function main() {
 	appLogger.info(appExecutionContext, `Database Migration Install/Up v${packageVersion}`);
+
+	const isLaxMode = (function () {
+		for (const arg of process.argv) {
+			if (arg.startsWith("--mode=")) {
+				if (arg === "--mode=lax") { return true; }
+				if (arg !== "--mode=strict") {
+					throw new CommandLineException(`Unsupported mode '${arg}'`);
+				}
+			}
+		}
+		return false;
+	})();
 
 	const startDate = new Date();
 
@@ -89,6 +107,49 @@ async function main() {
 			// Sleep a little bit (may be user will want to avoid installation)
 			appLogger.info(appExecutionContext, "Sleep a little bit before install scripts (you are able to cancel the process yet) ...");
 			await FSleep(appExecutionContext, 8000);
+		}
+
+		if (isLaxMode) {
+			appLogger.info(appExecutionContext, "LAX mode. Obtaining installed versions...");
+			let laxRollbackTargetVersion = null;
+			const installedVersions = [...await manager.listVersions(appExecutionContext)];
+			if (installedVersions.length > 0) {
+				const migrationVersions = [...migrationSources.versionNames];
+				installedVersions.sort();
+				migrationVersions.sort();
+
+				let isNeedRollback = false;
+
+				for (let installedVersionIndex = 0; installedVersionIndex < installedVersions.length; ++installedVersionIndex) {
+					if (migrationVersions.length <= installedVersionIndex) { break; }
+					const installedVersion = installedVersions[installedVersionIndex];
+					const migrationVersion = migrationVersions[installedVersionIndex];
+					if (installedVersion !== migrationVersion) {
+						isNeedRollback = true;
+						break;
+					}
+					laxRollbackTargetVersion = installedVersion;
+				}
+				if (migrationVersions.length < installedVersions.length) {
+					isNeedRollback = true;
+				}
+
+				console.log({ laxRollbackTargetVersion, isNeedRollback });
+
+				if (isNeedRollback) {
+					if (laxRollbackTargetVersion === null) {
+						appLogger.info(appExecutionContext, () => `Rollback ALL migration scripts ...`);
+						await manager.rollback(appExecutionContext); // Full rollback
+					} else {
+						appLogger.info(appExecutionContext, () => `Rollback migration scripts to LAX version '${laxRollbackTargetVersion}' ...`);
+						await manager.rollback(appExecutionContext, laxRollbackTargetVersion); // Rollback to LAX version
+					}
+				} else {
+					appLogger.info(appExecutionContext, "LAX mode. No need to rollback anything due to no changes in installed versions history.");
+				}
+			} else {
+				appLogger.info(appExecutionContext, "LAX mode. No any installed versions");
+			}
 		}
 
 		if (config.targetVersion !== null) {
@@ -139,6 +200,9 @@ main().then(
 		if (reason instanceof FConfigurationException) {
 			appLogger.fatal(FExecutionContext.Default, () => `Wrong configuration. Cannot continue. ${reason.message}`);
 			exitCode = 1;
+		} else if (reason instanceof CommandLineException) {
+			appLogger.fatal(FExecutionContext.Default, reason.message);
+			exitCode = 2;
 		} else if (reason instanceof FCancellationException) {
 			appLogger.warn(FExecutionContext.Default, "Application cancelled by user");
 			exitCode = 42;
@@ -147,22 +211,10 @@ main().then(
 			exitCode = 127;
 		}
 
-		const timeout = setTimeout(guardForMissingLoggerCallback, 5000);
-		const finalExitCode = exitCode;
-		function guardForMissingLoggerCallback() {
-			// This guard resolve promise, if log4js does not call shutdown callback
-			process.exit(finalExitCode);
-		}
-		// require('log4js').shutdown(function (log4jsErr) {
-		// 	if (log4jsErr) {
-		// 		console.error("Failure log4js.shutdown:", log4jsErr);
-		// 	}
-		// 	clearTimeout(timeout);
-		// 	process.exit(finalExitCode);
-		// });
-		FSleep(appExecutionContext, 250).then(function () {
-			clearTimeout(timeout);
-			process.exit(finalExitCode);
+		FSleep(FExecutionContext.Default, 250).then(function () {
+			process.exit(exitCode);
 		});
 	}
 );
+
+class CommandLineException extends FException { }

@@ -23,7 +23,12 @@ const { version: packageVersion } = require("../package.json");
 
 const { MaskService } = require("../lib/mask-service.js");
 
-FLogger.setLoggerFactory((loggerName) => FLoggerConsole.create(loggerName, { level: FLoggerLevel.INFO, format: "text" }));
+FLogger.setLoggerFactory((loggerName) => FLoggerConsole.create(loggerName, {
+	level: process.env["LOG_LEVEL"] !== undefined
+		? FLoggerLevel.parse(process.env["LOG_LEVEL"].toUpperCase())
+		: FLoggerLevel.INFO,
+	format: "text"
+}));
 const appLogger = FLogger.create("rollback");
 
 const appCancellationTokenSource = new FCancellationTokenSourceManual();
@@ -139,22 +144,8 @@ main().then(
 			exitCode = 127;
 		}
 
-		const timeout = setTimeout(guardForMissingLoggerCallback, 5000);
-		const finalExitCode = exitCode;
-		function guardForMissingLoggerCallback() {
-			// This guard resolve promise, if log4js does not call shutdown callback
-			process.exit(finalExitCode);
-		}
-		// require('log4js').shutdown(function (log4jsErr) {
-		// 	if (log4jsErr) {
-		// 		console.error("Failure log4js.shutdown:", log4jsErr);
-		// 	}
-		// 	clearTimeout(timeout);
-		// 	process.exit(finalExitCode);
-		// });
 		FSleep(appExecutionContext, 250).then(function () {
-			clearTimeout(timeout);
-			process.exit(finalExitCode);
+			process.exit(exitCode);
 		});
 	}
 );

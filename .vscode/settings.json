@@ -27,6 +27,7 @@
 		"emptytestdb",
 		"freemework",
 		"sqlmigration",
+		"sqlmigrationbuilder",
 		"sqlmigrationrunner",
 		"theanurin",
 		"WORKDIR"

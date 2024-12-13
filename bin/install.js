@@ -134,8 +134,6 @@ async function main() {
 					isNeedRollback = true;
 				}
 
-				console.log({ laxRollbackTargetVersion, isNeedRollback });
-
 				if (isNeedRollback) {
 					if (laxRollbackTargetVersion === null) {
 						appLogger.info(appExecutionContext, () => `Rollback ALL migration scripts ...`);

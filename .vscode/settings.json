@@ -3,8 +3,18 @@
 	"files.autoSaveDelay": 3000,
 	"cSpell.words": [
 		"jemoji",
+		"livereload",
 		"racc",
 		"rexml",
 		"theanurin"
-	]
+	],
+	"markdownlint.config": {
+		"default": true,
+		"blanks-around-fences": false,
+		"blanks-around-lists": false,
+		"first-line-heading": false,
+		"link-image-reference-definitions": false,
+		"no-bare-urls": false,
+		"single-title": false,
+	}
 }

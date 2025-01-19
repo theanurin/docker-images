@@ -3,7 +3,7 @@
 
 set -e
 
-cd /data
+export BUNDLE_PATH="${PWD}/vendor/bundle"
 
 if [ $# -eq 0 ]; then
     echo
@@ -17,6 +17,7 @@ if [ $# -eq 0 ]; then
     echo "  bundle exec jekyll new .                                                 - Generate a new site"
     echo "  bundle exec jekyll serve --host '0.0.0.0' --port 4000 --trace --profile  - Customize serve mode"
     echo "  bundle update                                                            - Update your dependencies (and Gemfile.lock)"
+
     echo
     echo "Install bundles ..."
     echo

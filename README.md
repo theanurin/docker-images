@@ -17,40 +17,35 @@
 1. The image embedding fixed version of `Jekyll` to prevent breaking changes in `Jekyll` and it's dependencies.
 1. Official images do not support ARM64 arch such a Apple M1
 
-
 # Spec
-
-## Environment variables
-
-- `BUNDLE_PATH` - Default: `/data/vendor/bundle`. The location on disk where all gems in your bundle will be located. See [bundle config](https://bundler.io/v2.5/man/bundle-config.1.html) for details.
 
 ## Expose ports
 
 * `tcp/4000` - `Jekyll` development server listening endpoint
-
+* `tcp/4001` - `Jekyll` live reloading
 
 ## Volumes
 
 * `/data` - Sources root (bind/mount here your work directory)
 
-
 # Inside
 
-* [Jekyll](https://jekyllrb.com/) v4.3.3
+* [Jekyll](https://jekyllrb.com/) v4.3.4
 * [Bundler gem](https://rubygems.org/gems/bundler)
 * Additional Gems:
   * [jemoji](https://rubygems.org/gems/jemoji) v0.13.0
-  * [just-the-docs](https://rubygems.org/gems/just-the-docs) v0.8.2
-  * [minitest](https://rubygems.org/gems/minitest) v5.24.0
-  * [racc](https://rubygems.org/gems/racc) v1.8.0
-  * [rexml](https://rubygems.org/gems/rexml) v3.3.0
-* [Git](https://git-scm.com/) v2.40.1
-* [Git LFS](https://git-lfs.com/) v3.3.0
-* [NodeJS](https://nodejs.org/) v18.20.1
-* [NPM](https://www.npmjs.com/) v9.6.6
-  * [Pug](https://www.npmjs.com/package/pug)
+  * [just-the-docs](https://rubygems.org/gems/just-the-docs) v0.10.1
+  * [minitest](https://rubygems.org/gems/minitest) v5.25.4
+  * [racc](https://rubygems.org/gems/racc) v1.8.1
+  * [rexml](https://rubygems.org/gems/rexml) v3.4.0
+* [Git](https://git-scm.com/) v2.45.3
+* [Git LFS](https://git-lfs.com/) v3.5.1
+* [NodeJS](https://nodejs.org/) v20.15.1
+* [NPM](https://www.npmjs.com/) v10.9.1
+  * [Pug](https://www.npmjs.com/package/pug) v3.0.3
 
 # Launch
+
 1. Start development server in site root directory (where `jekyll's _config.yml` located)
   ```bash
   docker run --interactive --rm \
@@ -61,16 +56,15 @@
 1. Open browser http://127.0.0.1:4000/
 1. Edit content and look for hot-reloaded changes in the browser
 
-
 # Support
 
 * Maintained by: [Max Anurin](https://anurin.name/)
 * Where to get help: [Telegram](https://t.me/theanurin)
 
-
 # Development
 
 ## Build and debug
+
 ```shell
 docker build --tag theanurin/jekyll --file docker/Dockerfile . && \
   docker run --interactive --tty --rm --entrypoint /bin/sh theanurin/jekyll

@@ -42,10 +42,10 @@ Command arguments apply a configuration source:
 ## Launch
 
 ```shell
-echo "<h1>Hello, {{NAME}} {{?SURNAME}}</h1>{{#items}}<p>{{name}}</p>{{/items}}" | docker run \
+echo '<h1>Hello, {{NAME}} {{?SURNAME}}</h1>{{#item.$array}}<p>{{name}}</p><br/>{{/item.$array}}' | docker run \
     --interactive --rm \
     --env NAME="World" --env item.1.name=1 --env item.2.name=2 \
-    theanurin/configuration-templates \
+    theanurin/configuration-templates:20250502 \
       --engine mustache \
       --config-env
 ```
@@ -70,12 +70,13 @@ echo "<h1>Hello, {{NAME}} {{?SURNAME}}</h1>" | \
 ### Symbols
 
 - symbol "?" - treat the property as optional(by default properties are mandatory).
-- symbol "s" at the end of property allows to obtain child keys.
 
 ### Properties
 
 - `$parent` - point to parent data node
 - `$root` - point to root data node
+- `$array` - represent current object as array
+- `$single` - constraint to be single property in parent namespace
 
 ## Support
 

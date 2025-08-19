@@ -3,8 +3,7 @@ name: Docker Image (Snapshot/Branch)
 on:
   push:
     branches:
-      - 'mkdocs'
-      - 'mkdocs-*'
+      - 'mkdocs#*'
 
 jobs:
   docker:

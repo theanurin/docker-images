@@ -27,16 +27,17 @@ The image embedding fixed version of MkDocs to prevent breaking changes in MkDoc
 
 # Inside
 
-* mkdocs==1.4.2
-* mkdocs-material==9.1.4
-* mkdocs-markdownextradata-plugin==0.2.5
+* mkdocs==1.6.1
+* mkdocs-material==9.6.17
+* mkdocs-markdownextradata-plugin==0.2.6
 * mkdocs-pdf-export-plugin==0.5.10
 * fontawesome_markdown==0.2.6
 
 # Launch
+
 1. Start development server in documentation root directory (where `mkdocs.yml` located)
 	```bash
-	docker run --interactive --tty --rm --volume ${PWD}:/data --publish 8000:8000 zxteamorg/devel.mkdocs
+	docker run --interactive --tty --rm --volume ${PWD}:/data --publish 8000:8000 theanurin/mkdocs
 	```
 1. Open browser http://127.0.0.1:8000/
 1. Edit content and look for hot-reloaded changes in the browser

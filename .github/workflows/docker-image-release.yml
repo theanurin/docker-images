@@ -29,7 +29,7 @@ jobs:
             ghcr.io/${{ github.repository }}/mkdocs
           # generate Docker tags based on the following events/attributes
           tags: |
-            'type=match,pattern=mkdocs#(.*),group=1'
+            'type=match,pattern=mkdocs\#(.*),group=1'
 
       # See https://github.com/docker/login-action
       - name: Log In To The DockerHub

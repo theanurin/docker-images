@@ -40,7 +40,6 @@ make -j$(nproc)
 exit
 ```
 
-
 ## Quick Start with configuration
 
 ```bash
@@ -72,7 +71,7 @@ exit
 
 ## What the image includes
 
-* [sys-kernel/gentoo-sources](https://packages.gentoo.org/packages/sys-kernel/gentoo-sources) package with dependencies
+- [sys-kernel/gentoo-sources](https://packages.gentoo.org/packages/sys-kernel/gentoo-sources) package with dependencies
 
 ## Developer Notes
 
@@ -89,7 +88,7 @@ pip install 'urllib3<2.0'
 
 Samples:
 
-- `6.12.41/amd64,x86,arm,arm64`
+- `gentoo-sources-bundle#6.12.41/amd64,x86,arm,arm64`
 
 [GitHub Repo Branch]: https://github.com/theanurin/docker-images/tree/gentoo-sources-bundle
 [GitHub Repo Stars]: https://img.shields.io/github/stars/theanurin/docker-images?label=GitHub%20Starts

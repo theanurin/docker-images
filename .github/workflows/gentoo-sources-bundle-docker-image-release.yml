@@ -4,7 +4,7 @@ on:
   push:
     tags:
       # - 'gentoo-sources-bundle/$KERNEL/$COMMA_SEPARATED_ARCH'
-      # - 'gentoo-sources-bundle/6.1.53-r1/amd64,i686,arm,arm64'
+      # - 'gentoo-sources-bundle/6.12.41/amd64,i686,arm,arm64'
       - 'gentoo-sources-bundle/*/*'
 
 jobs:
@@ -57,13 +57,13 @@ jobs:
             esac
           done
 
-          # 6.1.53-r1
+          # 6.12.41
           echo "kernel_version=${KERNEL_VERSION}" | tee -a "${GITHUB_OUTPUT}"
 
           # ["amd64:linux/amd64","arm64v8:linux/arm64/v8","arm32v5:linux/arm/v5","arm32v6:linux/arm/v6","arm32v7:linux/arm/v7","i686:linux/386"]
           echo "build_arch=${BUILD_DOCKER_ARCHS_JSON}" | tee -a "${GITHUB_OUTPUT}"
 
-          # 6.1.53-r1/amd64,i686,arm,arm64
+          # 6.12.41/amd64,i686,arm,arm64
           echo "manifest_version=${MANIFEST_VERSION}" | tee -a "${GITHUB_OUTPUT}"
 
       - name: Checkout

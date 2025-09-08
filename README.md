@@ -25,9 +25,9 @@ All of you need, just manage your kernel configuration files.
 
 ## Use Cases
 
-* Build Gentoo kernel out side of a Gentoo machine
-* Automate kernel building
-* Build oldest kernels (historical)
+- Build Gentoo kernel out side of a Gentoo machine
+- Automate kernel building
+- Build oldest kernels (historical)
 
 ## Quick Start
 
@@ -54,8 +54,6 @@ make menuconfig
 make -j$(nproc)
 exit
 ```
-
-
 
 ## Image name convention
 
@@ -91,7 +89,7 @@ pip install 'urllib3<2.0'
 
 Samples:
 
-- `6.1.53-r1/amd64,x86,arm,arm64`
+- `6.12.41/amd64,x86,arm,arm64`
 
 [GitHub Repo Branch]: https://github.com/theanurin/docker-images/tree/gentoo-sources-bundle
 [GitHub Repo Stars]: https://img.shields.io/github/stars/theanurin/docker-images?label=GitHub%20Starts

@@ -6,10 +6,7 @@ RUN \
   apk add --no-cache gcc g++ jpeg-dev libffi-dev musl-dev python3-dev py3-pip zlib-dev jpeg cairo gobject-introspection pango python3 && \
   pip config set global.break-system-packages true && \
   pip install --no-cache-dir --upgrade pip && \
-  # pip install --no-cache-dir fontawesome_markdown mkdocs mkdocs-markdownextradata-plugin mkdocs-material mkdocs-pdf-export-plugin pathlib && \
-  pip install --no-cache-dir fontawesome_markdown==0.2.6 mkdocs==1.6.1 mkdocs-markdownextradata-plugin==0.2.6 mkdocs-material==9.6.17 mkdocs-pdf-export-plugin==0.5.10 pathlib==1.0.1 && \
-  apk del gcc g++ jpeg-dev libffi-dev musl-dev python3-dev zlib-dev
-
+  pip install --no-cache-dir fontawesome-in-markdown==0.2.1 mkdocs==1.6.1 mkdocs-markdownextradata-plugin==0.2.6 mkdocs-material==9.6.19 mkdocs-pdf-export-plugin==0.5.10 pathlib==1.0.1
 WORKDIR /data
 ENV PYTHONPATH=/data/site-packages
 VOLUME /data

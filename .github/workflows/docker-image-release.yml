@@ -3,7 +3,7 @@ name: pgAdmin - Docker Image (Release)
 on:
   push:
     tags:
-      - "pgadmin4-*"
+      - "pgadmin4#*"
 
 jobs:
   docker-image:
@@ -29,7 +29,7 @@ jobs:
             ghcr.io/${{ github.repository }}/pgadmin4
           # generate Docker tags based on the following events/attributes
           tags: |
-            type=match,pattern=pgadmin4-(.*),group=1
+            type=match,pattern=pgadmin4#(.*),group=1
 
       # See https://github.com/docker/login-action
       - name: Log In To The DockerHub

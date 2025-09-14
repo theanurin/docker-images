@@ -3,8 +3,7 @@ name: pgAdmin - Docker Image (Snapshot/Branch)
 on:
   push:
     branches:
-      - "pgadmin4"
-      - "pgadmin4-*"
+      - "pgadmin4#*"
 
 jobs:
   docker:

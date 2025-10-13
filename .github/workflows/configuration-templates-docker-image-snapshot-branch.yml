@@ -3,8 +3,7 @@ name: Configuration Templates - Docker Image (Snapshot/Branch)
 on:
   push:
     branches:
-      - 'configuration-templates'
-      - 'configuration-templates-*'
+      - 'configuration-templates#*'
 
 jobs:
   docker-image:

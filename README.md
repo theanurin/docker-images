@@ -31,25 +31,40 @@ Command arguments apply a configuration source:
 
 ## Inside
 
-
 * Alpine Linux
 * NodeJS
 * Template Engines:
-	* [Mustache](https://mustache.github.io/)
-	* TBD
+  * [Liquid](https://shopify.github.io/liquid/)
+  * [Mustache](https://mustache.github.io/)
 * Entrypoint JS Script
 
 ## Launch
 
+### Liquid
+
 ```shell
-echo '<h1>Hello, {{NAME}} {{?SURNAME}}</h1>{{#item.$array}}<p>{{name}}</p><br/>{{/item.$array}}' | docker run \
+echo "<h1>Hello, {{NAME}} {{SURNAME}}</h1>{% for el in item['\$array'] %}<p>{{el.name}}</p><br/>{% endfor %}" | docker run \
     --interactive --rm \
     --env NAME="World" --env item.1.name=1 --env item.2.name=2 \
-    theanurin/configuration-templates:20250502 \
-      --engine mustache \
+    theanurin/configuration-templates:20251014 \
+      --engine liquid \
       --config-env
+
+# <h1>Hello, World </h1><p>1</p><br/><p>2</p><br/>
 ```
 
+### Mustache
+
+```shell
+echo '<h1>Hello, {{NAME}} {{SURNAME}}</h1>{{#item.$array}}<p>{{name}}</p><br/>{{/item.$array}}' | docker run \
+    --interactive --rm \
+    --env NAME="World" --env item.1.name=1 --env item.2.name=2 \
+    theanurin/configuration-templates:20251014 \
+      --engine mustache \
+      --config-env
+
+# <h1>Hello, World </h1><p>1</p><br/><p>2</p><br/>
+```
 
 ```shell
 echo "<h1>Hello, {{NAME}} {{?SURNAME}}</h1>" | \
@@ -57,7 +72,7 @@ echo "<h1>Hello, {{NAME}} {{?SURNAME}}</h1>" | \
     --interactive --rm \
     --volume /path/to/configs:/data \
     --env NAME="World" \
-    theanurin/configuration-templates \
+    theanurin/configuration-templates:20251014 \
       --engine mustache \
       --config-file=common.config \
       --config-file=devel.config \
@@ -67,18 +82,14 @@ echo "<h1>Hello, {{NAME}} {{?SURNAME}}</h1>" | \
 
 ## Magic
 
-### Symbols
-
-- symbol "?" - treat the property as optional(by default properties are mandatory).
-
 ### Properties
 
-- `$parent` - point to parent data node
-- `$root` - point to root data node
-- `$array` - represent current object as array
-- `$single` - constraint to be single property in parent namespace
+* `$parent` - point to parent data node
+* `$root` - point to root data node
+* `$array` - represent current object as array
+* `$single` - constraint to be single property in parent namespace
 
 ## Support
 
-* Maintained by: [ZXTeam](https://zxteam.org)
-* Where to get help: [Telegram Channel](https://t.me/zxteamorg)
+* Maintained by: [Max Anurin](https://anurin.name/)
+* Where to get help: [Telegram Channel](https://t.me/theanurin)

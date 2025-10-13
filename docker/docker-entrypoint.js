@@ -12,6 +12,7 @@ const {
 } = require("@freemework/common");
 const { flauncher } = require("@freemework/hosting");
 
+const { Liquid } = require("liquidjs");
 const Mustache = require("mustache");
 const fs = require('fs');
 
@@ -23,7 +24,9 @@ const fs = require('fs');
 // }));
 FLogger.setLoggerFactory(FLoggerDummy.create);
 
-function main(executionContext, configuration) {
+let engine = "mustache";
+
+async function main(executionContext, configuration) {
 
 	const dynamicTemplateDataView = configuration.toDynamicView();
 
@@ -39,22 +42,36 @@ function main(executionContext, configuration) {
 		throw e;
 	}
 
-	return new Promise(function (resolve, reject) {
-		let content;
-		try {
-			content = Mustache.render(templateContent, dynamicTemplateDataView, null, { escape: function (text) { return text; } });
-		} catch (e) {
-			return reject(e);
-		}
-
-		process.stdout.write(
-			content,
-			function (err) {
-				if (err) { return reject(err); }
-				return resolve();
+	if (engine === "liquid") {
+		const liquid = new Liquid();
+		const content = await liquid.parseAndRender(templateContent, dynamicTemplateDataView);
+		return await new Promise(function (resolve, reject) {
+			process.stdout.write(
+				content,
+				function (err) {
+					if (err) { return reject(err); }
+					return resolve();
+				}
+			);
+		});
+	} else {
+		return await new Promise(function (resolve, reject) {
+			let content;
+			try {
+				content = Mustache.render(templateContent, dynamicTemplateDataView, null, { escape: function (text) { return text; } });
+			} catch (e) {
+				return reject(e);
 			}
-		);
-	});
+
+			process.stdout.write(
+				content,
+				function (err) {
+					if (err) { return reject(err); }
+					return resolve();
+				}
+			);
+		});
+	}
 }
 
 function parseConfiguration(configuration) {
@@ -82,6 +99,20 @@ function bootstrap(executionContext, configuration) {
 	});
 
 	return Promise.resolve(runtimeInstance);
+}
+
+if (process.argv.length > 2) {
+	const args = [...process.argv];
+	for (let index = 0; index < args.length; ++index) {
+		const arg = args[index];
+		if (arg === "--engine" && args.length > index + 1) {
+			const newArgs = args.slice(0, index);
+			newArgs.push(...args.slice(index + 2));
+			engine = args[index + 1];
+			process.argv = newArgs;
+			break;
+		}
+	}
 }
 
 flauncher(parseConfiguration, bootstrap);

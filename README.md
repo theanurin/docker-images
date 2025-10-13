@@ -2,6 +2,7 @@
 [![Docker Image Size](https://img.shields.io/docker/image-size/theanurin/pgadmin4?label=Image%20Size)](https://hub.docker.com/r/theanurin/pgadmin4/tags)
 [![Docker Pulls](https://img.shields.io/docker/pulls/theanurin/pgadmin4?label=Pulls)](https://hub.docker.com/r/theanurin/pgadmin4)
 [![Docker Stars](https://img.shields.io/docker/stars/theanurin/pgadmin4?label=Docker%20Stars)](https://hub.docker.com/r/theanurin/pgadmin4)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/theanurin/docker-images/docker-image-snapshot-branch.yml?branch=pgadmin4%23main)
 
 # pgAdmin
 
@@ -36,7 +37,9 @@ docker run --rm -it \
   --env PGADMIN_BG_COLOR='#000fff' \
   --env 'PGADMIN_DEFAULT_EMAIL=user@example.org' \
   --env 'PGADMIN_DEFAULT_PASSWORD=SuperSecret' \
-  --publish 80:80 \
+  --env 'PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED=False' \
+  --env 'PGADMIN_CONFIG_SERVER_MODE=False' \
+  --publish 8080:80 \
   theanurin/pgadmin4
 ```
 

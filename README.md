@@ -2,6 +2,7 @@
 [![Docker Image Size](https://img.shields.io/docker/image-size/theanurin/configuration-templates?label=Image%20Size)](https://hub.docker.com/r/theanurin/configuration-templates/tags)
 [![Docker Pulls](https://img.shields.io/docker/pulls/theanurin/configuration-templates?label=Pulls)](https://hub.docker.com/r/theanurin/configuration-templates)
 [![Docker Stars](https://img.shields.io/docker/stars/theanurin/configuration-templates?label=Docker%20Stars)](https://hub.docker.com/r/theanurin/configuration-templates)
+[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/theanurin/docker-images/configuration-templates-docker-image-snapshot-branch.yml?branch=configuration-templates%23main)](https://github.com/theanurin/docker-images/actions/workflows/configuration-templates-docker-image-snapshot-branch.yml)
 
 # Configuration Templates
 

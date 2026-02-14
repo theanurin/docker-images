@@ -86,9 +86,12 @@ pip install 'urllib3<2.0'
 
 ### Git tag format
 
+NOTE: Use WAVE DASH Unicode symbol `〜` (U+301C) to build from testing (non-stable) gentoo-sources to be convenient with Gentoo accept keywords format.
+
 Samples:
 
-- `gentoo-sources-bundle#6.12.41/amd64,x86,arm,arm64`
+- `gentoo-sources-bundle#6.17.13/amd64,〜i686,〜arm,〜arm64`
+- `gentoo-sources-bundle#6.12.58/amd64,x86,arm,arm64`
 
 [GitHub Repo Branch]: https://github.com/theanurin/docker-images/tree/gentoo-sources-bundle
 [GitHub Repo Stars]: https://img.shields.io/github/stars/theanurin/docker-images?label=GitHub%20Starts

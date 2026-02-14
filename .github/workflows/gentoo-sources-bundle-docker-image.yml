@@ -1,0 +1,163 @@
+name: Gentoo Sources Bundle - Docker Image
+
+on:
+  push:
+    tags:
+      # - 'gentoo-sources-bundle#$KERNEL/$COMMA_SEPARATED_ARCH'
+      # - 'gentoo-sources-bundle#6.12.41/amd64,i686,arm,arm64'
+      - 'gentoo-sources-bundle#*/*'
+
+jobs:
+  configure:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.parse-tag-name.outputs.matrix }}
+      kernel_version: ${{ steps.parse-tag-name.outputs.kernel_version }}
+    steps:
+      - name: Parse tag name
+        id: parse-tag-name
+        run: |
+          if [ "${{ github.ref_type }}" != "tag" ]; then
+            echo "Non-tags do not allowed to execute this workflow." >&2
+            exit 1
+          fi
+
+          if ! echo -n "${{ github.ref_name }}" | egrep -qe '^gentoo-sources-bundle#[1-9]\.[0-9]+\.[0-9]+(-r[0-9]+)?\/〜?(amd64|i686|arm|arm64)(,〜?(amd64|i686|arm|arm64))*$'; then
+            echo "Wrong tag name '${{ github.ref_name }}'." >&2
+            exit 2
+          fi
+
+          TAG_VERSION=$(echo -n '${{ github.ref_name }}' | cut -d'#' -f2)
+          KERNEL_VERSION=$(echo -n "${TAG_VERSION}" | cut -d/ -f1)
+          SPACE_SEPARATED_ARCHS=$(echo -n "${TAG_VERSION}" | cut -d/ -f2 | sed "s/,/ /g")
+          #MANIFEST_ARCHS=""
+
+          BUILD_DOCKER_ARCHS_JSON="[]"
+          for KERNEL_ARCH in ${SPACE_SEPARATED_ARCHS}; do
+            if [ "${KERNEL_ARCH#〜}" != "$KERNEL_ARCH" ]; then
+              KERNEL_ARCH="${KERNEL_ARCH#〜}"
+              #MANIFEST_ARCH="~${KERNEL_ARCH}"
+              STABILITY="testing"
+            else
+              #MANIFEST_ARCH="${KERNEL_ARCH}"
+              STABILITY="stable"
+            fi
+
+            case "${KERNEL_ARCH}" in
+              amd64)
+                BUILD_DOCKER_ARCHS_JSON=$(echo "${BUILD_DOCKER_ARCHS_JSON}" | jq -c '. += [{ "docker_tag": "amd64", "docker_platform": "linux/amd64", "runner": "ubuntu-latest", "stability": "'${STABILITY}'" }]')
+                ;;
+              arm)
+                BUILD_DOCKER_ARCHS_JSON=$(echo "${BUILD_DOCKER_ARCHS_JSON}" | jq -c '. += [{ "docker_tag": "arm32v5", "docker_platform": "linux/arm/v5", "runner": "ubuntu-latest", "stability": "'${STABILITY}'" }]')
+                BUILD_DOCKER_ARCHS_JSON=$(echo "${BUILD_DOCKER_ARCHS_JSON}" | jq -c '. += [{ "docker_tag": "arm32v6", "docker_platform": "linux/arm/v6", "runner": "ubuntu-latest", "stability": "'${STABILITY}'" }]')
+                BUILD_DOCKER_ARCHS_JSON=$(echo "${BUILD_DOCKER_ARCHS_JSON}" | jq -c '. += [{ "docker_tag": "arm32v7", "docker_platform": "linux/arm/v7", "runner": "ubuntu-latest", "stability": "'${STABILITY}'" }]')
+                ;;
+              arm64)
+                BUILD_DOCKER_ARCHS_JSON=$(echo "${BUILD_DOCKER_ARCHS_JSON}" | jq -c '. += [{ "docker_tag": "arm64v8", "docker_platform": "linux/arm64/v8", "runner": "ubuntu-24.04-arm", "stability": "'${STABILITY}'" }]')
+                ;;
+              i686)
+                BUILD_DOCKER_ARCHS_JSON=$(echo "${BUILD_DOCKER_ARCHS_JSON}" | jq -c '. += [{ "docker_tag": "i686", "docker_platform": "linux/386", "runner": "ubuntu-latest", "stability": "'${STABILITY}'" }]')
+                ;;
+              *)
+                echo "Unsupported kernel arch: ${KERNEL_ARCH}" >&2
+                ;;
+            esac
+          done
+
+          # 6.12.41
+          echo "kernel_version=${KERNEL_VERSION}" | tee -a "${GITHUB_OUTPUT}"
+
+          # [{ "docker_tag": "amd64", "docker_platform": "linux/amd64", "runner": "ubuntu-latest", "stability": "stable" }, ...]
+          echo "matrix={\"include\": ${BUILD_DOCKER_ARCHS_JSON} }" | tee -a "${GITHUB_OUTPUT}"
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+  image:
+    needs: configure
+    strategy:
+      matrix: ${{ fromJson(needs.configure.outputs.matrix) }}
+    runs-on: ${{ matrix.runner }}
+    steps:
+      # See https://github.com/docker/setup-qemu-action
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      # See https://github.com/docker/login-action
+      - name: Login to DockerHub
+        uses: docker/login-action@v3 
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build And Push Image
+        run: |
+          export KERNEL_VERSION="${{ needs.configure.outputs.kernel_version }}"
+          DOCKER_TAG="${{ matrix.docker_tag }}"
+          DOCKER_PLATFORM="${{ matrix.docker_platform }}"
+          export KERNEL_STABILITY="${{ matrix.stability }}"
+          set -x
+          DOCKER_BUILDKIT=1 docker build \
+            --progress plain \
+            --platform "${DOCKER_PLATFORM}" \
+            --tag "image-${GITHUB_JOB}" \
+            --tag "theanurin/gentoo-sources-bundle:${DOCKER_TAG}-${KERNEL_VERSION}" \
+            --build-arg KERNEL_VERSION \
+            --build-arg KERNEL_STABILITY \
+            --file "docker/${DOCKER_PLATFORM}/Dockerfile" \
+            .
+          docker push "theanurin/gentoo-sources-bundle:${DOCKER_TAG}-${KERNEL_VERSION}"
+
+  build-manifest-version:
+    needs: [configure,image]
+    runs-on: ubuntu-latest
+    steps:
+      # See https://github.com/docker/login-action
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Make cross arch docker image via manifest
+        run: |
+          KERNEL_VERSION="${{ needs.configure.outputs.kernel_version }}"
+          KERNEL_MAJOR=$(echo -n "${KERNEL_VERSION}" | cut -d. -f1)
+          KERNEL_MAJOR_MINOR=$(echo -n "${KERNEL_VERSION}" | cut -d. -f1-2)
+          DOCKER_TAGS=$(echo '${{ needs.configure.outputs.matrix }}' | jq -r '.include[] | select(.stability=="stable") | .docker_tag')
+          AMEND_OPTS=""
+          for DOCKER_TAG in ${DOCKER_TAGS}; do
+            AMEND_OPTS="${AMEND_OPTS} --amend \"theanurin/gentoo-sources-bundle:${DOCKER_TAG}-${KERNEL_VERSION}\""
+          done
+          if [ -n "${AMEND_OPTS}" ]; then
+            eval "docker manifest create \"theanurin/gentoo-sources-bundle:${KERNEL_VERSION}\" ${AMEND_OPTS}"
+            docker manifest push "theanurin/gentoo-sources-bundle:${KERNEL_VERSION}"
+            eval "docker manifest create \"theanurin/gentoo-sources-bundle:${KERNEL_MAJOR_MINOR}\" ${AMEND_OPTS}"
+            docker manifest push "theanurin/gentoo-sources-bundle:${KERNEL_MAJOR_MINOR}"
+            eval "docker manifest create \"theanurin/gentoo-sources-bundle:${KERNEL_MAJOR}\" ${AMEND_OPTS}"
+            docker manifest push "theanurin/gentoo-sources-bundle:${KERNEL_MAJOR}"
+          else
+            echo "Nothing bundle..."
+          fi
+
+  # docs:
+  #   needs: [configure,image,build-manifest-version,build-manifest-latest]
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v4
+
+  #     - name: Update Docker Hub Description
+  #       uses: peter-evans/dockerhub-description@v3
+  #       with:
+  #         username: ${{ secrets.DOCKERHUB_USERNAME }}
+  #         password: ${{ secrets.DOCKERHUB_TOKEN }}
+  #         repository: theanurin/gentoo-sources-bundle
+  #         short-description: "Gentoo stage3 based image with set of packages to make ability to compile kernel in few commands via Docker."
+

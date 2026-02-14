@@ -1,7 +1,7 @@
 # https://hub.docker.com/r/gentoo/stage3
 ARG GENTOO_STAGE3_IMAGE_DATE_TAG=latest
 
-FROM --platform=linux/arm64/v8 gentoo/stage3:${GENTOO_STAGE3_IMAGE_DATE_TAG} as builder
+FROM --platform=linux/arm64/v8 gentoo/stage3:${GENTOO_STAGE3_IMAGE_DATE_TAG} AS builder
 ARG GENTOO_STAGE3_IMAGE_DATE_TAG
 ARG KERNEL_VERSION=
 RUN test -n "${KERNEL_VERSION}" || { echo "KERNEL_VERSION is not set" >&2; exit 1; }
@@ -13,7 +13,7 @@ COPY docker/docker-entrypoint-gentoo-sources-bundle.sh /build/usr/local/bin/dock
 FROM --platform=linux/arm64/v8 gentoo/stage3:${GENTOO_STAGE3_IMAGE_DATE_TAG}
 ARG GENTOO_STAGE3_IMAGE_DATE_TAG
 ARG KERNEL_VERSION=
-ARG KERNEL_STABILITY=
+ARG KERNEL_STABILITY=stable
 RUN \
   set -e; \
   mkdir /support; \

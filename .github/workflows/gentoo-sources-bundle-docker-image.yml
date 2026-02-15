@@ -102,17 +102,22 @@ jobs:
           DOCKER_TAG="${{ matrix.docker_tag }}"
           DOCKER_PLATFORM="${{ matrix.docker_platform }}"
           export KERNEL_STABILITY="${{ matrix.stability }}"
+          if [ "${KERNEL_STABILITY}" == "stable" ]; then
+            DOCKER_TAG_FULL_QUALIFIED_NAME="theanurin/gentoo-sources-bundle:${DOCKER_TAG}-${KERNEL_VERSION}"
+          else
+            DOCKER_TAG_FULL_QUALIFIED_NAME="theanurin/gentoo-sources-bundle:${DOCKER_TAG}-${KERNEL_VERSION}-testing"
+          fi
           set -x
           DOCKER_BUILDKIT=1 docker build \
             --progress plain \
             --platform "${DOCKER_PLATFORM}" \
             --tag "image-${GITHUB_JOB}" \
-            --tag "theanurin/gentoo-sources-bundle:${DOCKER_TAG}-${KERNEL_VERSION}" \
+            --tag "${DOCKER_TAG_FULL_QUALIFIED_NAME}" \
             --build-arg KERNEL_VERSION \
             --build-arg KERNEL_STABILITY \
             --file "docker/${DOCKER_PLATFORM}/Dockerfile" \
             .
-          docker push "theanurin/gentoo-sources-bundle:${DOCKER_TAG}-${KERNEL_VERSION}"
+          docker push "${DOCKER_TAG_FULL_QUALIFIED_NAME}"
 
   build-manifest-version:
     needs: [configure,image]

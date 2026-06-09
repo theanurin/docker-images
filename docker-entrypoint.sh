@@ -287,7 +287,7 @@ runtime_mount()
 	if [ "${ISREADONLY}" == "yes" ]; then
 		MOUNTOPTS="${MOUNTOPTS} -o ro"
 	fi
-	echo "Mounting a file system '${FSTYPE}' on LUKS-encrypted partition..."
+	echo "Mounting a file system on LUKS-encrypted partition ${UNCRYPTEDDEVICE} to /mnt ..."
 	mount ${MOUNTOPTS} "${UNCRYPTEDDEVICE}" /mnt
 	MOUNT_EXITCODE=$?
 	if [ ${MOUNT_EXITCODE} -ne 0 ]; then

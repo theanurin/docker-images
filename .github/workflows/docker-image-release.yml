@@ -1,4 +1,4 @@
-name: Docker Image (Release)
+name: Luksoid - Docker Image (Release)
 
 on:
   push:

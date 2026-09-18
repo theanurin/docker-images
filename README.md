@@ -1,7 +1,9 @@
-[![Docker Image Version](https://img.shields.io/docker/v/theanurin/luksoid?sort=date&label=Version)](https://hub.docker.com/r/theanurin/luksoid/tags)
-[![Docker Image Size](https://img.shields.io/docker/image-size/theanurin/luksoid?label=Image%20Size)](https://hub.docker.com/r/theanurin/luksoid/tags)
-[![Docker Pulls](https://img.shields.io/docker/pulls/theanurin/luksoid?label=Pulls)](https://hub.docker.com/r/theanurin/luksoid)
-[![Docker Stars](https://img.shields.io/docker/stars/theanurin/luksoid?label=Docker%20Stars)](https://hub.docker.com/r/theanurin/luksoid)
+[![Docker Image Version][Docker Image Version]][Docker Tags]
+[![GitHub Workflow Status][GitHub Workflow Status]][GitHub Workflow Log]
+[![GitHub Repo Stars]][GitHub Repo Branch]
+[![Docker Pulls][Docker Pulls]][Docker Repo]
+[![Docker Stars][Docker Stars]][Docker Repo]
+
 
 # Luksoid
 
@@ -163,3 +165,25 @@ LUKS Removing passphrase done.
 
 Releasing /dev/loop0... Done.
 ```
+
+# Support
+
+* Maintained by: [Max Anurin](https://anurin.name/)
+* Where to get help: [Telegram](https://t.me/theanurin)
+
+# Development
+
+## Build and debug
+
+```shell
+docker build --tag theanurin/luksoid --file docker/Dockerfile . 
+```
+
+[GitHub Repo Branch]: https://github.com/theanurin/docker-images/tree/luksoid
+[GitHub Repo Stars]: https://img.shields.io/github/stars/theanurin/docker-images?label=GitHub%20Starts
+[GitHub Workflow Status]: https://img.shields.io/github/actions/workflow/status/theanurin/docker-images/luksoid-docker-image-release.yml?label=GitHub%20Workflow
+[GitHub Workflow Log]: https://github.com/theanurin/docker-images/actions/workflows/luksoid-docker-image-release.yml
+[Docker Repo]: https://hub.docker.com/r/theanurin/luksoid
+[Docker Tags]: https://hub.docker.com/r/theanurin/luksoid/tags
+[Docker Stars]: https://img.shields.io/docker/stars/theanurin/luksoid?label=Docker%20Stars
+[Docker Pulls]: https://img.shields.io/docker/pulls/theanurin/luksoid?label=Pulls

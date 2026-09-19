@@ -4,7 +4,6 @@
 [![Docker Pulls][Docker Pulls]][Docker Repo]
 [![Docker Stars][Docker Stars]][Docker Repo]
 
-
 # Luksoid
 
 *Luksoid* - is a Docker-based command line tool to help users to use LUKS-encrypted partition image without Linux host.
@@ -185,5 +184,6 @@ docker build --tag theanurin/luksoid --file docker/Dockerfile .
 [GitHub Workflow Log]: https://github.com/theanurin/docker-images/actions/workflows/luksoid-docker-image-release.yml
 [Docker Repo]: https://hub.docker.com/r/theanurin/luksoid
 [Docker Tags]: https://hub.docker.com/r/theanurin/luksoid/tags
+[Docker Image Version]: https://img.shields.io/docker/v/theanurin/luksoid?sort=date&label=Version
 [Docker Stars]: https://img.shields.io/docker/stars/theanurin/luksoid?label=Docker%20Stars
 [Docker Pulls]: https://img.shields.io/docker/pulls/theanurin/luksoid?label=Pulls

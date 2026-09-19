@@ -7,10 +7,16 @@
 			"path": "devel.postgres"
 		},
 		{
+			"path": "docker-registry-mrproper"
+		},
+		{
 			"path": "gentoo-sources-bundle"
 		},
 		{
 			"path": "fluentd"
+		},
+		{
+			"path": "flutter"
 		},
 		{
 			"path": "jekyll"
@@ -20,6 +26,9 @@
 		},
 		{
 			"path": "luksoid"
+		},
+		{
+			"path": "mdbook"
 		},
 		{
 			"path": "mkdocs"
@@ -44,9 +53,6 @@
 		},
 		{
 			"path": "sqlmigrationrunner"
-		},
-		{
-			"path": "sqlmigrationrunner-postgres"
 		},
 		{
 			"path": "sqlrunner"

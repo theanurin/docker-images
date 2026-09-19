@@ -1,1 +1,26 @@
 .DS_Store
+
+# Work trees
+configuration-templates/
+devel.postgres/
+docker-registry-mrproper/
+fluentd/
+flutter/
+gentoo-sources-bundle/
+jekyll/
+litecoin/
+luksoid/
+mdbook/
+mkdocs/
+openldap/
+pgadmin4/
+portainer/
+protobuf/
+redis-commander/
+sqlmigrationbuilder/
+sqlmigrationrunner/
+sqlrunner/
+subversion/
+tonos-cli/
+traefik/
+zclassic/

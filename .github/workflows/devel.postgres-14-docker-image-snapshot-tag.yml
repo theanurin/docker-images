@@ -3,7 +3,7 @@ name: PostgreSQL 14 - Docker Image (Snapshot/Tag)
 on:
   push:
     tags:
-      - 'devel.postgres-14.*'
+      - 'devel.postgres#14.*'
 
 jobs:
   docker:

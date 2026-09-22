@@ -29,8 +29,9 @@ No any volumes
 
 ## Inside
 
-* [Ubuntu Linux](https://ubuntu.com/)
-* [Flutter SDK](https://docs.flutter.dev/install/manual)
+* [Ubuntu Linux](https://ubuntu.com/) - Base image.
+* [Flutter SDK](https://docs.flutter.dev/install/manual) - Flutter is a cross-platform UI framework by Google for building apps for iOS, Android, Web, and Desktop using Dart.
+* [Flutter Rust Bridge](https://github.com/fzyzcjy/flutter_rust_bridge) - Flutter/Dart <-> Rust binding generator, feature-rich, but seamless and simple.
 
 ## Use in Dockerfile
 

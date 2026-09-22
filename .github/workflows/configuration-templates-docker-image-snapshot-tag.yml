@@ -31,12 +31,8 @@ jobs:
           images: |
             ghcr.io/${{ github.repository }}/configuration-templates/snapshot
           # generate Docker tags based on the following events/attributes
-          #
-          # BUG: https://github.com/docker/metadata-action/issues/451, https://github.com/docker/metadata-action/issues/546
-          #tags: |
-          #  type=match,pattern=configuration-templates#(.*),group=1
-          tags: "
-            \"type=match,pattern=configuration-templates#(.*),group=1\""
+          tags: |
+           type=match,pattern=configuration-templates#(.*),group=1
       # See https://github.com/docker/login-action
       - name: Log In To The GitHub Container Registry
         uses: docker/login-action@v3

@@ -3,8 +3,7 @@ name: PostgreSQL 14 - Docker Image (Snapshot/Branch)
 on:
   push:
     branches:
-      - 'devel.postgres'
-      - 'devel.postgres-*'
+      - 'devel.postgres#*'
     paths:
       - '.github/workflows/devel.postgres-14-docker-image-snapshot-branch.yml'
       - 'docker/docker-builder.sh'

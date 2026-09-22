@@ -21,7 +21,7 @@ jobs:
       # See https://github.com/docker/metadata-action#readme
       - name: Docker Meta
         id: meta
-        uses: docker/metadata-action@v5
+        uses: docker/metadata-action@v6
         with:
           # list of Docker images to use as base name for tags
           images: |
@@ -29,7 +29,7 @@ jobs:
             ghcr.io/${{ github.repository }}/devel.postgres-13
           # generate Docker tags based on the following events/attributes
           tags: |
-            type=match,pattern=devel.postgres-(.*),group=1
+            type=match,pattern=devel.postgres#(.*),group=1
 
       # See https://github.com/docker/login-action
       - name: Log In To The DockerHub

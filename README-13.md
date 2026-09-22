@@ -37,7 +37,7 @@ For development and testing purposes we need pre-setup Postgres server to automa
 ## Inside
 
 * Alpine Linux 3.19
-* PostgreSQL 13.15 Server
+* PostgreSQL 13.20 Server
 
 ## Launch
 

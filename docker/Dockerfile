@@ -37,7 +37,8 @@ RUN echo \
   && rustup +nightly target add wasm32-unknown-unknown
 
 RUN echo \
-  && cargo install flutter_rust_bridge_codegen --version "${FLUTTER_RUST_BRIDGE_VER}"
+  && cargo install flutter_rust_bridge_codegen --version "${FLUTTER_RUST_BRIDGE_VER}" \
+  && cargo install wasm-pack
 
 # Clone the specific Flutter version you need (e.g., stable)
 # Run doctor and pre-download the web artifacts

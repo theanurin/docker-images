@@ -44,7 +44,7 @@ This is workspace branch of Docker Images multi project repository based on [orp
    ```
 1. Initialize [worktree](https://git-scm.com/docs/git-worktree) by execute following commands
    ```shell
-   for BRANCH in $(cat README.md | tail -n +5 | grep -E -i '^\| \[([-\.a-z0-9]+)\]' | awk -F'[][]' '{print $2}'); do git worktree add "${BRANCH}" "${BRANCH}"; done
+   for BRANCH in $(cat README.md | tail -n +5 | grep -E -i '^\| \[([-\.a-z0-9]+)\]' | awk -F'[][]' '{print $2}'); do git worktree add "${BRANCH}" "${BRANCH}#main"; done
    ```
 1. Open VSCode Workspace
    ```shell

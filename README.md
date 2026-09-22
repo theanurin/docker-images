@@ -22,7 +22,7 @@ No any variables
 ### Expose ports
 
 No any ports
- 
+
 ### Volumes
 
 No any volumes
@@ -31,6 +31,19 @@ No any volumes
 
 * [Ubuntu Linux](https://ubuntu.com/)
 * [Flutter SDK](https://docs.flutter.dev/install/manual)
+
+## Use in Dockerfile
+
+```dockerfile
+FROM theanurin/flutter AS builder
+COPY --chown=flutter \
+  pubspec.lock \
+  pubspec.yaml \
+  ./
+RUN flutter pub get
+COPY --chown=flutter lib/ lib/
+RUN flutter build web
+```
 
 ## Launch
 

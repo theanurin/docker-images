@@ -64,7 +64,10 @@
 			"path": "tonos-cli"
 		},
 		{
-			"path": "traefik"
+			"path": "traefik2"
+		},
+		{
+			"path": "traefik3"
 		},
 		{
 			"path": "zclassic"

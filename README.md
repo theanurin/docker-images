@@ -26,17 +26,17 @@ This variables passes the names of the color to change background color
 
 # Inside
 
-- Traefik v2.11.18
-- Python 3.12.8-r1
-- py3-requests 2.32.3-r0
+- Traefik v2.11.64
+- Python 3.14.10-r2
+- py3-requests 2.33.1-r0
 
 # Launch
 
 ```shell
 docker run --rm --interactive --tty \
   --env BG_COLOR='#ff0000' \
-  --publish 80:80 \
-  --publish 443:443 \
+  --publish 8080:80 \
+  --publish 8443:443 \
   --volume /var/run/docker.sock:/var/run/docker.sock \
   theanurin/traefik
 ```
